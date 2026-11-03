@@ -1,0 +1,479 @@
+# PRITI'S SAAJ STUDIO
+## UI/UX DESIGN DOCUMENT
+
+**Project:** Jewellery E-commerce Website  
+**Document Version:** 1.0  
+**Design Direction:** Sage Gold — Premium, Elegant & Mobile-First
+
+---
+
+## 1. Document Overview
+
+This document defines the visual design system, page layouts, user interactions, and responsive design requirements for Priti's Saaj Studio.
+
+The website will provide a premium online shopping experience for women's jewellery, with a strong focus on mobile usability, elegant product presentation, and a simple checkout process.
+
+## 2. Design Goals
+
+- Create a premium and elegant jewellery brand experience.
+- Prioritize mobile users with a mobile-first responsive layout.
+- Make product discovery and purchasing simple and intuitive.
+- Present product images, prices, sizes, and availability clearly.
+- Provide a smooth checkout experience with minimal friction.
+- Maintain a consistent visual identity across customer and admin interfaces.
+- Use lightweight transitions and loading effects without excessive animations.
+
+## 3. Brand Identity & Visual Design
+
+### 3.1 Design Theme
+
+**Theme Name:** Sage Gold
+
+The design will combine emerald green, sage, ivory, and gold to reflect the brand's jewellery identity.
+
+The overall appearance should be elegant, luxurious, clean, and modern without feeling visually crowded.
+
+### 3.2 Color Palette
+
+| Color | Hex Code | Usage |
+|---|---|---|
+| Emerald Green | #0B3D2E | Primary buttons, navigation, headings, selected states |
+| Sage Green | #A7C4A0 | Secondary backgrounds, chips, soft accents |
+| Gold | #D4AF37 | Highlights, borders, badges, decorative accents |
+| Ivory | #F8F7F1 | Main page background |
+| White | #FFFFFF | Cards, forms, modals |
+| Charcoal | #1F1F1F | Body text and labels |
+
+Color usage guidelines:
+
+- Emerald green should be the primary brand color.
+- Gold should be used sparingly for premium accents.
+- Ivory should provide a warm and elegant background.
+- Text contrast must remain readable, especially on mobile devices.
+- Avoid excessive gradients and decorative effects.
+
+## 4. Typography
+
+### Primary Heading Font
+**Playfair Display**
+
+Usage:
+- Hero headings
+- Section titles
+- Product collection headings
+- Promotional headings
+
+### Body Font
+**Poppins**
+
+Usage:
+- Navigation
+- Product descriptions
+- Prices
+- Buttons
+- Forms
+- Product metadata
+
+### Typography Scale
+
+| Element | Desktop | Mobile |
+|---|---|---|
+| H1 | 32–40 px | 28–32 px |
+| H2 | 24–30 px | 22–26 px |
+| H3 | 18–22 px | 18–20 px |
+| Body | 14–16 px | 14–16 px |
+| Labels | 12–14 px | 12–14 px |
+
+Use comfortable line heights and avoid overly small text.
+
+## 5. Information Architecture
+
+### Customer Website
+
+- Home
+- Shop / Product Catalogue
+- Category Listing
+- Product Details
+- Size Guide
+- Cart
+- Checkout
+- Order Confirmation
+- My Orders
+- Order Tracking
+- My Profile
+- Saved Addresses
+- Login
+- Register
+- Contact / Help
+
+### Admin Panel
+
+- Admin Login
+- Dashboard
+- Products
+- Add / Edit Product
+- Categories
+- Inventory / Size-wise Stock
+- Orders
+- Order Details
+- Hero Banner Management
+- Coupon Management
+- Reviews Management
+- Customer Management
+- Reports
+- Settings
+
+## 6. Customer Interface Requirements
+
+### 6.1 Homepage
+
+The homepage should include:
+
+- Header with brand logo, search, account, and cart icons.
+- Responsive navigation for product categories.
+- Admin-managed hero banner with image, headline, and CTA.
+- Shop-by-category section.
+- Featured products and bestsellers.
+- Promotional or coupon section.
+- Brand introduction section.
+- Footer with contact details, policies, and social links.
+
+The hero section should use premium jewellery imagery with clear text and a prominent shopping CTA.
+
+### 6.2 Product Catalogue
+
+The product catalogue should include:
+
+- Responsive product grid.
+- Product image, name, price, discount, and rating.
+- Search by product name.
+- Category filters.
+- Price and availability filters.
+- Size filters where applicable.
+- Sorting by newest, price low-to-high, and price high-to-low.
+- Pagination or lazy loading for large catalogues.
+
+Mobile layout:
+- Two product cards per row on mobile.
+- Larger grids on tablet and desktop.
+- Touch-friendly filter and sort controls.
+
+### 6.3 Product Details Page
+
+The product details page should include:
+
+- Product image gallery with swipe support on mobile.
+- Product name and description.
+- Price and discount information.
+- Availability and stock status.
+- Size selection for size-dependent products.
+- Size Guide link.
+- Quantity selector.
+- Add to Cart button.
+- Buy Now button.
+- Rating and customer reviews.
+- Related products.
+
+Size selection must be completed before adding a size-dependent product to the cart.
+
+### 6.4 Size Guide
+
+The size guide should be accessible from the product details page.
+
+For bangles, it should include:
+
+- Available sizes.
+- Inner diameter.
+- Inner circumference.
+- Measurement instructions.
+- Size comparison chart.
+
+The final measurements and size labels must be confirmed by the client.
+
+The size guide should open in a mobile-friendly modal or dedicated page.
+
+### 6.5 Cart
+
+The cart should display:
+
+- Product image and name.
+- Selected size.
+- Quantity controls.
+- Unit price.
+- Remove item action.
+- Subtotal.
+- Coupon discount.
+- Shipping charges.
+- Final total.
+
+The cart should clearly indicate when a product or selected size is unavailable.
+
+### 6.6 Checkout
+
+Checkout requires customer authentication.
+
+Checkout flow:
+
+1. Login or registration.
+2. Select saved address or add a new address.
+3. Select payment method.
+4. Review order summary.
+5. Place order.
+6. Display order confirmation.
+
+Payment options:
+
+- Online payment.
+- Cash on Delivery (COD).
+
+The checkout interface should provide clear validation, loading, success, and failure states.
+
+### 6.7 Customer Profile
+
+The customer profile should include:
+
+- View and edit personal information.
+- Update password.
+- Add, edit, and delete addresses.
+- Set a default delivery address.
+- View order history.
+- View order details and delivery status.
+
+### 6.8 Order Tracking
+
+The order tracking page should display a visual timeline:
+
+- Order Placed
+- Confirmed
+- Processing
+- Shipped
+- Out for Delivery
+- Delivered
+
+Cancelled orders should display a clear cancellation status.
+
+Tracking numbers and courier details should be displayed when available.
+
+### 6.9 Reviews and Ratings
+
+Customers should be able to:
+
+- Rate purchased products.
+- Submit written reviews.
+- View approved reviews.
+- See aggregate product ratings.
+
+Only verified purchasers should be allowed to submit reviews.
+
+## 7. Admin Interface Requirements
+
+### 7.1 Dashboard
+
+The dashboard should display:
+
+- Total sales.
+- Total orders.
+- Revenue summary.
+- Low-stock products.
+- Recent orders.
+- Sales trends where data is available.
+
+Provide quick links to product creation, inventory, and order management.
+
+### 7.2 Product Management
+
+Admin should be able to:
+
+- Add, edit, and archive products.
+- Manage product names, descriptions, categories, and prices.
+- Upload and manage product images through ImageKit.
+- Add multiple images per product.
+- Configure product sizes and size charts.
+- Manage size-wise stock.
+- Set discounts and product availability.
+
+### 7.3 Inventory Management
+
+The inventory interface should include:
+
+- Product-wise stock.
+- Size-wise stock quantities.
+- Low-stock indicators.
+- Out-of-stock indicators.
+- Stock update controls.
+
+### 7.4 Order Management
+
+Admin should be able to:
+
+- View all orders.
+- Search and filter orders.
+- View customer and delivery information.
+- View payment status.
+- Update order status.
+- View order details and selected product sizes.
+
+### 7.5 Hero Banner Management
+
+Admin should be able to:
+
+- Upload banner images through ImageKit.
+- Update banner title and subtitle.
+- Configure CTA text and destination.
+- Activate or deactivate banners.
+- Set banner display order.
+
+### 7.6 Coupon Management
+
+Admin should be able to:
+
+- Create and edit coupon codes.
+- Configure percentage or fixed discounts.
+- Set minimum order value.
+- Set validity dates.
+- Set usage limits.
+- Activate or deactivate coupons.
+
+### 7.7 Reviews Management
+
+Admin should be able to:
+
+- View submitted reviews.
+- Approve or reject reviews.
+- Hide inappropriate content.
+
+### 7.8 Reports
+
+The reports interface should provide:
+
+- Sales reports.
+- Order reports.
+- Top-selling products.
+- Inventory reports.
+- Date-based filters.
+- Export functionality if included in the project scope.
+
+## 8. Interaction & Motion Design
+
+The website should use subtle and lightweight interactions.
+
+### Transitions
+
+- Button hover and pressed states.
+- Smooth navigation transitions.
+- Modal open and close transitions.
+- Subtle product card hover effects on desktop.
+- Smooth cart updates.
+
+Recommended duration: 150–250 ms.
+
+### Loading States
+
+- Skeleton loaders for product cards and page content.
+- Lightweight gemstone-inspired loading indicator.
+- Clear loading feedback during checkout and payment.
+- Avoid long blocking animations.
+
+### Feedback
+
+- Success and error toast messages.
+- Inline form validation.
+- Clear disabled button states.
+- Confirmation dialogs for destructive admin actions.
+
+Avoid heavy parallax, autoplay video, and excessive animations.
+
+## 9. Responsive Design Guidelines
+
+The website must follow a mobile-first approach.
+
+### Breakpoints
+
+| Device | Width |
+|---|---|
+| Small mobile | Up to 480 px |
+| Tablet | 481–768 px |
+| Desktop | 769 px and above |
+
+### Mobile Requirements
+
+- Two-column product grid.
+- Touch-friendly controls.
+- Simple navigation.
+- Readable typography.
+- Responsive product image galleries.
+- Mobile-friendly size charts.
+- Easy-to-use checkout forms.
+- No horizontal overflow.
+
+All important customer journeys must work smoothly on common Android and iOS screen sizes.
+
+## 10. UI Component Library
+
+Reusable components should include:
+
+- Header and navigation.
+- Footer.
+- Product card.
+- Product image gallery.
+- Category tile.
+- Search field.
+- Filter drawer.
+- Sort menu.
+- Size selector.
+- Size guide modal.
+- Buttons.
+- Form fields.
+- Address card.
+- Payment method selector.
+- Cart item.
+- Order summary.
+- Order status timeline.
+- Review card.
+- Banner carousel.
+- Coupon badge.
+- Skeleton loader.
+- Empty state.
+- Error state.
+- Toast notification.
+- Confirmation modal.
+
+## 11. Accessibility & Usability
+
+- Use semantic HTML elements.
+- Provide accessible labels for form fields.
+- Maintain sufficient text contrast.
+- Provide keyboard focus states.
+- Use descriptive alt text for product images.
+- Do not rely on color alone to communicate status.
+- Maintain practical touch target sizes of approximately 44 × 44 px.
+- Keep navigation and checkout steps clear and consistent.
+
+## 12. Design Acceptance Criteria
+
+The design will be considered complete when:
+
+- Customer pages are responsive across mobile, tablet, and desktop.
+- Customers can browse products without logging in.
+- Authentication is required before checkout.
+- Size selection and size guides work for applicable products.
+- Cart and checkout clearly display selected sizes and order totals.
+- Customer profile and saved addresses are accessible.
+- Order history and tracking are easy to understand.
+- Admin can manage products, images, inventory, banners, coupons, orders, and reviews.
+- The approved Sage Gold theme and typography are consistently applied.
+- Loading, empty, error, and success states are designed.
+- Animations remain subtle and do not interfere with usability.
+
+## 13. Assumptions & Dependencies
+
+- Client will provide final product images, descriptions, prices, and categories.
+- Client will confirm product size charts and measurements.
+- ImageKit will be used for product image storage and delivery.
+- Payment gateway and shipping provider will be finalized according to budget.
+- Client will provide shipping, cancellation, return, and contact policies.
+- Final logo and brand assets will be provided in suitable formats.
+
+---
+
+**Document Status:** UI/UX Design Baseline — Version 1.0

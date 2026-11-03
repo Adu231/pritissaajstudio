@@ -1,0 +1,203 @@
+# Technical Requirements Document (TRD)
+## Priti's Saaj Studio — E-commerce Website
+
+**Version:** 1.0  
+**Project Type:** Mobile-first Jewellery E-commerce Website
+
+## 1. Project Overview
+
+Priti's Saaj Studio साठी एक responsive e-commerce website विकसित करणे, ज्याद्वारे customers jewellery products browse, purchase आणि track करू शकतील. Admin ला products, inventory, orders, promotions आणि reports manage करता येतील.
+
+## 2. Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | HTML5, CSS3, JavaScript, React |
+| Backend | Node.js, Express.js |
+| Database | MongoDB |
+| Authentication | JWT, bcrypt |
+| Image Storage | ImageKit |
+| Payment | Online Payment Gateway + COD |
+| API Architecture | REST API |
+
+## 3. System Architecture
+
+Frontend React application द्वारे REST APIs वापरून backend शी communicate करेल.
+
+Backend मध्ये authentication, business logic, validation आणि database operations manage केले जातील.
+
+MongoDB मध्ये application data आणि ImageKit मध्ये product images store होतील.
+
+## 4. User Roles
+
+### Customer
+- Login शिवाय products browse करणे.
+- Registration आणि login.
+- Profile आणि password management.
+- Saved delivery addresses.
+- Cart आणि checkout.
+- Online payment किंवा COD.
+- Order tracking.
+- Purchased products साठी reviews आणि ratings.
+
+### Admin
+- Dashboard आणि reports.
+- Product आणि category management.
+- Size आणि stock management.
+- Order आणि delivery status management.
+- Homepage hero/banner management.
+- Coupon management.
+- Review moderation.
+- Customer आणि sales reports.
+
+## 5. Database Design
+
+MongoDB मध्ये खालील collections वापरले जातील.
+
+### Users
+- name, email, phone
+- passwordHash
+- role: customer / admin
+- addresses[]
+- createdAt, updatedAt
+
+### Products
+- name, description, category
+- images[]
+- price, discountPrice
+- sizes[] आणि sizeChart
+- stockBySize[]
+- rating, reviewCount
+- isActive
+- createdAt, updatedAt
+
+### Carts
+- userId
+- items[]: productId, size, quantity
+
+### Orders
+- userId
+- items[]: productId, productName, image, size, quantity, unitPrice
+- addressSnapshot
+- subtotal, discount, shipping, total
+- paymentMethod, paymentStatus
+- orderStatus, trackingDetails
+- createdAt, updatedAt
+
+### Reviews
+- userId, productId, orderId
+- rating, comment
+- isApproved
+- createdAt
+
+### Coupons
+- code, discountType, discountValue
+- minimumOrderValue
+- validFrom, validUntil
+- usageLimit, isActive
+
+### Banners
+- imageUrl, title, subtitle
+- link, isActive
+- displayOrder
+
+## 6. Image Management
+
+ImageKit वापरून product आणि banner images upload व deliver केल्या जातील.
+
+- Admin panel मधून images upload करता येतील.
+- ImageKit URLs MongoDB मध्ये save होतील.
+- Product images साठी optimized image delivery वापरली जाईल.
+- ImageKit credentials backend environment variables मध्ये सुरक्षित ठेवले जातील.
+- Image deletion करताना संबंधित database references आणि ImageKit files योग्य प्रकारे manage केल्या जातील.
+
+## 7. REST API Requirements
+
+### Authentication
+- POST `/api/auth/register`
+- POST `/api/auth/login`
+- POST `/api/auth/logout`
+- GET `/api/auth/me`
+
+### Customer
+- GET / PUT `/api/users/profile`
+- GET / POST / PUT / DELETE `/api/users/addresses`
+
+### Products
+- GET `/api/products`
+- GET `/api/products/:id`
+- POST `/api/products` — Admin
+- PUT / DELETE `/api/products/:id` — Admin
+
+### Cart
+- GET `/api/cart`
+- POST `/api/cart/items`
+- PUT `/api/cart/items/:itemId`
+- DELETE `/api/cart/items/:itemId`
+
+### Orders
+- POST `/api/orders`
+- GET `/api/orders/my-orders`
+- GET `/api/orders/:id`
+- PUT `/api/orders/:id/status` — Admin
+
+### Payments
+- POST `/api/payments/create`
+- POST `/api/payments/verify`
+- POST `/api/payments/webhook`
+
+### Reviews
+- GET `/api/products/:id/reviews`
+- POST `/api/products/:id/reviews`
+- PUT `/api/admin/reviews/:id/approval`
+
+### Admin
+- GET `/api/admin/dashboard`
+- CRUD `/api/admin/categories`
+- CRUD `/api/admin/coupons`
+- CRUD `/api/admin/banners`
+- GET `/api/admin/reports`
+
+## 8. Order and Payment Workflow
+
+1. Customer product आणि size निवडून cart मध्ये add करतो.
+2. Checkout साठी login आवश्यक असेल.
+3. Customer saved किंवा नवीन delivery address निवडतो.
+4. Coupon असल्यास apply करतो.
+5. Online payment किंवा COD निवडतो.
+6. Backend stock आणि price validate करून order तयार करतो.
+7. Online payment gateway confirmation नंतर order paid म्हणून mark होतो.
+8. COD order confirmation नंतर processing मध्ये जातो.
+9. Admin order status update करतो आणि customer tracking पाहू शकतो.
+
+Order statuses: Pending, Confirmed, Processing, Shipped, Out for Delivery, Delivered, Cancelled.
+
+## 9. Security Requirements
+
+- Passwords bcrypt ने hash केले जातील.
+- JWT authentication आणि role-based authorization.
+- Server-side input validation.
+- Admin-only APIs साठी access control.
+- Payment gateway signature verification.
+- Rate limiting आणि secure HTTP headers.
+- Secrets environment variables मध्ये ठेवणे.
+- MongoDB queries मध्ये सुरक्षित validation.
+- Order आणि stock updates मध्ये consistency राखणे.
+
+## 10. Deployment Requirements
+
+- React frontend आणि Node.js backend साठी budget-friendly hosting.
+- MongoDB Atlas database.
+- ImageKit image delivery.
+- HTTPS आणि environment-based configuration.
+- Production database backups आणि error logging.
+
+## 11. Future Enhancements
+
+- Wishlist
+- WhatsApp order notifications
+- Advanced analytics
+- Multiple languages
+- Automated shipping provider integration
+
+**Note:** हा TRD finalized requirements आणि सध्याच्या technology choices वर आधारित आहे. Hosting provider, payment gateway आणि shipping provider यांची निवड implementation पूर्वी client budget नुसार निश्चित केली जाईल.

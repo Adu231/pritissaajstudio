@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    color: #1F1F1F;
+    background-color: #F8F7F1;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F8F7F1;
+}
+::-webkit-scrollbar-thumb {
+  background: #A7C4A0;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0B3D2E;
+}
+
+/* Subtle gemstone pulse animation */
+@keyframes gem-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.03); }
+}
+
+.animate-gem {
+  animation: gem-pulse 2s ease-in-out infinite;
+}
+

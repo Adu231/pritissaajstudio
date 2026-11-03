@@ -1,0 +1,185 @@
+# Product Requirements Document (PRD)
+## Priti's Saaj Studio — Jewellery E-commerce Website
+
+**Version:** 1.0  
+**Project Type:** Mobile-first E-commerce Platform  
+**Product Category:** Women's Jewellery
+
+---
+
+## 1. Product Overview
+
+Priti's Saaj Studio साठी एक premium, mobile-friendly e-commerce website विकसित करणे, ज्याद्वारे customers विविध प्रकारचे jewellery products browse, purchase आणि track करू शकतील.
+
+Website मध्ये customer shopping experience सोबत admin management system असेल, ज्यामुळे products, stock, orders, promotions आणि reports manage करता येतील.
+
+## 2. Product Goals
+
+- Brand ची professional online presence तयार करणे.
+- Customers ना सहज jewellery products शोधता आणि खरेदी करता येणे.
+- Mobile users साठी smooth आणि accessible shopping experience देणे.
+- Product sizes आणि size charts स्पष्टपणे उपलब्ध करणे.
+- Admin ला inventory आणि orders प्रभावीपणे manage करता येणे.
+- Online payment आणि COD दोन्ही पर्याय उपलब्ध करणे.
+
+## 3. Target Users
+
+### Primary Users
+महिलांचे jewellery products खरेदी करणारे online customers, विशेषतः mobile users.
+
+### Secondary Users
+Brand owner आणि authorized administrators, जे products, inventory, orders आणि promotions manage करतील.
+
+## 4. User Roles
+
+### Customer
+- Login शिवाय products browse करणे.
+- Registration आणि login.
+- Profile आणि password update.
+- Delivery addresses save आणि manage.
+- Products size आणि quantity निवडणे.
+- Cart आणि checkout.
+- Online payment किंवा COD.
+- Order history आणि delivery tracking.
+- Purchased products वर ratings आणि reviews.
+
+### Admin
+- Dashboard आणि reports पाहणे.
+- Products आणि categories manage करणे.
+- Size-wise inventory manage करणे.
+- Orders आणि delivery status update करणे.
+- Homepage hero banners manage करणे.
+- Coupons आणि discounts manage करणे.
+- Customer reviews moderate करणे.
+
+## 5. Functional Requirements
+
+### 5.1 Homepage
+- Brand logo आणि navigation.
+- Hero section with admin-managed promotional banner.
+- Featured categories आणि bestsellers.
+- Product highlights आणि promotional sections.
+- Mobile-friendly navigation.
+
+### 5.2 Product Catalogue
+- Jewellery categories: Necklaces, Bangles आणि इतर accessories.
+- Product listing आणि product detail pages.
+- Search, category filters आणि sorting.
+- Product images, descriptions आणि prices.
+- Availability आणि size options.
+
+### 5.3 Product Size Selection
+- Size-dependent products साठी size selection आवश्यक.
+- Bangles साठी size chart उपलब्ध.
+- Size comparison आणि measurement guidance.
+- Stock उपलब्ध नसलेले sizes निवडता येणार नाहीत.
+
+### 5.4 Authentication and Profile
+- Customer registration आणि login.
+- Checkout साठी authentication आवश्यक.
+- Profile information update.
+- Password change.
+- Saved addresses add, edit आणि delete.
+
+### 5.5 Cart and Checkout
+- Cart मध्ये products, sizes आणि quantities manage करणे.
+- Product price आणि stock checkout वेळी पुन्हा validate करणे.
+- Delivery address निवडणे किंवा नवीन address add करणे.
+- Coupon apply करणे.
+- Order summary आणि shipping charges दाखवणे.
+
+### 5.6 Payments
+- Online payment gateway.
+- Cash on Delivery.
+- Payment status आणि transaction details.
+- Online payment failure handling.
+- Duplicate order आणि payment prevention.
+
+### 5.7 Orders and Delivery
+- Customer order history.
+- Order details आणि status tracking.
+- Admin order processing आणि status updates.
+- Order statuses: Pending, Confirmed, Processing, Shipped, Out for Delivery, Delivered, Cancelled.
+
+### 5.8 Reviews and Ratings
+- Verified purchasers product review देऊ शकतील.
+- Rating आणि written feedback.
+- Admin review moderation.
+- Product rating summary.
+
+### 5.9 Admin Management
+- Product create, edit, archive आणि delete.
+- Product images ImageKit द्वारे upload.
+- Categories आणि size charts manage.
+- Size-wise stock management.
+- Hero banners manage.
+- Coupons आणि discount rules manage.
+- Orders आणि delivery status manage.
+- Sales, orders आणि inventory reports.
+
+## 6. Non-Functional Requirements
+
+### Performance
+- Mobile-first responsive design.
+- Optimized product images.
+- Fast page loading आणि lightweight transitions.
+- Pagination किंवा lazy loading for product listings.
+
+### Security
+- Secure password hashing.
+- Role-based access control.
+- Server-side validation.
+- Secure payment verification.
+- Customer data protection.
+
+### Usability
+- Simple navigation आणि clear calls to action.
+- Touch-friendly controls.
+- Consistent brand styling.
+- Accessible text contrast आणि form labels.
+
+### Reliability
+- Consistent order आणि stock management.
+- Error handling आणि logging.
+- Database backups.
+
+## 7. MVP Scope
+
+### Included
+- Homepage आणि product catalogue.
+- Customer authentication आणि profile.
+- Product size selection आणि size chart.
+- Cart आणि checkout.
+- Online payment आणि COD.
+- Order tracking.
+- Admin product, stock, order, banner आणि coupon management.
+- Reviews आणि basic reports.
+
+### Future Enhancements
+- Wishlist.
+- WhatsApp notifications.
+- Advanced analytics.
+- Multiple languages.
+- Shipping provider integration.
+
+## 8. Success Criteria
+
+- Customers login शिवाय products browse करू शकतात.
+- Checkout पूर्वी login/register आवश्यक आहे.
+- Size आणि stock योग्यरीत्या validate होतात.
+- Online payment आणि COD orders योग्यरीत्या process होतात.
+- Customers saved addresses आणि order tracking वापरू शकतात.
+- Admin products, banners, coupons आणि inventory manage करू शकतो.
+- Website mobile devices वर व्यवस्थित काम करते.
+
+## 9. Assumptions and Dependencies
+
+- Final product images, descriptions, prices आणि size charts client कडून मिळतील.
+- ImageKit image storage आणि delivery साठी वापरले जाईल.
+- Payment gateway आणि hosting provider budget नुसार निवडले जातील.
+- Shipping charges आणि delivery policies client कडून निश्चित केल्या जातील.
+- Demo मध्ये mock products आणि sample data वापरले जाऊ शकतात.
+
+---
+
+**Document Status:** Requirements baseline — Version 1.0
