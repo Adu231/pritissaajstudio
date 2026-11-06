@@ -2,10 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-brand-forest: #0B3B24;
+  --color-brand-forest-dark: #072718;
+  --color-brand-forest-light: #134E32;
+  --color-brand-champagne: #E3CBA9;
+  --color-brand-champagne-dark: #C5A87F;
+  --color-brand-champagne-light: #F4EBDD;
+  --color-brand-white: #FFFFFF;
+  --color-brand-offwhite: #FCFEFF;
+  --color-brand-dark: #252525;
+  --color-brand-muted: #777777;
+  --color-brand-border: #E8E4DC;
+}
+
 @layer base {
   body {
-    color: #1F1F1F;
-    background-color: #F8F7F1;
+    color: #252525;
+    background-color: #FFFFFF;
     font-family: 'Poppins', sans-serif;
   }
 
@@ -14,20 +28,20 @@
   }
 }
 
-/* Custom subtle scrollbar */
+/* Custom subtle luxury scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F8F7F1;
+  background: #FCFEFF;
 }
 ::-webkit-scrollbar-thumb {
-  background: #A7C4A0;
+  background: #E8E4DC;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0B3D2E;
+  background: #0B3B24;
 }
 
 /* Subtle gemstone pulse animation */
@@ -39,4 +53,3 @@
 .animate-gem {
   animation: gem-pulse 2s ease-in-out infinite;
 }
-

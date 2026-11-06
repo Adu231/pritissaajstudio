@@ -12,8 +12,6 @@ import {
   Send,
   CheckCircle2,
   X,
-  FileText,
-  HelpCircle,
 } from "lucide-react";
 import { useProducts } from "../../context/ProductContext";
 import { BrandLogo } from "./BrandLogo";
@@ -36,38 +34,38 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
   };
 
   return (
-    <footer className="bg-brand-emerald text-brand-ivory pt-12 pb-24 sm:pb-12 border-t border-brand-gold/40">
+    <footer className="bg-brand-forest text-white pt-12 pb-24 sm:pb-12 border-t border-brand-champagne/30">
       {/* Trust Badges Strip */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 border-b border-brand-emerald-light/70">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 border-b border-brand-forest-light/60">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
-          <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl bg-brand-emerald-light/40 border border-brand-emerald-light/80">
-            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-brand-gold shrink-0" />
+          <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl bg-brand-forest-dark/60 border border-brand-forest-light">
+            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-brand-champagne shrink-0" />
             <h5 className="font-serif font-bold text-xs sm:text-sm text-white">Authentic Craftsmanship</h5>
-            <p className="text-[10px] sm:text-xs text-brand-sage-light leading-snug">
+            <p className="text-[10px] sm:text-xs text-brand-champagne-light leading-snug">
               21-Pan Kolhapuri Saaj & royal temple motifs
             </p>
           </div>
 
-          <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl bg-brand-emerald-light/40 border border-brand-emerald-light/80">
-            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-gold shrink-0" />
+          <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl bg-brand-forest-dark/60 border border-brand-forest-light">
+            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-champagne shrink-0" />
             <h5 className="font-serif font-bold text-xs sm:text-sm text-white">24K Micro Gold Polish</h5>
-            <p className="text-[10px] sm:text-xs text-brand-sage-light leading-snug">
+            <p className="text-[10px] sm:text-xs text-brand-champagne-light leading-snug">
               High longevity plating with tarnish resistance
             </p>
           </div>
 
-          <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl bg-brand-emerald-light/40 border border-brand-emerald-light/80">
-            <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-gold shrink-0" />
+          <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl bg-brand-forest-dark/60 border border-brand-forest-light">
+            <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-champagne shrink-0" />
             <h5 className="font-serif font-bold text-xs sm:text-sm text-white">Insured Pan-India Shipping</h5>
-            <p className="text-[10px] sm:text-xs text-brand-sage-light leading-snug">
+            <p className="text-[10px] sm:text-xs text-brand-champagne-light leading-snug">
               Delivered safely in luxury velvet pouches
             </p>
           </div>
 
-          <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl bg-brand-emerald-light/40 border border-brand-emerald-light/80">
-            <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6 text-brand-gold shrink-0" />
+          <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl bg-brand-forest-dark/60 border border-brand-forest-light">
+            <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6 text-brand-champagne shrink-0" />
             <h5 className="font-serif font-bold text-xs sm:text-sm text-white">Size Exchange Guarantee</h5>
-            <p className="text-[10px] sm:text-xs text-brand-sage-light leading-snug">
+            <p className="text-[10px] sm:text-xs text-brand-champagne-light leading-snug">
               Hassle-free size replacement for bangles
             </p>
           </div>
@@ -80,18 +78,18 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
           {/* Brand & Story */}
           <div className="lg:col-span-2 space-y-4">
             <BrandLogo variant="light" size="lg" showBrandName={true} />
-            <p className="text-xs sm:text-sm text-brand-sage-light leading-relaxed max-w-sm">
+            <p className="text-xs sm:text-sm text-brand-champagne-light leading-relaxed max-w-sm">
               Celebrating the royal heritage of Maharashtra. From authentic 21-Pan Kolhapuri Saaj to heirloom Pichodi bangles and temple jewels, we preserve timeless Indian grandeur for modern royalty.
             </p>
 
             {/* Newsletter */}
             <div className="pt-2">
-              <span className="block text-xs uppercase tracking-wider text-brand-gold font-semibold mb-2">
+              <span className="block text-xs uppercase tracking-wider text-brand-champagne font-semibold mb-2">
                 Join Our VIP Circle for Special Offers
               </span>
               {subscribed ? (
-                <div className="flex items-center space-x-2 text-xs text-brand-sage bg-brand-emerald-light p-2.5 rounded-xl border border-brand-sage/40">
-                  <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
+                <div className="flex items-center space-x-2 text-xs text-white bg-brand-forest-light p-2.5 rounded-xl border border-brand-champagne/40">
+                  <CheckCircle2 className="w-4 h-4 text-brand-champagne shrink-0" />
                   <span>Welcome! Use code <strong>SAAJ10</strong> for 10% OFF your first order.</span>
                 </div>
               ) : (
@@ -102,11 +100,11 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
                     value={emailInput}
                     onChange={(e) => setEmailInput(e.target.value)}
                     placeholder="Enter email address"
-                    className="flex-1 px-3.5 py-2 text-xs bg-brand-emerald-light text-white placeholder-brand-sage-light/60 border border-brand-sage/30 rounded-l-xl focus:outline-none focus:border-brand-gold"
+                    className="flex-1 px-3.5 py-2 text-xs bg-brand-forest-dark text-white placeholder-brand-champagne-light/60 border border-brand-forest-light rounded-l-xl focus:outline-none focus:border-brand-champagne"
                   />
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-brand-gold text-brand-emerald text-xs font-bold rounded-r-xl hover:bg-brand-gold-light transition flex items-center space-x-1"
+                    className="px-4 py-2 bg-brand-champagne text-brand-forest text-xs font-bold rounded-r-xl hover:bg-brand-champagne-dark transition flex items-center space-x-1"
                   >
                     <span>Join</span>
                     <Send className="w-3 h-3" />
@@ -118,10 +116,10 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
 
           {/* Jewellery Collections */}
           <div>
-            <h5 className="font-serif font-bold text-sm text-brand-gold mb-3 uppercase tracking-wider">
+            <h5 className="font-serif font-bold text-sm text-brand-champagne mb-3 uppercase tracking-wider">
               Jewellery
             </h5>
-            <ul className="space-y-2 text-xs text-brand-sage-light">
+            <ul className="space-y-2 text-xs text-brand-champagne-light">
               <li>
                 <button
                   onClick={() => {
@@ -151,16 +149,16 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
 
           {/* Customer Care (Interactive) */}
           <div>
-            <h5 className="font-serif font-bold text-sm text-brand-gold mb-3 uppercase tracking-wider">
+            <h5 className="font-serif font-bold text-sm text-brand-champagne mb-3 uppercase tracking-wider">
               Customer Care
             </h5>
-            <ul className="space-y-2.5 text-xs text-brand-sage-light">
+            <ul className="space-y-2.5 text-xs text-brand-champagne-light">
               <li>
                 <button
                   onClick={() => onOpenSizeGuide()}
                   className="hover:text-white transition flex items-center space-x-1"
                 >
-                  <Ruler className="w-3.5 h-3.5 text-brand-gold" />
+                  <Ruler className="w-3.5 h-3.5 text-brand-champagne" />
                   <span>Bangle Size Guide</span>
                 </button>
               </li>
@@ -169,7 +167,7 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
                   onClick={() => setCurrentView("profile")}
                   className="hover:text-white transition flex items-center space-x-1"
                 >
-                  <Truck className="w-3.5 h-3.5 text-brand-gold" />
+                  <Truck className="w-3.5 h-3.5 text-brand-champagne" />
                   <span>Track My Order</span>
                 </button>
               </li>
@@ -202,20 +200,20 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
 
           {/* Contact Details */}
           <div>
-            <h5 className="font-serif font-bold text-sm text-brand-gold mb-3 uppercase tracking-wider">
+            <h5 className="font-serif font-bold text-sm text-brand-champagne mb-3 uppercase tracking-wider">
               Studio & Contact
             </h5>
-            <ul className="space-y-2.5 text-xs text-brand-sage-light">
+            <ul className="space-y-2.5 text-xs text-brand-champagne-light">
               <li className="flex items-start space-x-2">
-                <MapPin className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-brand-champagne shrink-0 mt-0.5" />
                 <span>Prabhat Road, Deccan Gymkhana, Pune, Maharashtra 411004</span>
               </li>
               <li className="flex items-center space-x-2">
-                <Phone className="w-4 h-4 text-brand-gold shrink-0" />
+                <Phone className="w-4 h-4 text-brand-champagne shrink-0" />
                 <span>+91 98234 56789 (10 AM - 7 PM)</span>
               </li>
               <li className="flex items-center space-x-2">
-                <Mail className="w-4 h-4 text-brand-gold shrink-0" />
+                <Mail className="w-4 h-4 text-brand-champagne shrink-0" />
                 <span>support@pritis-saaj.com</span>
               </li>
             </ul>
@@ -224,34 +222,34 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
       </div>
 
       {/* Bottom Legal & Payment Modes */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-brand-emerald-light/60 flex flex-col sm:flex-row items-center justify-between text-xs text-brand-sage-light space-y-4 sm:space-y-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-brand-forest-light/60 flex flex-col sm:flex-row items-center justify-between text-xs text-brand-champagne-light space-y-4 sm:space-y-0">
         <p className="flex items-center space-x-1 text-center sm:text-left">
           <span>© 2026 Priti's Saaj Studio. Handcrafted with</span>
-          <Heart className="w-3.5 h-3.5 text-brand-gold inline" />
+          <Heart className="w-3.5 h-3.5 text-brand-champagne inline" />
           <span>in Maharashtra, India.</span>
         </p>
-        <div className="flex items-center space-x-2 text-[10px] sm:text-[11px] bg-brand-emerald-light/50 px-3 py-1.5 rounded-xl border border-brand-emerald-light">
-          <span className="text-brand-gold font-bold">Modes:</span>
+        <div className="flex items-center space-x-2 text-[10px] sm:text-[11px] bg-brand-forest-dark/60 px-3 py-1.5 rounded-xl border border-brand-forest-light">
+          <span className="text-brand-champagne font-bold">Modes:</span>
           <span>UPI • RuPay • Cards • NetBanking • Cash on Delivery</span>
         </div>
       </div>
 
       {/* Informative Modals */}
       {infoModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-charcoal/70 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white text-brand-charcoal rounded-2xl max-w-md w-full p-6 shadow-2xl border border-brand-sage-light space-y-4">
-            <div className="flex items-center justify-between border-b pb-3">
-              <h3 className="font-serif font-bold text-lg text-brand-emerald">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-dark/70 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white text-brand-dark rounded-2xl max-w-md w-full p-6 shadow-2xl border border-brand-border space-y-4">
+            <div className="flex items-center justify-between border-b border-brand-border pb-3">
+              <h3 className="font-serif font-bold text-lg text-brand-forest">
                 {infoModal === "care" && "Jewellery Care & Cleaning"}
                 {infoModal === "shipping" && "Shipping & Delivery Policy"}
                 {infoModal === "cod" && "Cash on Delivery (COD) Terms"}
               </h3>
-              <button onClick={() => setInfoModal(null)} className="p-1 text-gray-500 hover:text-black">
+              <button onClick={() => setInfoModal(null)} className="p-1 text-brand-muted hover:text-brand-dark">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="text-xs text-brand-charcoal-light leading-relaxed space-y-2">
+            <div className="text-xs text-brand-dark/80 leading-relaxed space-y-2">
               {infoModal === "care" && (
                 <>
                   <p>To preserve the radiant lustre of your 24K micro-gold plated jewellery:</p>
@@ -291,7 +289,7 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setInfoModal(null)}
-                className="px-4 py-2 bg-brand-emerald text-white rounded-xl text-xs font-semibold"
+                className="px-4 py-2 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition"
               >
                 Close
               </button>

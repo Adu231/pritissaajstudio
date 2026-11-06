@@ -7,7 +7,6 @@ import {
   RotateCcw,
   Sparkles,
   Ruler,
-  Check,
 } from "lucide-react";
 import { useProducts } from "../../context/ProductContext";
 import { ProductCard } from "./ProductCard";
@@ -51,17 +50,17 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 bg-white">
       {/* Page Header */}
-      <div className="mb-5 sm:mb-8 text-center sm:text-left sm:flex sm:items-end sm:justify-between border-b border-brand-sage-light/60 pb-5">
+      <div className="mb-5 sm:mb-8 text-center sm:text-left sm:flex sm:items-end sm:justify-between border-b border-brand-border/60 pb-5">
         <div>
-          <span className="text-[10px] sm:text-xs uppercase tracking-widest text-brand-gold-dark font-bold font-poppins">
+          <span className="text-[10px] sm:text-xs uppercase tracking-widest text-brand-champagne-dark font-bold font-poppins">
             Royal Heirloom Jewels
           </span>
-          <h1 className="font-serif text-xl sm:text-3xl md:text-4xl font-extrabold text-brand-emerald mt-1">
+          <h1 className="font-serif text-xl sm:text-3xl md:text-4xl font-extrabold text-brand-forest mt-1">
             {selectedCategory === "All" ? "All Jewellery Collection" : `${selectedCategory} Collection`}
           </h1>
-          <p className="text-xs sm:text-sm text-brand-charcoal-light mt-1">
+          <p className="text-xs sm:text-sm text-brand-muted mt-1">
             Showing {filteredProducts.length} handcrafted pieces
           </p>
         </div>
@@ -69,9 +68,9 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
         {/* Quick Size Guide link */}
         <button
           onClick={() => onOpenSizeGuide()}
-          className="mt-3 sm:mt-0 inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-brand-gold/15 hover:bg-brand-gold/25 text-brand-emerald text-xs font-bold border border-brand-gold/40 transition"
+          className="mt-3 sm:mt-0 inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-brand-champagne/20 hover:bg-brand-champagne/30 text-brand-forest text-xs font-bold border border-brand-champagne/50 transition"
         >
-          <Ruler className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+          <Ruler className="w-3.5 h-3.5 text-brand-champagne-dark shrink-0" />
           <span>Bangle Measurement Guide</span>
         </button>
       </div>
@@ -80,17 +79,17 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* Desktop Filter Sidebar */}
         <aside className="hidden lg:block w-64 shrink-0 space-y-6">
-          <div className="bg-white p-5 rounded-2xl border border-brand-sage-light shadow-sm space-y-5">
+          <div className="bg-white p-5 rounded-2xl border border-brand-border shadow-xs space-y-5">
             {/* Filter Header */}
-            <div className="flex items-center justify-between border-b border-brand-sage-light/50 pb-3">
-              <span className="font-serif font-bold text-sm text-brand-emerald flex items-center space-x-1.5">
-                <SlidersHorizontal className="w-4 h-4 text-brand-gold" />
+            <div className="flex items-center justify-between border-b border-brand-border/60 pb-3">
+              <span className="font-serif font-bold text-sm text-brand-forest flex items-center space-x-1.5">
+                <SlidersHorizontal className="w-4 h-4 text-brand-champagne-dark" />
                 <span>Filters</span>
               </span>
               {hasActiveFilters && (
                 <button
                   onClick={handleResetFilters}
-                  className="text-xs text-brand-gold-dark hover:underline flex items-center space-x-1 font-semibold"
+                  className="text-xs text-brand-champagne-dark hover:underline flex items-center space-x-1 font-semibold"
                 >
                   <RotateCcw className="w-3 h-3" />
                   <span>Reset All</span>
@@ -100,7 +99,7 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
 
             {/* Categories */}
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-charcoal mb-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">
                 Categories
               </h4>
               <div className="space-y-1 text-xs">
@@ -108,8 +107,8 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                   onClick={() => setSelectedCategory("All")}
                   className={`w-full text-left px-2.5 py-1.5 rounded-xl transition ${
                     selectedCategory === "All"
-                      ? "bg-brand-emerald text-white font-bold"
-                      : "text-brand-charcoal-light hover:bg-brand-sage-light/30"
+                      ? "bg-brand-forest text-white font-bold"
+                      : "text-brand-dark/80 hover:bg-brand-offwhite"
                   }`}
                 >
                   All Jewellery
@@ -120,14 +119,14 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                     onClick={() => setSelectedCategory(c.name)}
                     className={`w-full text-left px-2.5 py-1.5 rounded-xl transition flex items-center justify-between ${
                       selectedCategory === c.name
-                        ? "bg-brand-emerald text-white font-bold"
-                        : "text-brand-charcoal-light hover:bg-brand-sage-light/30"
+                        ? "bg-brand-forest text-white font-bold"
+                        : "text-brand-dark/80 hover:bg-brand-offwhite"
                     }`}
                   >
                     <span>{c.name}</span>
                     <span
                       className={`text-[10px] ${
-                        selectedCategory === c.name ? "text-brand-sage-light" : "text-gray-400"
+                        selectedCategory === c.name ? "text-brand-champagne-light" : "text-brand-muted"
                       }`}
                     >
                       {c.count}
@@ -140,10 +139,10 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
             {/* Price Filter Slider */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-charcoal">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark">
                   Max Price
                 </h4>
-                <span className="text-xs font-bold text-brand-emerald">
+                <span className="text-xs font-bold text-brand-forest">
                   ₹{maxPrice.toLocaleString("en-IN")}
                 </span>
               </div>
@@ -154,9 +153,9 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                 step="500"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full accent-brand-emerald cursor-pointer"
+                className="w-full accent-brand-forest cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] text-gray-400 mt-1">
+              <div className="flex justify-between text-[10px] text-brand-muted mt-1">
                 <span>₹1,000</span>
                 <span>₹10,000</span>
               </div>
@@ -164,7 +163,7 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
 
             {/* Size Filter */}
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-charcoal mb-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">
                 Filter by Size
               </h4>
               <div className="flex flex-wrap gap-1.5">
@@ -176,8 +175,8 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                     }
                     className={`text-xs px-2.5 py-1 rounded-lg border transition ${
                       selectedSizeFilter === sz
-                        ? "bg-brand-emerald border-brand-emerald text-white font-bold"
-                        : "bg-brand-ivory border-brand-sage-light text-brand-charcoal hover:border-brand-emerald"
+                        ? "bg-brand-forest border-brand-forest text-white font-bold"
+                        : "bg-brand-offwhite border-brand-border text-brand-dark hover:border-brand-forest"
                     }`}
                   >
                     {sz}
@@ -187,13 +186,13 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
             </div>
 
             {/* Availability Checkbox */}
-            <div className="pt-2 border-t border-brand-sage-light/50">
-              <label className="flex items-center space-x-2.5 cursor-pointer text-xs text-brand-charcoal">
+            <div className="pt-2 border-t border-brand-border/60">
+              <label className="flex items-center space-x-2.5 cursor-pointer text-xs text-brand-dark">
                 <input
                   type="checkbox"
                   checked={inStockOnly}
                   onChange={(e) => setInStockOnly(e.target.checked)}
-                  className="rounded border-brand-sage text-brand-emerald focus:ring-brand-emerald h-4 w-4"
+                  className="rounded border-brand-border text-brand-forest focus:ring-brand-forest h-4 w-4"
                 />
                 <span className="font-medium">In Stock Items Only</span>
               </label>
@@ -204,30 +203,30 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
         {/* Products Column */}
         <main className="flex-1 min-w-0">
           {/* Top Bar: Sort & Filter Trigger for Mobile */}
-          <div className="bg-white p-3 sm:p-4 rounded-2xl border border-brand-sage-light shadow-sm mb-5 flex flex-wrap items-center justify-between gap-2.5">
+          <div className="bg-white p-3 sm:p-4 rounded-2xl border border-brand-border shadow-xs mb-5 flex flex-wrap items-center justify-between gap-2.5">
             {/* Left: Mobile Filter Button */}
             <button
               onClick={() => setMobileFilterOpen(true)}
-              className="lg:hidden px-3 py-2 bg-brand-ivory border border-brand-sage-light rounded-xl text-xs font-bold text-brand-charcoal flex items-center space-x-1.5"
+              className="lg:hidden px-3 py-2 bg-brand-offwhite border border-brand-border rounded-xl text-xs font-bold text-brand-forest flex items-center space-x-1.5"
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-brand-champagne-dark shrink-0" />
               <span>Filters {hasActiveFilters && "• Active"}</span>
             </button>
 
             {/* Inline search for desktop */}
             <div className="flex-1 max-w-xs relative hidden sm:block">
-              <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-brand-muted absolute left-3 top-2.5" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Filter by keyword..."
-                className="w-full pl-8 pr-3 py-1.5 text-xs bg-brand-ivory border border-brand-sage-light rounded-xl focus:outline-none focus:border-brand-emerald"
+                className="w-full pl-8 pr-3 py-1.5 text-xs bg-brand-offwhite border border-brand-border rounded-xl focus:outline-none focus:border-brand-forest text-brand-dark placeholder-brand-muted"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-2 text-xs text-gray-400"
+                  className="absolute right-2.5 top-2 text-xs text-brand-muted hover:text-brand-dark"
                 >
                   ✕
                 </button>
@@ -236,12 +235,12 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
 
             {/* Right: Sort By Dropdown */}
             <div className="flex items-center space-x-1.5 text-xs ml-auto">
-              <ArrowUpDown className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-              <span className="text-brand-charcoal-muted hidden sm:inline">Sort:</span>
+              <ArrowUpDown className="w-3.5 h-3.5 text-brand-champagne-dark shrink-0" />
+              <span className="text-brand-muted hidden sm:inline">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-brand-ivory border border-brand-sage-light rounded-xl px-2.5 py-1.5 text-xs text-brand-charcoal font-semibold focus:outline-none focus:border-brand-emerald cursor-pointer"
+                className="bg-brand-offwhite border border-brand-border rounded-xl px-2.5 py-1.5 text-xs text-brand-dark font-semibold focus:outline-none focus:border-brand-forest cursor-pointer"
               >
                 <option value="featured">Featured & Bestsellers</option>
                 <option value="price-low">Price: Low to High</option>
@@ -255,9 +254,9 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
           {/* Active Filter Chips */}
           {hasActiveFilters && (
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-4">
-              <span className="text-[10px] sm:text-[11px] text-brand-charcoal-muted">Active:</span>
+              <span className="text-[10px] sm:text-[11px] text-brand-muted">Active:</span>
               {selectedCategory !== "All" && (
-                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-sage-light/40 text-brand-emerald px-2.5 py-0.5 rounded-full font-medium">
+                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-champagne/20 text-brand-forest px-2.5 py-0.5 rounded-full font-medium border border-brand-champagne/40">
                   <span>{selectedCategory}</span>
                   <button onClick={() => setSelectedCategory("All")}>
                     <X className="w-3 h-3 hover:text-red-600" />
@@ -265,7 +264,7 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                 </span>
               )}
               {selectedSizeFilter && (
-                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-sage-light/40 text-brand-emerald px-2.5 py-0.5 rounded-full font-medium">
+                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-champagne/20 text-brand-forest px-2.5 py-0.5 rounded-full font-medium border border-brand-champagne/40">
                   <span>Size: {selectedSizeFilter}</span>
                   <button onClick={() => setSelectedSizeFilter("")}>
                     <X className="w-3 h-3 hover:text-red-600" />
@@ -273,7 +272,7 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                 </span>
               )}
               {maxPrice < 10000 && (
-                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-sage-light/40 text-brand-emerald px-2.5 py-0.5 rounded-full font-medium">
+                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-champagne/20 text-brand-forest px-2.5 py-0.5 rounded-full font-medium border border-brand-champagne/40">
                   <span>Under ₹{maxPrice.toLocaleString("en-IN")}</span>
                   <button onClick={() => setMaxPrice(10000)}>
                     <X className="w-3 h-3 hover:text-red-600" />
@@ -281,7 +280,7 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                 </span>
               )}
               {inStockOnly && (
-                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-sage-light/40 text-brand-emerald px-2.5 py-0.5 rounded-full font-medium">
+                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-champagne/20 text-brand-forest px-2.5 py-0.5 rounded-full font-medium border border-brand-champagne/40">
                   <span>In Stock</span>
                   <button onClick={() => setInStockOnly(false)}>
                     <X className="w-3 h-3 hover:text-red-600" />
@@ -289,7 +288,7 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                 </span>
               )}
               {searchQuery && (
-                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-sage-light/40 text-brand-emerald px-2.5 py-0.5 rounded-full font-medium">
+                <span className="inline-flex items-center space-x-1 text-[11px] sm:text-xs bg-brand-champagne/20 text-brand-forest px-2.5 py-0.5 rounded-full font-medium border border-brand-champagne/40">
                   <span>"{searchQuery}"</span>
                   <button onClick={() => setSearchQuery("")}>
                     <X className="w-3 h-3 hover:text-red-600" />
@@ -298,7 +297,7 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
               )}
               <button
                 onClick={handleResetFilters}
-                className="text-xs text-brand-gold-dark hover:underline font-bold ml-1"
+                className="text-xs text-brand-champagne-dark hover:underline font-bold ml-1"
               >
                 Clear All
               </button>
@@ -319,19 +318,19 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
             </div>
           ) : (
             /* Empty State */
-            <div className="bg-white rounded-2xl border border-brand-sage-light p-10 text-center max-w-md mx-auto my-6 space-y-3">
-              <div className="w-14 h-14 rounded-full bg-brand-ivory border border-brand-sage-light flex items-center justify-center mx-auto text-brand-gold">
+            <div className="bg-white rounded-2xl border border-brand-border p-10 text-center max-w-md mx-auto my-6 space-y-3 shadow-xs">
+              <div className="w-14 h-14 rounded-full bg-brand-offwhite border border-brand-border flex items-center justify-center mx-auto text-brand-champagne-dark">
                 <Sparkles className="w-7 h-7" />
               </div>
-              <h3 className="font-serif text-base sm:text-lg font-bold text-brand-charcoal">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-brand-forest">
                 No matching jewellery found
               </h3>
-              <p className="text-xs text-brand-charcoal-light">
+              <p className="text-xs text-brand-muted">
                 Try widening your price range, clearing selected size, or removing search keywords.
               </p>
               <button
                 onClick={handleResetFilters}
-                className="px-5 py-2.5 bg-brand-emerald text-white rounded-xl text-xs font-semibold hover:bg-brand-emerald-light transition shadow-luxury"
+                className="px-5 py-2.5 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition shadow-luxury"
               >
                 Reset All Filters
               </button>
@@ -344,33 +343,33 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
       {mobileFilterOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
           <div
-            className="fixed inset-0 bg-brand-charcoal/60 backdrop-blur-sm"
+            className="fixed inset-0 bg-brand-dark/60 backdrop-blur-sm"
             onClick={() => setMobileFilterOpen(false)}
           />
           <div className="relative w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto animate-slideInLeft">
             {/* Header */}
-            <div className="p-4 bg-brand-emerald text-white flex items-center justify-between border-b border-brand-gold/40">
+            <div className="p-4 bg-brand-forest text-white flex items-center justify-between border-b border-brand-champagne/40">
               <span className="font-serif font-bold text-base flex items-center space-x-2">
-                <SlidersHorizontal className="w-4 h-4 text-brand-gold" />
+                <SlidersHorizontal className="w-4 h-4 text-brand-champagne" />
                 <span>Filter Jewellery</span>
               </span>
-              <button onClick={() => setMobileFilterOpen(false)} className="p-1">
+              <button onClick={() => setMobileFilterOpen(false)} className="p-1 text-white">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Mobile Filters Content */}
-            <div className="p-4 space-y-5 overflow-y-auto">
+            <div className="p-4 space-y-5 overflow-y-auto bg-white">
               {/* Category */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-charcoal mb-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">
                   Category
                 </h4>
                 <div className="space-y-1 text-xs">
                   <button
                     onClick={() => setSelectedCategory("All")}
                     className={`w-full text-left px-3 py-2 rounded-xl transition ${
-                      selectedCategory === "All" ? "bg-brand-emerald text-white font-bold" : "bg-brand-ivory"
+                      selectedCategory === "All" ? "bg-brand-forest text-white font-bold" : "bg-brand-offwhite text-brand-dark"
                     }`}
                   >
                     All Jewellery
@@ -380,7 +379,7 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                       key={c.id}
                       onClick={() => setSelectedCategory(c.name)}
                       className={`w-full text-left px-3 py-2 rounded-xl transition ${
-                        selectedCategory === c.name ? "bg-brand-emerald text-white font-bold" : "bg-brand-ivory"
+                        selectedCategory === c.name ? "bg-brand-forest text-white font-bold" : "bg-brand-offwhite text-brand-dark"
                       }`}
                     >
                       {c.name}
@@ -392,8 +391,8 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
               {/* Price */}
               <div>
                 <div className="flex justify-between text-xs mb-2">
-                  <span className="font-bold uppercase tracking-wider">Max Price</span>
-                  <span className="font-bold text-brand-emerald">₹{maxPrice.toLocaleString("en-IN")}</span>
+                  <span className="font-bold uppercase tracking-wider text-brand-dark">Max Price</span>
+                  <span className="font-bold text-brand-forest">₹{maxPrice.toLocaleString("en-IN")}</span>
                 </div>
                 <input
                   type="range"
@@ -402,13 +401,13 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                   step="500"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(Number(e.target.value))}
-                  className="w-full accent-brand-emerald"
+                  className="w-full accent-brand-forest"
                 />
               </div>
 
               {/* Sizes */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-charcoal mb-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">
                   Bangle / Ring Size
                 </h4>
                 <div className="grid grid-cols-3 gap-1.5">
@@ -418,8 +417,8 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
                       onClick={() => setSelectedSizeFilter(selectedSizeFilter === sz ? "" : sz)}
                       className={`text-xs py-2 px-1 rounded-xl border text-center transition ${
                         selectedSizeFilter === sz
-                          ? "bg-brand-emerald text-white border-brand-emerald font-bold"
-                          : "bg-brand-ivory border-brand-sage-light text-brand-charcoal"
+                          ? "bg-brand-forest text-white border-brand-forest font-bold"
+                          : "bg-brand-offwhite border-brand-border text-brand-dark"
                       }`}
                     >
                       {sz}
@@ -430,12 +429,12 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
 
               {/* Stock only */}
               <div>
-                <label className="flex items-center space-x-2 text-xs cursor-pointer">
+                <label className="flex items-center space-x-2 text-xs cursor-pointer text-brand-dark">
                   <input
                     type="checkbox"
                     checked={inStockOnly}
                     onChange={(e) => setInStockOnly(e.target.checked)}
-                    className="rounded text-brand-emerald h-4 w-4"
+                    className="rounded text-brand-forest h-4 w-4"
                   />
                   <span className="font-semibold">In Stock Items Only</span>
                 </label>
@@ -443,16 +442,16 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
             </div>
 
             {/* Mobile Footer Apply Button */}
-            <div className="p-4 bg-brand-ivory border-t border-brand-sage-light flex space-x-2">
+            <div className="p-4 bg-brand-offwhite border-t border-brand-border flex space-x-2">
               <button
                 onClick={handleResetFilters}
-                className="w-1/3 py-2.5 rounded-xl border border-brand-sage-light text-xs font-semibold text-brand-charcoal hover:bg-gray-100"
+                className="w-1/3 py-2.5 rounded-xl border border-brand-border text-xs font-semibold text-brand-dark hover:bg-white"
               >
                 Reset
               </button>
               <button
                 onClick={() => setMobileFilterOpen(false)}
-                className="w-2/3 py-2.5 rounded-xl bg-brand-emerald text-white text-xs font-bold hover:bg-brand-emerald-light shadow-md"
+                className="w-2/3 py-2.5 rounded-xl bg-brand-forest text-white text-xs font-bold hover:bg-brand-forest-dark shadow-md"
               >
                 Apply Filters
               </button>

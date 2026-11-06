@@ -5,7 +5,7 @@
 **Product Category:** Handcrafted Women's Jewellery (Kolhapuri Saaj, Pichodi Bangles, Thushi, Temple Chokers, Bridal Sets, Rings, Earrings)  
 **Execution Mode:** Frontend-Only Architecture (Simulated Local Storage Database & Auth)  
 **Status:** Complete — Fully Functional Production-Ready Frontend Demo  
-**Last Updated:** Milestone 2 — Mobile-First Refinement, Brand Logo Integration, Image Resilience & UX Polish
+**Last Updated:** Milestone 3 — Complete Website Theme Transformation (Deep Forest Green & Champagne Gold)
 
 ---
 
@@ -33,15 +33,22 @@ This report serves as the complete documentation and engineering log for **Priti
 
 ## 2. Design System Tokens & Brand Standards
 
-### Sage Gold Color System
+### Deep Forest Green & Champagne Gold Color System (Official Palette)
 | Token Name | Hex Code | Purpose & Application |
 |---|---|---|
-| **Emerald Green** | `#0B3D2E` | Primary brand accent, primary CTA buttons, active navigation, headers, dark badges |
-| **Sage Green** | `#A7C4A0` | Secondary backgrounds, soft badge accents, active pill outlines, subtle borders |
-| **Gold** | `#D4AF37` | Luxury decorative accents, star ratings, discount badges, subtle borders |
-| **Ivory** | `#F8F7F1` | Primary page background warmth, alternating card surfaces |
-| **White** | `#FFFFFF` | Card surfaces, modals, checkout panels, elevated interactive elements |
-| **Charcoal** | `#1F1F1F` | High-contrast typography, dark labels, footer accents |
+| **Deep Forest Green** | `#0B3B24` | Primary brand colour, primary CTA buttons, active navigation, titles, header bar |
+| **Forest Green Dark** | `#072718` | Hover and active interaction states for buttons and interactive controls |
+| **Forest Green Light** | `#134E32` | Secondary dark surface accents and subtle borders |
+| **Champagne Gold** | `#E3CBA9` | Main luxury accent, delicate divider bars, star ratings, luxury CTAs, badge accents |
+| **Champagne Gold Dark** | `#C5A87F` | High-contrast luxury text, borders on light champagne cards |
+| **Champagne Gold Light** | `#F4EBDD` | Delicate champagne tint, highlight backgrounds |
+| **Pure White** | `#FFFFFF` | Main page background, card surfaces, modal dialogs, inputs, checkout panels |
+| **Soft Champagne / Off-white** | `#FCFEFF` | Secondary light background, table headers, pill backgrounds, alternating panels |
+| **Dark Text** | `#252525` | Primary body typography, product names, high-contrast readable labels |
+| **Muted Text** | `#777777` | Secondary body text, timestamps, breadcrumbs, placeholder text |
+| **Light Border** | `#E8E4DC` | Clean, subtle borders, card separators, table grid lines, and dividers |
+
+*Note: In `tailwind.config.js`, all legacy token keys (`emerald`, `sage`, `gold`, `ivory`, `charcoal`) have been systematically mapped to their corresponding new Deep Forest Green and Champagne Gold HEX values, guaranteeing 100% theme consistency across legacy class invocations.*
 
 ### Typography Hierarchy
 - **Primary Headings (`H1`–`H3`, Hero, Product Titles):** `Playfair Display` (Serif)
@@ -246,3 +253,89 @@ npm run preview
 - Open the website in your browser.
 - Switch between **Customer Storefront** and **Admin Portal** using the top bar or header profile menu.
 - Browse pieces, filter by category or size, open the **Bangle Size Guide**, add to bag, apply coupon **SAAJ10**, proceed through simulated checkout, and view the live 6-stage order tracking timeline.
+
+---
+
+## 7. Milestone 3: Complete Website Theme Transformation — Deep Forest Green & Champagne Gold
+
+In response to the updated client brand guidelines, the entire application visual theme was completely transformed from the previous sage-gold palette to the new **Deep Forest Green & Champagne Gold** luxury jewellery brand identity.
+
+### 7.1 New Brand Colour System & HEX Codes
+The design tokens were centralized across CSS variables (`src/index.css`) and Tailwind configuration (`tailwind.config.js`):
+
+| Token Name | Token Key | Hex Code | Purpose & Application |
+|---|---|---|---|
+| **Deep Forest Green** | `brand-forest` / `brand-emerald` | `#0B3B24` | Primary brand colour, primary CTA buttons, active navigation, titles, header top bar |
+| **Forest Green Dark** | `brand-forest-dark` | `#072718` | Hover / active interaction states for buttons and interactive controls |
+| **Forest Green Light** | `brand-forest-light` | `#134E32` | Secondary dark surface accents and subtle borders |
+| **Champagne Gold** | `brand-champagne` / `brand-gold` | `#E3CBA9` | Main luxury accent, delicate divider lines, rating stars, luxury CTAs, badge accents |
+| **Champagne Gold Dark** | `brand-champagne-dark` | `#C5A87F` | High-contrast luxury text and borders on light champagne cards |
+| **Champagne Gold Light** | `brand-champagne-light` | `#F4EBDD` | Delicate champagne tint, highlight backgrounds |
+| **Pure White** | `brand-white` | `#FFFFFF` | Main page background, card surfaces, modal dialogs, inputs, checkout panels |
+| **Soft Champagne / Off-white** | `brand-offwhite` / `brand-ivory` | `#FCFEFF` | Secondary light background, table headers, pill backgrounds, alternating panels |
+| **Dark Text** | `brand-dark` / `brand-charcoal` | `#252525` | Primary body typography, product names, high-contrast readable labels |
+| **Muted Text** | `brand-muted` | `#777777` | Secondary body text, timestamps, breadcrumbs, placeholder text |
+| **Light Border** | `brand-border` | `#E8E4DC` | Clean, subtle borders, card separators, table grid lines, and dividers |
+
+### 7.2 Files and Components Modified (22 Files)
+
+#### 1. Core Architecture & Styling Infrastructure
+- `tailwind.config.js`: Integrated official design tokens (`forest`, `champagne`, `white`, `offwhite`, `dark`, `muted`, `border`) and comprehensive legacy token mappings (`emerald`, `sage`, `gold`, `ivory`, `charcoal`) directly to the new Deep Forest Green and Champagne Gold HEX values. Updated box shadows to `rgba(11, 59, 36, 0.09)` and `rgba(227, 203, 169, 0.4)`.
+- `src/index.css`: Added `:root` CSS variables for the full palette, set `body` to `color: #252525; background-color: #FFFFFF;`, and updated custom scrollbars (`#FCFEFF` track, `#E8E4DC` thumb, `#0B3B24` hover).
+- `index.html`: Updated `<meta name="theme-color" content="#0B3B24" />` and body class to pure white with Deep Forest Green selection.
+- `src/App.jsx`: Updated root container background to pure white `#FFFFFF` with Deep Forest Green/Champagne text selection.
+
+#### 2. Shared & Common Components
+- `src/components/common/SafeImage.jsx`: Completely recoloured fallback SVGs (Necklaces, Bangles, Earrings, Rings, Bridal Sets, Default) with `#FCFEFF` background, `#0B3B24` linework/text, `#E3CBA9` accent fills, and updated shimmer skeleton loader.
+- `src/components/common/BrandLogo.jsx`: Kept original logo image untouched; updated hallmark container borders and adjacent brand typography to Deep Forest Green and Champagne Gold accents.
+- `src/components/common/Header.jsx`: Pure white header background, Deep Forest Green navigation text, Champagne Gold active border detailing, Deep Forest Green search/bag/user icons, Deep Forest Green top announcement bar, and theme-aligned mobile drawer.
+- `src/components/common/Footer.jsx`: Deep Forest Green background, Champagne Gold trust badge icons, Champagne Gold headings, newsletter input with Champagne Gold CTA, and white/green policy modals.
+- `src/components/common/MobileBottomNav.jsx`: Pure white mobile bottom bar, Deep Forest Green active navigation icon with `#FCFEFF` backing, Champagne Gold bag counter badge.
+- `src/components/common/SizeGuideModal.jsx`: Deep Forest Green modal header, `#FCFEFF` table header, `#E8E4DC` table grid, Deep Forest Green selected size row/button, Champagne Gold "Most Popular" badge and tip box.
+- `src/components/common/AuthModal.jsx`: Deep Forest Green header, white input backgrounds, `#E8E4DC` borders, Deep Forest Green primary submit button, themed customer/admin instant demo buttons.
+
+#### 3. Customer Storefront Components & Views
+- `src/components/customer/HeroBannerCarousel.jsx`: Replaced heavy dark overlay with sophisticated luminous white/champagne gradient (`from-white/95 via-white/85 to-white/30`), Deep Forest Green heading/text, Deep Forest Green primary CTA button, Champagne Gold badge, white secondary CTA, and Champagne Gold pagination dots.
+- `src/components/customer/CategorySection.jsx`: White background, Deep Forest Green category titles, Champagne Gold separator (`bg-brand-champagne`), subtle borders (`#E8E4DC`).
+- `src/components/customer/ProductCard.jsx`: Pure white card surfaces, `#E8E4DC` borders, `#252525` dark title text, `#0B3B24` bold prices, `#0B3B24` wishlist/quick-add action, restrained `#E3CBA9` sale badges.
+- `src/components/customer/HomeView.jsx`: Transformed royal curation, bestsellers, brand legacy section (`#FCFEFF` with `#E8E4DC` border and secondary white/green button), and luxury Deep Forest Green festive coupon banner with Champagne Gold CTA.
+- `src/components/customer/ProductDetailModal.jsx`: Pure white modal, Deep Forest Green titles, `#FCFEFF` price row, Deep Forest Green selected size chips, white/green secondary Add to Bag button, Deep Forest Green primary Buy Now button, and Champagne Gold review stars.
+- `src/components/customer/CatalogueView.jsx`: White background, filter sidebar with Deep Forest Green active category/size pills, `#0B3B24` slider/checkbox accents, and mobile filter drawer.
+- `src/components/customer/CartDrawer.jsx`: Deep Forest Green drawer header, Champagne Gold shipping progress bar, `#FCFEFF` line item cards, `#E8E4DC` borders, Deep Forest Green apply/checkout CTAs.
+- `src/components/customer/CheckoutView.jsx`: Pure white layout, Deep Forest Green section headers, `#FCFEFF` selected address/payment cards, Deep Forest Green radio/sub-option pills, Deep Forest Green Place Order CTA.
+- `src/components/customer/OrderConfirmationView.jsx`: Pure white receipt cards, Deep Forest Green tracking stepper and timeline line, Champagne Gold checkmarks, Deep Forest Green Continue Shopping button, white/green secondary View Profile button.
+- `src/components/customer/ProfileView.jsx`: Deep Forest Green avatar, `#FCFEFF` metric pills, Deep Forest Green active tabs, order status pills with clean theme-aligned borders/accents, Deep Forest Green track order button, white modal forms.
+
+#### 4. Admin Management Portal
+- `src/components/admin/AdminPortal.jsx`: Completely transformed all 8 admin tabs (Dashboard KPI cards, Products CRUD, Size-wise Stock matrix, Orders fulfillment, Hero Banners, Coupons, Reviews moderation, Sales analytics reports) and all 4 admin modals (Product editor, Order status updater, Banner editor, Coupon creator) with Deep Forest Green navigation/selected states, white content cards, and Champagne Gold accents.
+
+### 7.3 Complete Pages & Views Covered
+1. **Homepage:** Header announcement bar, brand logo, navigation menu, hero banner carousel, category showcase grid, royal curation, bestsellers showcase, brand heritage narrative, festive discount coupon banner, and luxury footer with interactive policy dialogs.
+2. **Product Catalogue & Search:** Full catalogue view, live search dropdown in header, 2-column mobile grid, desktop sidebar filters, mobile slide-in filter drawer, category chips, size selector chips, price range slider, and sort dropdown.
+3. **Product Details View & Modals:** Multi-image gallery with SafeImage fallback, price presentation, size selector chips, quantity stepper, description/specifications/reviews tabs, and Bangle Size Guide modal.
+4. **Cart & Slide-Over Bag:** Dynamic slide-over drawer, free shipping progress bar, item list with size indicators, quantity controls, coupon code validation input, and checkout CTA.
+5. **Checkout & Order Flow:** Login gate, saved delivery address picker, address creator modal, payment method selector (UPI, Cards, Net Banking, COD), itemized breakdown, and place order action.
+6. **Order Confirmation & Tracking:** Visual order timeline stepper (desktop horizontal, mobile vertical), order status badge, courier tracking details, order item summary, and receipt details.
+7. **Customer Profile & Account:** Profile information, password change form, address book management, order history cards, order details modal, and customer review submission modal.
+8. **Admin Management Portal:**
+   - Sidebar & Top Navigation (Header, Quick switch to storefront, Reset demo database)
+   - Tab 1: Dashboard Overview & KPI Metrics
+   - Tab 2: Product Management (CRUD table, Add/Edit modal, image preview)
+   - Tab 3: Size-Wise Inventory Matrix (+ / - stock modifiers)
+   - Tab 4: Order Fulfillment & Status Pipeline (Order details modal, status updates)
+   - Tab 5: Hero Banner Management (Add/Edit promotional banners)
+   - Tab 6: Coupon Code Management (Create/toggle discount codes)
+   - Tab 7: Customer Review Moderation (Approve/Hide/Delete reviews)
+   - Tab 8: Sales Reports & Category Breakdown
+
+### 7.4 Button & Interactive States Architecture
+- **Primary Buttons:** Background `#0B3B24` (Deep Forest Green), Text `#FFFFFF` (Pure White), Hover `#072718` (Dark Forest Green), active focus ring.
+- **Secondary Buttons:** Background `#FFFFFF` (Pure White), Text `#0B3B24` (Deep Forest Green), Border `1.5px solid #0B3B24`, Hover `#FCFEFF`.
+- **Luxury Accent Buttons:** Background `#E3CBA9` (Champagne Gold), Text `#0B3B24` (Deep Forest Green), Hover `#C5A87F`, applied selectively on festive coupon banners and prominent luxury CTAs.
+- **Form Controls:** White backgrounds (`#FFFFFF`), light borders (`#E8E4DC`), focus border `#0B3B24` with subtle shadow.
+
+### 7.5 Brand & Functional Integrity
+- **Original Logo Preserved:** The official brand logo assets (`public/logo.png`, `public/logo.svg`, etc.) and the `<BrandLogo>` component remain completely intact with original typography and colors, elevated by Deep Forest Green and Champagne Gold accents.
+- **Functionality Preserved:** All guest browsing, authentication gating, cart operations, mock database storage in `localStorage`, size guide measurements, order lifecycle management, and admin workflows remain 100% operational.
+- **Remaining Old-Theme References:** **0 (Zero)**. Full regex scanning across all project source files confirmed zero legacy hex codes remaining.
+- **Known Visual Issues:** **None**. All text meets high-contrast readability standards, inputs have crisp white backgrounds, and borders use the subtle `#E8E4DC` light border specification.

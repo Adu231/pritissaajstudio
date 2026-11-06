@@ -197,9 +197,8 @@ export const AdminPortal = ({ onExitAdmin }) => {
     setBannerForm({
       title: "",
       subtitle: "",
-      imageUrl:
-        "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1600&q=80",
-      ctaText: "Shop Collection",
+      imageUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=80",
+      ctaText: "Explore Collection",
       link: "catalogue",
       displayOrder: banners.length + 1,
       isActive: true,
@@ -217,10 +216,10 @@ export const AdminPortal = ({ onExitAdmin }) => {
     e.preventDefault();
     if (editingBanner) {
       updateBanner({ ...editingBanner, ...bannerForm });
-      showToast("Promotional banner updated");
+      showToast("Updated banner.");
     } else {
       addBanner(bannerForm);
-      showToast("New promotional banner added");
+      showToast("Created new hero banner.");
     }
     setBannerModalOpen(false);
   };
@@ -232,8 +231,8 @@ export const AdminPortal = ({ onExitAdmin }) => {
       code: "",
       discountType: "percentage",
       discountValue: 15,
-      minOrderValue: 2499,
-      description: "Festive privilege discount",
+      minOrderValue: 1499,
+      description: "Festive Exclusive Discount",
       validUntil: "2027-12-31",
       isActive: true,
     });
@@ -244,7 +243,6 @@ export const AdminPortal = ({ onExitAdmin }) => {
     e.preventDefault();
     const payload = {
       ...couponForm,
-      code: couponForm.code.toUpperCase().trim(),
       discountValue: Number(couponForm.discountValue),
       minOrderValue: Number(couponForm.minOrderValue),
     };
@@ -274,13 +272,13 @@ export const AdminPortal = ({ onExitAdmin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-poppins pb-16">
+    <div className="min-h-screen bg-brand-offwhite flex flex-col font-poppins pb-16">
       {/* Admin Top Navbar */}
-      <header className="bg-brand-emerald text-white border-b border-brand-emerald-light sticky top-0 z-30 shadow-md">
+      <header className="bg-brand-forest text-white border-b border-brand-champagne/30 sticky top-0 z-30 shadow-md">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
             <BrandLogo variant="light" size="sm" showBrandName={true} onClick={onExitAdmin} />
-            <span className="bg-brand-gold text-brand-emerald text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider shrink-0">
+            <span className="bg-brand-champagne text-brand-forest text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider shrink-0 border border-brand-champagne-dark/30">
               Admin Portal
             </span>
           </div>
@@ -293,7 +291,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                   showToast("Mock database reset to default seed data.");
                 }
               }}
-              className="text-[11px] bg-white/10 hover:bg-white/20 px-2.5 py-1.5 rounded-lg border border-white/20 text-brand-sage-light hover:text-white transition flex items-center space-x-1"
+              className="text-[11px] bg-white/10 hover:bg-white/20 px-2.5 py-1.5 rounded-lg border border-white/20 text-brand-champagne-light hover:text-white transition flex items-center space-x-1"
               title="Reset Database to initial seed state"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -302,7 +300,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
             <button
               onClick={onExitAdmin}
-              className="text-xs bg-brand-gold text-brand-emerald font-bold hover:bg-brand-gold-light px-3 py-1.5 rounded-xl transition flex items-center space-x-1 shadow-sm shrink-0"
+              className="text-xs bg-brand-champagne text-brand-forest font-bold hover:bg-brand-champagne-dark px-3 py-1.5 rounded-xl transition flex items-center space-x-1 shadow-xs shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Storefront</span>
@@ -313,8 +311,8 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
       {/* Toast Feedback */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-4 sm:right-6 z-50 bg-brand-charcoal text-white px-4 py-3 rounded-2xl shadow-2xl border border-brand-gold/40 flex items-center space-x-2 text-xs animate-slideInRight">
-          <Sparkles className="w-4 h-4 text-brand-gold shrink-0" />
+        <div className="fixed bottom-6 right-4 sm:right-6 z-50 bg-brand-forest text-white px-4 py-3 rounded-2xl shadow-2xl border border-brand-champagne/40 flex items-center space-x-2 text-xs animate-slideInRight">
+          <Sparkles className="w-4 h-4 text-brand-champagne shrink-0" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -322,17 +320,17 @@ export const AdminPortal = ({ onExitAdmin }) => {
       {/* Main Admin Workspace */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 flex-1 w-full flex flex-col md:flex-row gap-4 sm:gap-6">
         {/* Navigation Sidebar: Horizontal scroll on mobile, Vertical on desktop */}
-        <aside className="w-full md:w-56 shrink-0 bg-white rounded-2xl p-2 sm:p-3 border border-brand-sage-light shadow-sm self-start">
+        <aside className="w-full md:w-56 shrink-0 bg-white rounded-2xl p-2 sm:p-3 border border-brand-border shadow-xs self-start">
           <div className="flex md:flex-col overflow-x-auto no-scrollbar gap-1">
             <button
               onClick={() => setActiveTab("dashboard")}
               className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                 activeTab === "dashboard"
-                  ? "bg-brand-emerald text-white shadow-sm font-bold"
-                  : "text-brand-charcoal hover:bg-brand-sage-light/20"
+                  ? "bg-brand-forest text-white shadow-xs font-bold"
+                  : "text-brand-dark hover:bg-brand-offwhite hover:text-brand-forest"
               }`}
             >
-              <LayoutDashboard className="w-4 h-4 text-brand-gold shrink-0" />
+              <LayoutDashboard className="w-4 h-4 text-brand-champagne-dark shrink-0" />
               <span>Dashboard</span>
             </button>
 
@@ -340,11 +338,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
               onClick={() => setActiveTab("products")}
               className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                 activeTab === "products"
-                  ? "bg-brand-emerald text-white shadow-sm font-bold"
-                  : "text-brand-charcoal hover:bg-brand-sage-light/20"
+                  ? "bg-brand-forest text-white shadow-xs font-bold"
+                  : "text-brand-dark hover:bg-brand-offwhite hover:text-brand-forest"
               }`}
             >
-              <Package className="w-4 h-4 text-brand-gold shrink-0" />
+              <Package className="w-4 h-4 text-brand-champagne-dark shrink-0" />
               <span>Products CRUD</span>
             </button>
 
@@ -352,11 +350,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
               onClick={() => setActiveTab("inventory")}
               className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                 activeTab === "inventory"
-                  ? "bg-brand-emerald text-white shadow-sm font-bold"
-                  : "text-brand-charcoal hover:bg-brand-sage-light/20"
+                  ? "bg-brand-forest text-white shadow-xs font-bold"
+                  : "text-brand-dark hover:bg-brand-offwhite hover:text-brand-forest"
               }`}
             >
-              <Layers className="w-4 h-4 text-brand-gold shrink-0" />
+              <Layers className="w-4 h-4 text-brand-champagne-dark shrink-0" />
               <span>Size-wise Stock</span>
             </button>
 
@@ -364,16 +362,16 @@ export const AdminPortal = ({ onExitAdmin }) => {
               onClick={() => setActiveTab("orders")}
               className={`flex items-center justify-between space-x-2 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                 activeTab === "orders"
-                  ? "bg-brand-emerald text-white shadow-sm font-bold"
-                  : "text-brand-charcoal hover:bg-brand-sage-light/20"
+                  ? "bg-brand-forest text-white shadow-xs font-bold"
+                  : "text-brand-dark hover:bg-brand-offwhite hover:text-brand-forest"
               }`}
             >
               <div className="flex items-center space-x-2">
-                <ShoppingBag className="w-4 h-4 text-brand-gold shrink-0" />
+                <ShoppingBag className="w-4 h-4 text-brand-champagne-dark shrink-0" />
                 <span>Orders</span>
               </div>
               {orders.length > 0 && (
-                <span className="text-[10px] bg-brand-gold text-brand-emerald font-bold px-1.5 py-0.2 rounded-full ml-1">
+                <span className="text-[10px] bg-brand-champagne text-brand-forest font-bold px-1.5 py-0.2 rounded-full ml-1">
                   {orders.length}
                 </span>
               )}
@@ -383,11 +381,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
               onClick={() => setActiveTab("banners")}
               className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                 activeTab === "banners"
-                  ? "bg-brand-emerald text-white shadow-sm font-bold"
-                  : "text-brand-charcoal hover:bg-brand-sage-light/20"
+                  ? "bg-brand-forest text-white shadow-xs font-bold"
+                  : "text-brand-dark hover:bg-brand-offwhite hover:text-brand-forest"
               }`}
             >
-              <Image className="w-4 h-4 text-brand-gold shrink-0" />
+              <Image className="w-4 h-4 text-brand-champagne-dark shrink-0" />
               <span>Hero Banners</span>
             </button>
 
@@ -395,11 +393,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
               onClick={() => setActiveTab("coupons")}
               className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                 activeTab === "coupons"
-                  ? "bg-brand-emerald text-white shadow-sm font-bold"
-                  : "text-brand-charcoal hover:bg-brand-sage-light/20"
+                  ? "bg-brand-forest text-white shadow-xs font-bold"
+                  : "text-brand-dark hover:bg-brand-offwhite hover:text-brand-forest"
               }`}
             >
-              <Tag className="w-4 h-4 text-brand-gold shrink-0" />
+              <Tag className="w-4 h-4 text-brand-champagne-dark shrink-0" />
               <span>Coupons</span>
             </button>
 
@@ -407,11 +405,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
               onClick={() => setActiveTab("reviews")}
               className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                 activeTab === "reviews"
-                  ? "bg-brand-emerald text-white shadow-sm font-bold"
-                  : "text-brand-charcoal hover:bg-brand-sage-light/20"
+                  ? "bg-brand-forest text-white shadow-xs font-bold"
+                  : "text-brand-dark hover:bg-brand-offwhite hover:text-brand-forest"
               }`}
             >
-              <Star className="w-4 h-4 text-brand-gold shrink-0" />
+              <Star className="w-4 h-4 text-brand-champagne-dark shrink-0" />
               <span>Reviews</span>
             </button>
 
@@ -419,33 +417,33 @@ export const AdminPortal = ({ onExitAdmin }) => {
               onClick={() => setActiveTab("reports")}
               className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                 activeTab === "reports"
-                  ? "bg-brand-emerald text-white shadow-sm font-bold"
-                  : "text-brand-charcoal hover:bg-brand-sage-light/20"
+                  ? "bg-brand-forest text-white shadow-xs font-bold"
+                  : "text-brand-dark hover:bg-brand-offwhite hover:text-brand-forest"
               }`}
             >
-              <BarChart3 className="w-4 h-4 text-brand-gold shrink-0" />
+              <BarChart3 className="w-4 h-4 text-brand-champagne-dark shrink-0" />
               <span>Sales Reports</span>
             </button>
           </div>
         </aside>
 
         {/* Right Main Content Area */}
-        <main className="flex-1 bg-white rounded-2xl p-4 sm:p-6 border border-brand-sage-light shadow-sm min-w-0">
+        <main className="flex-1 bg-white rounded-2xl p-4 sm:p-6 border border-brand-border shadow-xs min-w-0">
           {/* TAB 1: DASHBOARD */}
           {activeTab === "dashboard" && (
             <div className="space-y-6">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-border pb-4">
                 <div>
-                  <h2 className="font-serif text-lg sm:text-2xl font-bold text-brand-emerald">
+                  <h2 className="font-serif text-lg sm:text-2xl font-bold text-brand-forest">
                     Admin Dashboard Overview
                   </h2>
-                  <p className="text-xs text-brand-charcoal-light">
+                  <p className="text-xs text-brand-muted">
                     Real-time mock performance summary for Priti's Saaj Studio
                   </p>
                 </div>
                 <button
                   onClick={handleOpenAddProduct}
-                  className="px-3.5 py-2 bg-brand-emerald text-white rounded-xl text-xs font-semibold hover:bg-brand-emerald-light transition flex items-center space-x-1.5 shadow-sm"
+                  className="px-3.5 py-2 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition flex items-center space-x-1.5 shadow-xs"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add Product</span>
@@ -454,43 +452,43 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
               {/* 4 KPI Metric Summary Cards */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                <div className="bg-brand-ivory p-3.5 sm:p-4 rounded-2xl border border-brand-sage-light space-y-1">
-                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-charcoal-muted">
+                <div className="bg-brand-offwhite p-3.5 sm:p-4 rounded-2xl border border-brand-border space-y-1">
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-muted">
                     Total Revenue
                   </span>
-                  <div className="font-serif text-lg sm:text-2xl font-bold text-brand-emerald">
+                  <div className="font-serif text-lg sm:text-2xl font-bold text-brand-forest">
                     ₹{totalRevenue.toLocaleString("en-IN")}
                   </div>
-                  <span className="text-[9px] sm:text-[10px] text-emerald-700 font-medium">
+                  <span className="text-[9px] sm:text-[10px] text-brand-forest font-medium">
                     +18.4% this month
                   </span>
                 </div>
 
-                <div className="bg-brand-ivory p-3.5 sm:p-4 rounded-2xl border border-brand-sage-light space-y-1">
-                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-charcoal-muted">
+                <div className="bg-brand-offwhite p-3.5 sm:p-4 rounded-2xl border border-brand-border space-y-1">
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-muted">
                     Orders Placed
                   </span>
-                  <div className="font-serif text-lg sm:text-2xl font-bold text-brand-emerald">
+                  <div className="font-serif text-lg sm:text-2xl font-bold text-brand-forest">
                     {totalOrdersCount}
                   </div>
-                  <span className="text-[9px] sm:text-[10px] text-brand-charcoal-muted font-medium">
+                  <span className="text-[9px] sm:text-[10px] text-brand-muted font-medium">
                     Online & COD orders
                   </span>
                 </div>
 
-                <div className="bg-brand-ivory p-3.5 sm:p-4 rounded-2xl border border-brand-sage-light space-y-1">
-                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-charcoal-muted">
+                <div className="bg-brand-offwhite p-3.5 sm:p-4 rounded-2xl border border-brand-border space-y-1">
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-muted">
                     Active Catalog SKUs
                   </span>
-                  <div className="font-serif text-lg sm:text-2xl font-bold text-brand-emerald">
+                  <div className="font-serif text-lg sm:text-2xl font-bold text-brand-forest">
                     {activeProductsCount}
                   </div>
-                  <span className="text-[9px] sm:text-[10px] text-brand-charcoal-muted font-medium">
+                  <span className="text-[9px] sm:text-[10px] text-brand-muted font-medium">
                     Across 5 Categories
                   </span>
                 </div>
 
-                <div className="bg-brand-ivory p-3.5 sm:p-4 rounded-2xl border border-brand-sage-light space-y-1">
+                <div className="bg-amber-50/60 p-3.5 sm:p-4 rounded-2xl border border-amber-200 space-y-1">
                   <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-amber-800">
                     Low Stock Alerts
                   </span>
@@ -506,20 +504,20 @@ export const AdminPortal = ({ onExitAdmin }) => {
               {/* Recent Orders Overview */}
               <div className="space-y-3 pt-2">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-serif font-bold text-sm sm:text-base text-brand-emerald">
+                  <h3 className="font-serif font-bold text-sm sm:text-base text-brand-forest">
                     Recent Customer Orders
                   </h3>
                   <button
                     onClick={() => setActiveTab("orders")}
-                    className="text-xs font-semibold text-brand-gold-dark hover:underline"
+                    className="text-xs font-semibold text-brand-champagne-dark hover:text-brand-forest hover:underline"
                   >
                     View All Orders →
                   </button>
                 </div>
 
-                <div className="overflow-x-auto border border-brand-sage-light rounded-2xl">
+                <div className="overflow-x-auto border border-brand-border rounded-2xl">
                   <table className="w-full text-left text-xs min-w-[500px]">
-                    <thead className="bg-brand-ivory text-brand-emerald font-semibold border-b">
+                    <thead className="bg-brand-offwhite text-brand-forest font-semibold border-b border-brand-border">
                       <tr>
                         <th className="p-3">Order Number</th>
                         <th className="p-3">Customer</th>
@@ -529,26 +527,30 @@ export const AdminPortal = ({ onExitAdmin }) => {
                         <th className="p-3 text-right">Action</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-brand-border/40">
                       {orders.slice(0, 5).map((o) => (
-                        <tr key={o.id} className="hover:bg-brand-ivory/40">
-                          <td className="p-3 font-bold font-poppins text-brand-charcoal">
+                        <tr key={o.id} className="hover:bg-brand-offwhite/50">
+                          <td className="p-3 font-bold font-poppins text-brand-dark">
                             {o.orderNumber}
                           </td>
                           <td className="p-3">
-                            <span className="font-semibold block">{o.customerName}</span>
-                            <span className="text-[10px] text-gray-400">{o.customerPhone}</span>
+                            <span className="font-semibold block text-brand-dark">{o.customerName}</span>
+                            <span className="text-[10px] text-brand-muted">{o.customerPhone}</span>
                           </td>
-                          <td className="p-3">{o.items.length} items</td>
-                          <td className="p-3 font-bold text-brand-emerald font-poppins">
+                          <td className="p-3 text-brand-dark">{o.items.length} items</td>
+                          <td className="p-3 font-bold text-brand-forest font-poppins">
                             ₹{o.total?.toLocaleString("en-IN")}
                           </td>
                           <td className="p-3">
                             <span
-                              className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                              className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
                                 o.orderStatus === "Delivered"
-                                  ? "bg-emerald-100 text-emerald-800"
-                                  : "bg-blue-100 text-blue-800"
+                                  ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                                  : o.orderStatus === "Shipped" || o.orderStatus === "Out for Delivery"
+                                  ? "bg-brand-champagne/20 text-brand-forest border-brand-champagne/40"
+                                  : o.orderStatus === "Cancelled"
+                                  ? "bg-red-50 text-red-800 border-red-200"
+                                  : "bg-brand-offwhite text-brand-forest border-brand-border"
                               }`}
                             >
                               {o.orderStatus}
@@ -562,7 +564,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                                 setOrderTrackingNum(o.trackingNumber || "");
                                 setOrderCourier(o.courier || "Blue Dart Express");
                               }}
-                              className="text-xs font-semibold text-brand-emerald hover:underline"
+                              className="text-xs font-semibold text-brand-forest hover:underline"
                             >
                               Update Status
                             </button>
@@ -579,18 +581,18 @@ export const AdminPortal = ({ onExitAdmin }) => {
           {/* TAB 2: PRODUCTS CRUD */}
           {activeTab === "products" && (
             <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-border pb-4">
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-emerald">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-forest">
                     Jewellery Products Management
                   </h2>
-                  <p className="text-xs text-brand-charcoal-light">
+                  <p className="text-xs text-brand-muted">
                     Add, edit, manage ImageKit URLs, sizes, and pricing
                   </p>
                 </div>
                 <button
                   onClick={handleOpenAddProduct}
-                  className="px-3.5 py-2 bg-brand-emerald text-white rounded-xl text-xs font-semibold hover:bg-brand-emerald-light transition flex items-center space-x-1.5"
+                  className="px-3.5 py-2 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition flex items-center space-x-1.5 shadow-xs"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add New Product</span>
@@ -604,12 +606,12 @@ export const AdminPortal = ({ onExitAdmin }) => {
                   placeholder="Search products..."
                   value={prodSearch}
                   onChange={(e) => setProdSearch(e.target.value)}
-                  className="px-3 py-1.5 text-xs border border-brand-sage-light rounded-xl max-w-xs"
+                  className="px-3 py-1.5 text-xs border border-brand-border rounded-xl max-w-xs bg-white text-brand-dark focus:border-brand-forest focus:outline-none"
                 />
                 <select
                   value={prodCategoryFilter}
                   onChange={(e) => setProdCategoryFilter(e.target.value)}
-                  className="px-3 py-1.5 text-xs border border-brand-sage-light rounded-xl font-medium"
+                  className="px-3 py-1.5 text-xs border border-brand-border rounded-xl font-medium bg-white text-brand-dark focus:border-brand-forest focus:outline-none cursor-pointer"
                 >
                   <option value="All">All Categories</option>
                   {categories.map((c) => (
@@ -621,9 +623,9 @@ export const AdminPortal = ({ onExitAdmin }) => {
               </div>
 
               {/* Table */}
-              <div className="overflow-x-auto border border-brand-sage-light rounded-2xl">
+              <div className="overflow-x-auto border border-brand-border rounded-2xl">
                 <table className="w-full text-left text-xs min-w-[650px]">
-                  <thead className="bg-brand-ivory text-brand-emerald font-semibold border-b">
+                  <thead className="bg-brand-offwhite text-brand-forest font-semibold border-b border-brand-border">
                     <tr>
                       <th className="p-3">Jewellery</th>
                       <th className="p-3">Category</th>
@@ -634,7 +636,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                       <th className="p-3 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
+                  <tbody className="divide-y divide-brand-border/40">
                     {products
                       .filter((p) => {
                         if (prodCategoryFilter !== "All" && p.category !== prodCategoryFilter) return false;
@@ -642,9 +644,9 @@ export const AdminPortal = ({ onExitAdmin }) => {
                         return true;
                       })
                       .map((p) => (
-                        <tr key={p.id} className="hover:bg-brand-ivory/40">
+                        <tr key={p.id} className="hover:bg-brand-offwhite/50">
                           <td className="p-3 flex items-center space-x-3">
-                            <div className="w-10 h-10 shrink-0 rounded-lg overflow-hidden border border-brand-sage-light">
+                            <div className="w-10 h-10 shrink-0 rounded-lg overflow-hidden border border-brand-border">
                               <SafeImage
                                 src={p.images[0]}
                                 alt={p.name}
@@ -653,23 +655,23 @@ export const AdminPortal = ({ onExitAdmin }) => {
                               />
                             </div>
                             <div>
-                              <span className="font-bold text-brand-charcoal block line-clamp-1">
+                              <span className="font-bold text-brand-dark block line-clamp-1">
                                 {p.name}
                               </span>
-                              <span className="text-[10px] text-gray-400">ID: {p.id}</span>
+                              <span className="text-[10px] text-brand-muted">ID: {p.id}</span>
                             </div>
                           </td>
-                          <td className="p-3 font-medium">{p.category}</td>
-                          <td className="p-3 font-semibold font-poppins">
+                          <td className="p-3 font-medium text-brand-dark">{p.category}</td>
+                          <td className="p-3 font-semibold font-poppins text-brand-dark">
                             ₹{p.price.toLocaleString("en-IN")}
                           </td>
                           <td className="p-3">
                             {p.discountPrice ? (
-                              <span className="text-emerald-700 font-bold font-poppins">
+                              <span className="text-brand-forest font-bold font-poppins">
                                 ₹{p.discountPrice.toLocaleString("en-IN")}
                               </span>
                             ) : (
-                              <span className="text-gray-400">—</span>
+                              <span className="text-brand-muted">—</span>
                             )}
                           </td>
                           <td className="p-3">
@@ -677,7 +679,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                               {p.sizes?.map((sz) => (
                                 <span
                                   key={sz}
-                                  className="text-[9px] bg-brand-ivory border px-1.5 py-0.2 rounded"
+                                  className="text-[9px] bg-brand-offwhite border border-brand-border text-brand-dark px-1.5 py-0.2 rounded font-medium"
                                 >
                                   {sz}
                                 </span>
@@ -686,10 +688,10 @@ export const AdminPortal = ({ onExitAdmin }) => {
                           </td>
                           <td className="p-3">
                             <span
-                              className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                              className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                                 p.isActive
-                                  ? "bg-emerald-100 text-emerald-800"
-                                  : "bg-gray-100 text-gray-500"
+                                  ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                                  : "bg-gray-100 text-gray-500 border-gray-200"
                               }`}
                             >
                               {p.isActive ? "Active" : "Archived"}
@@ -699,7 +701,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                             <div className="flex items-center justify-end space-x-2">
                               <button
                                 onClick={() => handleOpenEditProduct(p)}
-                                className="p-1.5 text-brand-emerald hover:bg-brand-sage-light/30 rounded-lg"
+                                className="p-1.5 text-brand-forest hover:bg-brand-offwhite rounded-lg transition"
                                 title="Edit product"
                               >
                                 <Edit2 className="w-4 h-4" />
@@ -711,7 +713,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                                     showToast("Product deleted");
                                   }
                                 }}
-                                className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg"
+                                className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition"
                                 title="Delete product"
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -729,11 +731,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
           {/* TAB 3: SIZE-WISE STOCK MATRIX */}
           {activeTab === "inventory" && (
             <div className="space-y-4">
-              <div className="border-b pb-4">
-                <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-emerald">
+              <div className="border-b border-brand-border pb-4">
+                <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-forest">
                   Size-Wise Inventory Matrix
                 </h2>
-                <p className="text-xs text-brand-charcoal-light">
+                <p className="text-xs text-brand-muted">
                   Adjust stock per size (Bangles 2.4, 2.6, 2.8, 2.10, etc.). Sizes with zero stock are automatically disabled in customer checkout.
                 </p>
               </div>
@@ -742,11 +744,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
                 {products.map((prod) => (
                   <div
                     key={prod.id}
-                    className="p-3.5 sm:p-4 bg-brand-ivory/50 rounded-2xl border border-brand-sage-light/70 space-y-3"
+                    className="p-3.5 sm:p-4 bg-brand-offwhite rounded-2xl border border-brand-border space-y-3"
                   >
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 shrink-0 rounded-lg overflow-hidden border border-brand-sage-light">
+                        <div className="w-10 h-10 shrink-0 rounded-lg overflow-hidden border border-brand-border">
                           <SafeImage
                             src={prod.images[0]}
                             alt={prod.name}
@@ -755,11 +757,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
                           />
                         </div>
                         <div>
-                          <h4 className="font-bold text-brand-charcoal text-xs sm:text-sm">{prod.name}</h4>
-                          <span className="text-[10px] text-gray-500">{prod.category}</span>
+                          <h4 className="font-bold text-brand-dark text-xs sm:text-sm">{prod.name}</h4>
+                          <span className="text-[10px] text-brand-muted">{prod.category}</span>
                         </div>
                       </div>
-                      <span className="text-xs text-brand-emerald font-semibold">
+                      <span className="text-xs text-brand-forest font-semibold">
                         Total Stock:{" "}
                         {prod.stockBySize
                           ? Object.values(prod.stockBySize).reduce((a, b) => a + b, 0)
@@ -783,18 +785,18 @@ export const AdminPortal = ({ onExitAdmin }) => {
                                 ? "border-red-200 bg-red-50/40"
                                 : isLow
                                 ? "border-amber-200 bg-amber-50/40"
-                                : "border-brand-sage-light"
+                                : "border-brand-border"
                             }`}
                           >
                             <div className="flex justify-between items-center text-xs">
-                              <span className="font-bold text-brand-emerald">Size: {sz}</span>
+                              <span className="font-bold text-brand-forest">Size: {sz}</span>
                               <span
-                                className={`text-[8px] font-bold px-1.5 py-0.2 rounded ${
+                                className={`text-[8px] font-bold px-1.5 py-0.2 rounded border ${
                                   isOutOfStock
-                                    ? "bg-red-200 text-red-800"
+                                    ? "bg-red-100 text-red-800 border-red-200"
                                     : isLow
-                                    ? "bg-amber-200 text-amber-800"
-                                    : "bg-emerald-100 text-emerald-800"
+                                    ? "bg-amber-100 text-amber-800 border-amber-200"
+                                    : "bg-emerald-50 text-emerald-800 border-emerald-200"
                                 }`}
                               >
                                 {isOutOfStock ? "Zero Stock" : isLow ? "Low Stock" : "In Stock"}
@@ -805,17 +807,17 @@ export const AdminPortal = ({ onExitAdmin }) => {
                               <div className="flex items-center space-x-1">
                                 <button
                                   onClick={() => updateStock(prod.id, sz, Math.max(0, currentQty - 1))}
-                                  className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-xs"
+                                  className="w-7 h-7 rounded-lg bg-brand-offwhite border border-brand-border hover:bg-brand-forest hover:text-white transition flex items-center justify-center font-bold text-xs text-brand-forest"
                                   aria-label="Decrease stock"
                                 >
                                   -
                                 </button>
-                                <span className="w-8 text-center text-xs font-bold font-poppins">
+                                <span className="w-8 text-center text-xs font-bold font-poppins text-brand-dark">
                                   {currentQty}
                                 </span>
                                 <button
                                   onClick={() => updateStock(prod.id, sz, currentQty + 1)}
-                                  className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-xs"
+                                  className="w-7 h-7 rounded-lg bg-brand-offwhite border border-brand-border hover:bg-brand-forest hover:text-white transition flex items-center justify-center font-bold text-xs text-brand-forest"
                                   aria-label="Increase stock"
                                 >
                                   +
@@ -835,12 +837,12 @@ export const AdminPortal = ({ onExitAdmin }) => {
           {/* TAB 4: ORDERS & STATUS UPDATES */}
           {activeTab === "orders" && (
             <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-border pb-4">
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-emerald">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-forest">
                     Order Fulfillment & Tracking
                   </h2>
-                  <p className="text-xs text-brand-charcoal-light">
+                  <p className="text-xs text-brand-muted">
                     Update orders across all 7 statuses (Pending, Confirmed, Processing, Shipped, Out for Delivery, Delivered, Cancelled)
                   </p>
                 </div>
@@ -848,7 +850,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                 <select
                   value={orderStatusFilter}
                   onChange={(e) => setOrderStatusFilter(e.target.value)}
-                  className="px-3 py-1.5 text-xs border border-brand-sage-light rounded-xl font-semibold"
+                  className="px-3 py-1.5 text-xs border border-brand-border rounded-xl font-semibold bg-white text-brand-dark focus:border-brand-forest cursor-pointer"
                 >
                   <option value="All">All Statuses</option>
                   <option value="Order Placed">Order Placed</option>
@@ -861,9 +863,9 @@ export const AdminPortal = ({ onExitAdmin }) => {
                 </select>
               </div>
 
-              <div className="overflow-x-auto border border-brand-sage-light rounded-2xl">
+              <div className="overflow-x-auto border border-brand-border rounded-2xl">
                 <table className="w-full text-left text-xs min-w-[700px]">
-                  <thead className="bg-brand-ivory text-brand-emerald font-semibold border-b">
+                  <thead className="bg-brand-offwhite text-brand-forest font-semibold border-b border-brand-border">
                     <tr>
                       <th className="p-3">Order ID</th>
                       <th className="p-3">Customer Details</th>
@@ -874,23 +876,23 @@ export const AdminPortal = ({ onExitAdmin }) => {
                       <th className="p-3 text-right">Update</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
+                  <tbody className="divide-y divide-brand-border/40">
                     {orders
                       .filter((o) =>
                         orderStatusFilter === "All" ? true : o.orderStatus === orderStatusFilter
                       )
                       .map((o) => (
-                        <tr key={o.id} className="hover:bg-brand-ivory/40">
-                          <td className="p-3 font-bold font-poppins text-brand-charcoal">
+                        <tr key={o.id} className="hover:bg-brand-offwhite/50">
+                          <td className="p-3 font-bold font-poppins text-brand-dark">
                             {o.orderNumber}
-                            <span className="block text-[10px] text-gray-400 font-normal">
+                            <span className="block text-[10px] text-brand-muted font-normal">
                               {new Date(o.createdAt).toLocaleDateString()}
                             </span>
                           </td>
                           <td className="p-3">
-                            <span className="font-bold text-brand-charcoal block">{o.customerName}</span>
-                            <span className="text-[10px] text-gray-500">{o.customerPhone}</span>
-                            <span className="text-[10px] text-gray-400 block truncate max-w-[150px]">
+                            <span className="font-bold text-brand-dark block">{o.customerName}</span>
+                            <span className="text-[10px] text-brand-muted">{o.customerPhone}</span>
+                            <span className="text-[10px] text-brand-muted block truncate max-w-[150px]">
                               {o.addressSnapshot?.city}, {o.addressSnapshot?.pincode}
                             </span>
                           </td>
@@ -898,24 +900,24 @@ export const AdminPortal = ({ onExitAdmin }) => {
                             <div className="space-y-1">
                               {o.items.map((item, idx) => (
                                 <div key={idx} className="text-[11px]">
-                                  <span className="font-medium text-brand-charcoal">{item.productName}</span>
-                                  <span className="text-brand-emerald font-bold ml-1">
+                                  <span className="font-medium text-brand-dark">{item.productName}</span>
+                                  <span className="text-brand-forest font-bold ml-1">
                                     ({item.size} x {item.quantity})
                                   </span>
                                 </div>
                               ))}
                             </div>
                           </td>
-                          <td className="p-3 font-bold text-brand-emerald font-poppins">
+                          <td className="p-3 font-bold text-brand-forest font-poppins">
                             ₹{o.total?.toLocaleString("en-IN")}
                           </td>
                           <td className="p-3">
-                            <span className="uppercase text-[10px] font-bold block">
+                            <span className="uppercase text-[10px] font-bold block text-brand-dark">
                               {o.paymentMethod}
                             </span>
                             <span
                               className={`text-[9px] font-semibold ${
-                                o.paymentStatus === "Paid" ? "text-emerald-700" : "text-amber-700"
+                                o.paymentStatus === "Paid" ? "text-brand-forest" : "text-amber-700"
                               }`}
                             >
                               {o.paymentStatus}
@@ -923,14 +925,14 @@ export const AdminPortal = ({ onExitAdmin }) => {
                           </td>
                           <td className="p-3">
                             <span
-                              className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                              className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${
                                 o.orderStatus === "Delivered"
-                                  ? "bg-emerald-100 text-emerald-800"
+                                  ? "bg-emerald-50 text-emerald-800 border-emerald-200"
                                   : o.orderStatus === "Shipped" || o.orderStatus === "Out for Delivery"
-                                  ? "bg-amber-100 text-amber-800"
+                                  ? "bg-brand-champagne/20 text-brand-forest border-brand-champagne/40"
                                   : o.orderStatus === "Cancelled"
-                                  ? "bg-red-100 text-red-800"
-                                  : "bg-blue-100 text-blue-800"
+                                  ? "bg-red-50 text-red-800 border-red-200"
+                                  : "bg-brand-offwhite text-brand-forest border-brand-border"
                               }`}
                             >
                               {o.orderStatus}
@@ -944,7 +946,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                                 setOrderTrackingNum(o.trackingNumber || "");
                                 setOrderCourier(o.courier || "Blue Dart Express");
                               }}
-                              className="px-3 py-1 bg-brand-emerald text-white font-semibold rounded-lg text-xs hover:bg-brand-emerald-light transition"
+                              className="px-3 py-1 bg-brand-forest text-white font-semibold rounded-lg text-xs hover:bg-brand-forest-dark transition"
                             >
                               Manage
                             </button>
@@ -960,18 +962,18 @@ export const AdminPortal = ({ onExitAdmin }) => {
           {/* TAB 5: HERO BANNERS MANAGEMENT */}
           {activeTab === "banners" && (
             <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-border pb-4">
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-emerald">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-forest">
                     Homepage Promotional Banners
                   </h2>
-                  <p className="text-xs text-brand-charcoal-light">
+                  <p className="text-xs text-brand-muted">
                     Upload & manage hero banners, titles, subtitles, and CTA destinations
                   </p>
                 </div>
                 <button
                   onClick={handleOpenAddBanner}
-                  className="px-3.5 py-2 bg-brand-emerald text-white rounded-xl text-xs font-semibold hover:bg-brand-emerald-light transition flex items-center space-x-1.5"
+                  className="px-3.5 py-2 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition flex items-center space-x-1.5 shadow-xs"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add Banner</span>
@@ -982,21 +984,21 @@ export const AdminPortal = ({ onExitAdmin }) => {
                 {banners.map((ban) => (
                   <div
                     key={ban.id}
-                    className="bg-white rounded-2xl border border-brand-sage-light overflow-hidden shadow-sm space-y-3"
+                    className="bg-white rounded-2xl border border-brand-border overflow-hidden shadow-xs space-y-3"
                   >
-                    <div className="aspect-[21/9] relative overflow-hidden bg-gray-100">
+                    <div className="aspect-[21/9] relative overflow-hidden bg-brand-offwhite">
                       <SafeImage
                         src={ban.imageUrl}
                         alt={ban.title}
                         category="Necklaces"
                         aspectRatio="aspect-[21/9]"
                       />
-                      <span className="absolute top-2 left-2 text-[10px] bg-brand-charcoal/80 text-white px-2 py-0.5 rounded font-semibold z-10">
+                      <span className="absolute top-2 left-2 text-[10px] bg-brand-forest/80 text-white px-2 py-0.5 rounded font-semibold z-10">
                         Order: {ban.displayOrder}
                       </span>
                       <span
                         className={`absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded font-bold z-10 ${
-                          ban.isActive ? "bg-emerald-600 text-white" : "bg-gray-400 text-white"
+                          ban.isActive ? "bg-brand-forest text-white" : "bg-gray-400 text-white"
                         }`}
                       >
                         {ban.isActive ? "Active" : "Inactive"}
@@ -1004,18 +1006,18 @@ export const AdminPortal = ({ onExitAdmin }) => {
                     </div>
 
                     <div className="p-4 space-y-2">
-                      <h4 className="font-serif font-bold text-sm text-brand-emerald">
+                      <h4 className="font-serif font-bold text-sm text-brand-forest">
                         {ban.title}
                       </h4>
-                      <p className="text-xs text-brand-charcoal-light line-clamp-2">
+                      <p className="text-xs text-brand-dark/80 line-clamp-2">
                         {ban.subtitle}
                       </p>
-                      <div className="flex justify-between items-center pt-2 border-t text-xs">
-                        <span className="text-[11px] text-gray-400">CTA: "{ban.ctaText}"</span>
+                      <div className="flex justify-between items-center pt-2 border-t border-brand-border text-xs">
+                        <span className="text-[11px] text-brand-muted">CTA: "{ban.ctaText}"</span>
                         <div className="flex space-x-2">
                           <button
                             onClick={() => handleOpenEditBanner(ban)}
-                            className="p-1 text-brand-emerald hover:bg-brand-sage-light/30 rounded"
+                            className="p-1 text-brand-forest hover:bg-brand-offwhite rounded transition"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>
@@ -1026,7 +1028,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                                 showToast("Banner deleted");
                               }
                             }}
-                            className="p-1 text-red-600 hover:bg-red-50 rounded"
+                            className="p-1 text-red-600 hover:bg-red-50 rounded transition"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -1042,18 +1044,18 @@ export const AdminPortal = ({ onExitAdmin }) => {
           {/* TAB 6: COUPONS MANAGEMENT */}
           {activeTab === "coupons" && (
             <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-border pb-4">
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-emerald">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-forest">
                     Coupon Codes & Promotions
                   </h2>
-                  <p className="text-xs text-brand-charcoal-light">
+                  <p className="text-xs text-brand-muted">
                     Configure percentage or flat discounts with minimum order thresholds
                   </p>
                 </div>
                 <button
                   onClick={handleOpenAddCoupon}
-                  className="px-3.5 py-2 bg-brand-emerald text-white rounded-xl text-xs font-semibold hover:bg-brand-emerald-light transition flex items-center space-x-1.5"
+                  className="px-3.5 py-2 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition flex items-center space-x-1.5 shadow-xs"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Create Coupon</span>
@@ -1064,38 +1066,38 @@ export const AdminPortal = ({ onExitAdmin }) => {
                 {coupons.map((c) => (
                   <div
                     key={c.code}
-                    className="p-4 rounded-2xl border border-brand-sage-light bg-brand-ivory/40 space-y-2 relative"
+                    className="p-4 rounded-2xl border border-brand-border bg-brand-offwhite space-y-2 relative shadow-xs"
                   >
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-brand-emerald text-base font-poppins">
+                      <span className="font-bold text-brand-forest text-base font-poppins">
                         {c.code}
                       </span>
                       <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                          c.isActive ? "bg-emerald-100 text-emerald-800" : "bg-gray-200 text-gray-500"
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                          c.isActive ? "bg-brand-champagne/20 text-brand-forest border-brand-champagne/40" : "bg-gray-100 text-gray-500 border-gray-200"
                         }`}
                       >
                         {c.isActive ? "Active" : "Disabled"}
                       </span>
                     </div>
 
-                    <p className="text-xs font-bold text-brand-charcoal">
+                    <p className="text-xs font-bold text-brand-dark">
                       {c.discountType === "percentage" ? `${c.discountValue}% OFF` : `Flat ₹${c.discountValue} OFF`}
                     </p>
 
-                    <p className="text-xs text-brand-charcoal-light">
+                    <p className="text-xs text-brand-muted">
                       Min. Order: ₹{c.minOrderValue?.toLocaleString("en-IN")}
                     </p>
 
-                    <p className="text-[11px] text-gray-400">Valid Until: {c.validUntil}</p>
+                    <p className="text-[11px] text-brand-muted">Valid Until: {c.validUntil}</p>
 
-                    <div className="pt-2 border-t flex justify-end space-x-2">
+                    <div className="pt-2 border-t border-brand-border flex justify-end space-x-2">
                       <button
                         onClick={() => {
                           updateCoupon({ ...c, isActive: !c.isActive });
                           showToast(`Toggled ${c.code}`);
                         }}
-                        className="text-xs text-brand-emerald font-semibold hover:underline"
+                        className="text-xs text-brand-forest font-semibold hover:underline"
                       >
                         {c.isActive ? "Deactivate" : "Activate"}
                       </button>
@@ -1120,11 +1122,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
           {/* TAB 7: REVIEWS MODERATION */}
           {activeTab === "reviews" && (
             <div className="space-y-4">
-              <div className="border-b pb-4">
-                <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-emerald">
+              <div className="border-b border-brand-border pb-4">
+                <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-forest">
                   Customer Reviews Moderation
                 </h2>
-                <p className="text-xs text-brand-charcoal-light">
+                <p className="text-xs text-brand-muted">
                   Approve, reject, or delete customer reviews submitted for jewellery items
                 </p>
               </div>
@@ -1135,30 +1137,30 @@ export const AdminPortal = ({ onExitAdmin }) => {
                   return (
                     <div
                       key={r.id}
-                      className="p-3.5 sm:p-4 rounded-2xl border border-brand-sage-light bg-brand-ivory/30 space-y-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                      className="p-3.5 sm:p-4 rounded-2xl border border-brand-border bg-brand-offwhite space-y-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs"
                     >
                       <div className="space-y-1">
                         <div className="flex items-center space-x-2 flex-wrap">
-                          <span className="font-bold text-xs text-brand-charcoal">{r.userName}</span>
-                          <span className="text-[11px] text-gray-400">reviewed</span>
-                          <strong className="text-xs text-brand-emerald">{prod?.name || "Jewellery Item"}</strong>
+                          <span className="font-bold text-xs text-brand-dark">{r.userName}</span>
+                          <span className="text-[11px] text-brand-muted">reviewed</span>
+                          <strong className="text-xs text-brand-forest">{prod?.name || "Jewellery Item"}</strong>
                         </div>
 
-                        <div className="flex text-brand-gold">
+                        <div className="flex text-brand-champagne">
                           {[...Array(r.rating)].map((_, i) => (
-                            <Star key={i} className="w-3 h-3 fill-brand-gold" />
+                            <Star key={i} className="w-3 h-3 fill-brand-champagne text-brand-champagne" />
                           ))}
                         </div>
 
-                        <p className="text-xs text-brand-charcoal-light italic">"{r.comment}"</p>
-                        <span className="text-[10px] text-gray-400 block">
+                        <p className="text-xs text-brand-dark/85 italic">"{r.comment}"</p>
+                        <span className="text-[10px] text-brand-muted block">
                           Submitted on {new Date(r.createdAt).toLocaleDateString()}
                         </span>
                       </div>
 
                       <div className="flex items-center space-x-2 shrink-0">
                         {r.isApproved ? (
-                          <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full">
+                          <span className="text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold px-2.5 py-1 rounded-full">
                             Approved
                           </span>
                         ) : (
@@ -1167,7 +1169,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                               moderateReview(r.id, true);
                               showToast("Review approved & published!");
                             }}
-                            className="px-3 py-1 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700"
+                            className="px-3 py-1 bg-brand-forest text-white rounded-lg text-xs font-semibold hover:bg-brand-forest-dark transition"
                           >
                             Approve
                           </button>
@@ -1179,7 +1181,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                               moderateReview(r.id, false);
                               showToast("Review hidden from storefront");
                             }}
-                            className="px-3 py-1 border border-amber-500 text-amber-700 rounded-lg text-xs font-semibold hover:bg-amber-50"
+                            className="px-3 py-1 border border-amber-500 text-amber-800 rounded-lg text-xs font-semibold hover:bg-amber-50 transition"
                           >
                             Hide
                           </button>
@@ -1192,7 +1194,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
                               showToast("Review deleted");
                             }
                           }}
-                          className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg"
+                          className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -1207,18 +1209,18 @@ export const AdminPortal = ({ onExitAdmin }) => {
           {/* TAB 8: SALES REPORTS & ANALYTICS */}
           {activeTab === "reports" && (
             <div className="space-y-6">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-border pb-4">
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-emerald">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-brand-forest">
                     Sales & Inventory Analytics
                   </h2>
-                  <p className="text-xs text-brand-charcoal-light">
+                  <p className="text-xs text-brand-muted">
                     Performance indicators, category distribution, and top revenue drivers
                   </p>
                 </div>
                 <button
                   onClick={() => showToast("Exported sales report CSV simulation downloaded.")}
-                  className="px-3.5 py-2 bg-brand-emerald text-white rounded-xl text-xs font-semibold hover:bg-brand-emerald-light transition flex items-center space-x-1.5"
+                  className="px-3.5 py-2 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition flex items-center space-x-1.5 shadow-xs"
                 >
                   <BarChart3 className="w-4 h-4" />
                   <span>Export Report (CSV)</span>
@@ -1226,8 +1228,8 @@ export const AdminPortal = ({ onExitAdmin }) => {
               </div>
 
               {/* Category Sales Distribution */}
-              <div className="p-4 sm:p-5 bg-brand-ivory rounded-2xl border border-brand-sage-light space-y-4">
-                <h3 className="font-serif font-bold text-sm text-brand-emerald">
+              <div className="p-4 sm:p-5 bg-brand-offwhite rounded-2xl border border-brand-border space-y-4">
+                <h3 className="font-serif font-bold text-sm text-brand-forest">
                   Revenue Distribution by Jewellery Category
                 </h3>
                 <div className="space-y-3">
@@ -1236,12 +1238,12 @@ export const AdminPortal = ({ onExitAdmin }) => {
                     return (
                       <div key={c.id} className="space-y-1">
                         <div className="flex justify-between text-xs">
-                          <span className="font-semibold text-brand-charcoal">{c.name}</span>
-                          <span className="font-bold text-brand-emerald">{percentage}%</span>
+                          <span className="font-semibold text-brand-dark">{c.name}</span>
+                          <span className="font-bold text-brand-forest">{percentage}%</span>
                         </div>
-                        <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="w-full h-2 bg-brand-border rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-brand-emerald rounded-full"
+                            className="h-full bg-brand-forest rounded-full transition-all duration-500"
                             style={{ width: `${percentage}%` }}
                           />
                         </div>
@@ -1253,7 +1255,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
               {/* Top Selling Pieces */}
               <div className="space-y-3">
-                <h3 className="font-serif font-bold text-sm text-brand-emerald">
+                <h3 className="font-serif font-bold text-sm text-brand-forest">
                   Top Bestselling Pieces
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -1262,9 +1264,9 @@ export const AdminPortal = ({ onExitAdmin }) => {
                     .map((p) => (
                       <div
                         key={p.id}
-                        className="p-3 rounded-2xl border border-brand-sage-light flex items-center space-x-3 bg-white"
+                        className="p-3 rounded-2xl border border-brand-border flex items-center space-x-3 bg-white shadow-xs"
                       >
-                        <div className="w-12 h-12 shrink-0 rounded-xl overflow-hidden border border-brand-sage-light">
+                        <div className="w-12 h-12 shrink-0 rounded-xl overflow-hidden border border-brand-border">
                           <SafeImage
                             src={p.images[0]}
                             alt={p.name}
@@ -1273,11 +1275,11 @@ export const AdminPortal = ({ onExitAdmin }) => {
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-bold text-xs text-brand-charcoal truncate">{p.name}</p>
-                          <p className="text-[11px] text-brand-charcoal-muted">
+                          <p className="font-bold text-xs text-brand-dark truncate">{p.name}</p>
+                          <p className="text-[11px] text-brand-muted">
                             {p.category} • ₹{(p.discountPrice || p.price).toLocaleString("en-IN")}
                           </p>
-                          <span className="text-[10px] text-brand-gold-dark font-semibold">
+                          <span className="text-[10px] text-brand-champagne-dark font-semibold">
                             Rating: {p.rating} ★ ({p.reviewCount} reviews)
                           </span>
                         </div>
@@ -1292,37 +1294,37 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
       {/* PRODUCT ADD / EDIT MODAL */}
       {productModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-brand-charcoal/60 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden border border-brand-sage-light">
-            <div className="p-4 bg-brand-emerald text-white flex items-center justify-between border-b border-brand-gold/40">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-brand-dark/65 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden border border-brand-border">
+            <div className="p-4 bg-brand-forest text-white flex items-center justify-between border-b border-brand-champagne/30">
               <h3 className="font-serif font-bold text-base">
                 {editingProduct ? "Edit Jewellery Product" : "Add New Jewellery Product"}
               </h3>
-              <button onClick={() => setProductModalOpen(false)}>
+              <button onClick={() => setProductModalOpen(false)} className="text-white">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveProduct} className="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs">
+            <form onSubmit={handleSaveProduct} className="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs bg-white">
               <div>
-                <label className="block font-semibold mb-1">Product Title *</label>
+                <label className="block font-semibold mb-1 text-brand-dark">Product Title *</label>
                 <input
                   type="text"
                   required
                   value={productForm.name}
                   onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
                   placeholder="e.g. Traditional Kolhapuri Saaj"
-                  className="w-full p-2.5 border border-brand-sage-light rounded-xl"
+                  className="w-full p-2.5 border border-brand-border rounded-xl text-brand-dark focus:border-brand-forest"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 <div>
-                  <label className="block font-semibold mb-1">Category *</label>
+                  <label className="block font-semibold mb-1 text-brand-dark">Category *</label>
                   <select
                     value={productForm.category}
                     onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
-                    className="w-full p-2.5 border border-brand-sage-light rounded-xl"
+                    className="w-full p-2.5 border border-brand-border rounded-xl text-brand-dark focus:border-brand-forest cursor-pointer"
                   >
                     {categories.map((c) => (
                       <option key={c.id} value={c.name}>
@@ -1332,49 +1334,49 @@ export const AdminPortal = ({ onExitAdmin }) => {
                   </select>
                 </div>
                 <div>
-                  <label className="block font-semibold mb-1">Price (₹) *</label>
+                  <label className="block font-semibold mb-1 text-brand-dark">Price (₹) *</label>
                   <input
                     type="number"
                     required
                     value={productForm.price}
                     onChange={(e) => setProductForm({ ...productForm, price: e.target.value })}
                     placeholder="3999"
-                    className="w-full p-2.5 border border-brand-sage-light rounded-xl"
+                    className="w-full p-2.5 border border-brand-border rounded-xl text-brand-dark focus:border-brand-forest"
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold mb-1">Discount Price (₹)</label>
+                  <label className="block font-semibold mb-1 text-brand-dark">Discount Price (₹)</label>
                   <input
                     type="number"
                     value={productForm.discountPrice}
                     onChange={(e) => setProductForm({ ...productForm, discountPrice: e.target.value })}
                     placeholder="2999"
-                    className="w-full p-2.5 border border-brand-sage-light rounded-xl"
+                    className="w-full p-2.5 border border-brand-border rounded-xl text-brand-dark focus:border-brand-forest"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-semibold mb-1">Description *</label>
+                <label className="block font-semibold mb-1 text-brand-dark">Description *</label>
                 <textarea
                   rows={3}
                   required
                   value={productForm.description}
                   onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
-                  className="w-full p-2.5 border border-brand-sage-light rounded-xl"
+                  className="w-full p-2.5 border border-brand-border rounded-xl text-brand-dark focus:border-brand-forest"
                 />
               </div>
 
               {/* ImageKit URL manager & Preview */}
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <label className="font-semibold">Image URL (ImageKit compatible) *</label>
+                  <label className="font-semibold text-brand-dark">Image URL (ImageKit compatible) *</label>
                   <button
                     type="button"
                     onClick={() =>
                       setProductForm({ ...productForm, images: [...productForm.images, ""] })
                     }
-                    className="text-brand-emerald font-semibold hover:underline"
+                    className="text-brand-forest font-semibold hover:underline"
                   >
                     + Add Another Image URL
                   </button>
@@ -1392,10 +1394,10 @@ export const AdminPortal = ({ onExitAdmin }) => {
                           setProductForm({ ...productForm, images: newImages });
                         }}
                         placeholder="https://images.unsplash.com/..."
-                        className="flex-1 p-2 border border-brand-sage-light rounded-xl"
+                        className="flex-1 p-2 border border-brand-border rounded-xl text-brand-dark focus:border-brand-forest"
                       />
                       {img && (
-                        <div className="w-9 h-9 rounded-lg overflow-hidden border shrink-0">
+                        <div className="w-9 h-9 rounded-lg overflow-hidden border border-brand-border shrink-0">
                           <SafeImage src={img} alt="preview" category={productForm.category} aspectRatio="aspect-square" />
                         </div>
                       )}
@@ -1418,7 +1420,7 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
               {/* Sizes & Stock */}
               <div>
-                <label className="block font-semibold mb-1">
+                <label className="block font-semibold mb-1 text-brand-dark">
                   Sizes Configuration (comma separated)
                 </label>
                 <input
@@ -1433,43 +1435,43 @@ export const AdminPortal = ({ onExitAdmin }) => {
                     setProductForm({ ...productForm, sizes: parsedSizes, stockBySize: newStock });
                   }}
                   placeholder="e.g. 2.4, 2.6, 2.8, 2.10"
-                  className="w-full p-2.5 border border-brand-sage-light rounded-xl"
+                  className="w-full p-2.5 border border-brand-border rounded-xl text-brand-dark focus:border-brand-forest"
                 />
               </div>
 
               {/* Checkboxes */}
               <div className="flex space-x-6 pt-2">
-                <label className="flex items-center space-x-2 cursor-pointer">
+                <label className="flex items-center space-x-2 cursor-pointer text-brand-dark">
                   <input
                     type="checkbox"
                     checked={productForm.isBestseller}
                     onChange={(e) => setProductForm({ ...productForm, isBestseller: e.target.checked })}
-                    className="rounded text-brand-emerald"
+                    className="rounded text-brand-forest focus:ring-brand-forest"
                   />
                   <span>Mark as Bestseller</span>
                 </label>
-                <label className="flex items-center space-x-2 cursor-pointer">
+                <label className="flex items-center space-x-2 cursor-pointer text-brand-dark">
                   <input
                     type="checkbox"
                     checked={productForm.isFeatured}
                     onChange={(e) => setProductForm({ ...productForm, isFeatured: e.target.checked })}
-                    className="rounded text-brand-emerald"
+                    className="rounded text-brand-forest focus:ring-brand-forest"
                   />
                   <span>Featured Collection</span>
                 </label>
               </div>
 
-              <div className="flex justify-end space-x-2 pt-3 border-t">
+              <div className="flex justify-end space-x-2 pt-3 border-t border-brand-border">
                 <button
                   type="button"
                   onClick={() => setProductModalOpen(false)}
-                  className="px-4 py-2 border rounded-xl"
+                  className="px-4 py-2 border border-brand-border rounded-xl text-brand-dark hover:bg-brand-offwhite"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-brand-emerald text-white font-semibold rounded-xl"
+                  className="px-5 py-2 bg-brand-forest text-white font-semibold rounded-xl hover:bg-brand-forest-dark transition"
                 >
                   Save Product
                 </button>
@@ -1481,24 +1483,24 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
       {/* ORDER UPDATE MODAL */}
       {selectedOrder && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-brand-charcoal/60 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-5 sm:p-6 border border-brand-sage-light space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center border-b pb-3">
-              <h3 className="font-serif font-bold text-base text-brand-emerald">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-brand-dark/65 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-5 sm:p-6 border border-brand-border space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center border-b border-brand-border pb-3">
+              <h3 className="font-serif font-bold text-base text-brand-forest">
                 Update Order: {selectedOrder.orderNumber}
               </h3>
               <button onClick={() => setSelectedOrder(null)}>
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5 text-brand-dark" />
               </button>
             </div>
 
             <form onSubmit={handleUpdateOrderStatus} className="space-y-3.5 text-xs">
               <div>
-                <label className="block font-semibold mb-1">Update Status *</label>
+                <label className="block font-semibold mb-1 text-brand-dark">Update Status *</label>
                 <select
                   value={orderStatusUpdate}
                   onChange={(e) => setOrderStatusUpdate(e.target.value)}
-                  className="w-full p-2.5 border border-brand-sage-light rounded-xl font-semibold"
+                  className="w-full p-2.5 border border-brand-border rounded-xl font-semibold text-brand-dark focus:border-brand-forest cursor-pointer"
                 >
                   <option value="Order Placed">Order Placed</option>
                   <option value="Confirmed">Confirmed</option>
@@ -1512,48 +1514,48 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block font-semibold mb-1">Courier Partner</label>
+                  <label className="block font-semibold mb-1 text-brand-dark">Courier Partner</label>
                   <input
                     type="text"
                     value={orderCourier}
                     onChange={(e) => setOrderCourier(e.target.value)}
-                    className="w-full p-2.5 border border-brand-sage-light rounded-xl"
+                    className="w-full p-2.5 border border-brand-border rounded-xl text-brand-dark"
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold mb-1">Tracking Number / AWB</label>
+                  <label className="block font-semibold mb-1 text-brand-dark">Tracking Number / AWB</label>
                   <input
                     type="text"
                     value={orderTrackingNum}
                     onChange={(e) => setOrderTrackingNum(e.target.value)}
                     placeholder="BD-8821901"
-                    className="w-full p-2.5 border border-brand-sage-light rounded-xl"
+                    className="w-full p-2.5 border border-brand-border rounded-xl text-brand-dark"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-semibold mb-1">Timeline Event Note</label>
+                <label className="block font-semibold mb-1 text-brand-dark">Timeline Event Note</label>
                 <input
                   type="text"
                   value={orderNote}
                   onChange={(e) => setOrderNote(e.target.value)}
                   placeholder="e.g. Dispatched via express courier service"
-                  className="w-full p-2.5 border border-brand-sage-light rounded-xl"
+                  className="w-full p-2.5 border border-brand-border rounded-xl text-brand-dark"
                 />
               </div>
 
-              <div className="flex justify-end space-x-2 pt-3 border-t">
+              <div className="flex justify-end space-x-2 pt-3 border-t border-brand-border">
                 <button
                   type="button"
                   onClick={() => setSelectedOrder(null)}
-                  className="px-4 py-2 border rounded-xl"
+                  className="px-4 py-2 border border-brand-border rounded-xl text-brand-dark hover:bg-brand-offwhite"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-brand-emerald text-white font-semibold rounded-xl"
+                  className="px-5 py-2 bg-brand-forest text-white font-semibold rounded-xl hover:bg-brand-forest-dark transition"
                 >
                   Apply Status Update
                 </button>
@@ -1565,74 +1567,74 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
       {/* BANNER ADD / EDIT MODAL */}
       {bannerModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-brand-charcoal/60 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-5 sm:p-6 border border-brand-sage-light space-y-4 max-h-[90vh] overflow-y-auto">
-            <h3 className="font-serif font-bold text-base text-brand-emerald">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-brand-dark/65 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-5 sm:p-6 border border-brand-border space-y-4 max-h-[90vh] overflow-y-auto">
+            <h3 className="font-serif font-bold text-base text-brand-forest">
               {editingBanner ? "Edit Hero Banner" : "Create Hero Banner"}
             </h3>
             <form onSubmit={handleSaveBanner} className="space-y-3 text-xs">
               <div>
-                <label className="block font-semibold mb-1">Banner Title *</label>
+                <label className="block font-semibold mb-1 text-brand-dark">Banner Title *</label>
                 <input
                   type="text"
                   required
                   value={bannerForm.title}
                   onChange={(e) => setBannerForm({ ...bannerForm, title: e.target.value })}
                   placeholder="The Royal Saaj Heritage Collection"
-                  className="w-full p-2 border border-brand-sage-light rounded-lg"
+                  className="w-full p-2 border border-brand-border rounded-xl text-brand-dark"
                 />
               </div>
               <div>
-                <label className="block font-semibold mb-1">Subtitle *</label>
+                <label className="block font-semibold mb-1 text-brand-dark">Subtitle *</label>
                 <input
                   type="text"
                   required
                   value={bannerForm.subtitle}
                   onChange={(e) => setBannerForm({ ...bannerForm, subtitle: e.target.value })}
-                  className="w-full p-2 border border-brand-sage-light rounded-lg"
+                  className="w-full p-2 border border-brand-border rounded-xl text-brand-dark"
                 />
               </div>
               <div>
-                <label className="block font-semibold mb-1">Image URL *</label>
+                <label className="block font-semibold mb-1 text-brand-dark">Image URL *</label>
                 <input
                   type="url"
                   required
                   value={bannerForm.imageUrl}
                   onChange={(e) => setBannerForm({ ...bannerForm, imageUrl: e.target.value })}
-                  className="w-full p-2 border border-brand-sage-light rounded-lg"
+                  className="w-full p-2 border border-brand-border rounded-xl text-brand-dark"
                 />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block font-semibold mb-1">CTA Button Text</label>
+                  <label className="block font-semibold mb-1 text-brand-dark">CTA Button Text</label>
                   <input
                     type="text"
                     value={bannerForm.ctaText}
                     onChange={(e) => setBannerForm({ ...bannerForm, ctaText: e.target.value })}
-                    className="w-full p-2 border border-brand-sage-light rounded-lg"
+                    className="w-full p-2 border border-brand-border rounded-xl text-brand-dark"
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold mb-1">Display Order</label>
+                  <label className="block font-semibold mb-1 text-brand-dark">Display Order</label>
                   <input
                     type="number"
                     value={bannerForm.displayOrder}
                     onChange={(e) => setBannerForm({ ...bannerForm, displayOrder: Number(e.target.value) })}
-                    className="w-full p-2 border border-brand-sage-light rounded-lg"
+                    className="w-full p-2 border border-brand-border rounded-xl text-brand-dark"
                   />
                 </div>
               </div>
-              <div className="flex justify-end space-x-2 pt-3 border-t">
+              <div className="flex justify-end space-x-2 pt-3 border-t border-brand-border">
                 <button
                   type="button"
                   onClick={() => setBannerModalOpen(false)}
-                  className="px-4 py-2 border rounded-lg"
+                  className="px-4 py-2 border border-brand-border rounded-xl text-brand-dark hover:bg-brand-offwhite"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-brand-emerald text-white font-semibold rounded-lg"
+                  className="px-4 py-2 bg-brand-forest text-white font-semibold rounded-xl hover:bg-brand-forest-dark transition"
                 >
                   Save Banner
                 </button>
@@ -1644,64 +1646,64 @@ export const AdminPortal = ({ onExitAdmin }) => {
 
       {/* COUPON MODAL */}
       {couponModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-brand-charcoal/60 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-5 sm:p-6 border border-brand-sage-light space-y-4 max-h-[90vh] overflow-y-auto">
-            <h3 className="font-serif font-bold text-base text-brand-emerald">Create Coupon Code</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-brand-dark/65 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-5 sm:p-6 border border-brand-border space-y-4 max-h-[90vh] overflow-y-auto">
+            <h3 className="font-serif font-bold text-base text-brand-forest">Create Coupon Code</h3>
             <form onSubmit={handleSaveCoupon} className="space-y-3 text-xs">
               <div>
-                <label className="block font-semibold mb-1">Coupon Code *</label>
+                <label className="block font-semibold mb-1 text-brand-dark">Coupon Code *</label>
                 <input
                   type="text"
                   required
                   value={couponForm.code}
                   onChange={(e) => setCouponForm({ ...couponForm, code: e.target.value })}
                   placeholder="e.g. SAAJ15"
-                  className="w-full p-2 uppercase border border-brand-sage-light rounded-lg"
+                  className="w-full p-2 uppercase border border-brand-border rounded-xl text-brand-dark"
                 />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block font-semibold mb-1">Discount Type</label>
+                  <label className="block font-semibold mb-1 text-brand-dark">Discount Type</label>
                   <select
                     value={couponForm.discountType}
                     onChange={(e) => setCouponForm({ ...couponForm, discountType: e.target.value })}
-                    className="w-full p-2 border border-brand-sage-light rounded-lg"
+                    className="w-full p-2 border border-brand-border rounded-xl text-brand-dark cursor-pointer"
                   >
                     <option value="percentage">Percentage (%)</option>
                     <option value="fixed">Fixed Amount (₹)</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block font-semibold mb-1">Discount Value</label>
+                  <label className="block font-semibold mb-1 text-brand-dark">Discount Value</label>
                   <input
                     type="number"
                     required
                     value={couponForm.discountValue}
                     onChange={(e) => setCouponForm({ ...couponForm, discountValue: e.target.value })}
-                    className="w-full p-2 border border-brand-sage-light rounded-lg"
+                    className="w-full p-2 border border-brand-border rounded-xl text-brand-dark"
                   />
                 </div>
               </div>
               <div>
-                <label className="block font-semibold mb-1">Minimum Order Value (₹)</label>
+                <label className="block font-semibold mb-1 text-brand-dark">Minimum Order Value (₹)</label>
                 <input
                   type="number"
                   value={couponForm.minOrderValue}
                   onChange={(e) => setCouponForm({ ...couponForm, minOrderValue: e.target.value })}
-                  className="w-full p-2 border border-brand-sage-light rounded-lg"
+                  className="w-full p-2 border border-brand-border rounded-xl text-brand-dark"
                 />
               </div>
-              <div className="flex justify-end space-x-2 pt-3 border-t">
+              <div className="flex justify-end space-x-2 pt-3 border-t border-brand-border">
                 <button
                   type="button"
                   onClick={() => setCouponModalOpen(false)}
-                  className="px-4 py-2 border rounded-lg"
+                  className="px-4 py-2 border border-brand-border rounded-xl text-brand-dark hover:bg-brand-offwhite"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-brand-emerald text-white font-semibold rounded-lg"
+                  className="px-4 py-2 bg-brand-forest text-white font-semibold rounded-xl hover:bg-brand-forest-dark transition"
                 >
                   Save Coupon
                 </button>

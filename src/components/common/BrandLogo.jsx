@@ -30,8 +30,8 @@ export const BrandLogo = ({
       <div
         className={`shrink-0 flex items-center justify-center transition-all duration-200 group-hover:scale-105 ${
           isLight
-            ? "bg-white p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-md border border-brand-gold/40"
-            : "bg-white p-0.5 rounded-xl border border-brand-sage-light/30 shadow-xs"
+            ? "bg-white p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-md border border-brand-champagne/40"
+            : "bg-white p-0.5 rounded-xl border border-brand-border/60 shadow-xs"
         }`}
       >
         <img
@@ -48,14 +48,14 @@ export const BrandLogo = ({
         <div className="ml-2 sm:ml-2.5 flex flex-col text-left">
           <span
             className={`font-serif font-bold text-sm sm:text-base md:text-lg tracking-tight leading-none ${
-              isLight ? "text-brand-ivory" : "text-brand-emerald"
+              isLight ? "text-white" : "text-brand-forest"
             }`}
           >
             Priti's Saaj
           </span>
           <span
             className={`text-[8px] sm:text-[9px] tracking-[0.25em] uppercase font-semibold font-poppins mt-0.5 ${
-              isLight ? "text-brand-gold" : "text-brand-gold-dark"
+              isLight ? "text-brand-champagne" : "text-brand-champagne-dark"
             }`}
           >
             Studio • Pune

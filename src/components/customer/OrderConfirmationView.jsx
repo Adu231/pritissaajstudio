@@ -4,8 +4,6 @@ import {
   Package,
   Truck,
   MapPin,
-  Calendar,
-  CreditCard,
   ArrowRight,
   Sparkles,
   ShoppingBag,
@@ -29,54 +27,54 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
   const isCancelled = order.orderStatus === "Cancelled";
 
   return (
-    <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-14">
+    <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-14 bg-white">
       {/* Top Success Banner */}
-      <div className="bg-white rounded-3xl p-5 sm:p-10 border border-brand-sage-light shadow-luxury text-center space-y-3.5 mb-6 sm:mb-8">
-        <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-emerald-50 border-2 border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-600 shadow-sm animate-gem">
-          <CheckCircle2 className="w-8 h-8 sm:w-12 sm:h-12 text-emerald-600" />
+      <div className="bg-white rounded-3xl p-5 sm:p-10 border border-brand-border shadow-luxury text-center space-y-3.5 mb-6 sm:mb-8">
+        <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-brand-forest/10 border-2 border-brand-forest/30 flex items-center justify-center mx-auto text-brand-forest shadow-xs animate-gem">
+          <CheckCircle2 className="w-8 h-8 sm:w-12 sm:h-12 text-brand-forest" />
         </div>
 
-        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-brand-gold/15 text-brand-emerald text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-brand-champagne/25 text-brand-forest text-xs font-semibold border border-brand-champagne/40">
+          <Sparkles className="w-3.5 h-3.5 text-brand-champagne-dark shrink-0" />
           <span>Payment & Order Confirmed</span>
         </span>
 
-        <h1 className="font-serif text-xl sm:text-3xl md:text-4xl font-extrabold text-brand-emerald">
+        <h1 className="font-serif text-xl sm:text-3xl md:text-4xl font-extrabold text-brand-forest">
           Thank You for Shopping with Priti's Saaj!
         </h1>
 
-        <p className="text-xs sm:text-sm text-brand-charcoal-light max-w-lg mx-auto">
+        <p className="text-xs sm:text-sm text-brand-dark/80 max-w-lg mx-auto">
           We have received your order. Our master karigars in Pune are carefully quality-inspecting and packing your jewellery into a luxury velvet safety pouch.
         </p>
 
         {/* Order Number & Meta Pills */}
         <div className="pt-2 flex flex-wrap justify-center gap-2 sm:gap-3 text-xs">
-          <div className="bg-brand-ivory px-3.5 py-2 rounded-xl border border-brand-sage-light">
-            <span className="text-gray-400 block text-[9px] uppercase font-bold">Order Number</span>
-            <strong className="text-brand-charcoal text-xs sm:text-sm font-poppins">{order.orderNumber}</strong>
+          <div className="bg-brand-offwhite px-3.5 py-2 rounded-xl border border-brand-border">
+            <span className="text-brand-muted block text-[9px] uppercase font-bold">Order Number</span>
+            <strong className="text-brand-dark text-xs sm:text-sm font-poppins">{order.orderNumber}</strong>
           </div>
 
-          <div className="bg-brand-ivory px-3.5 py-2 rounded-xl border border-brand-sage-light">
-            <span className="text-gray-400 block text-[9px] uppercase font-bold">Estimated Delivery</span>
-            <strong className="text-brand-emerald text-xs sm:text-sm">3–5 Business Days</strong>
+          <div className="bg-brand-offwhite px-3.5 py-2 rounded-xl border border-brand-border">
+            <span className="text-brand-muted block text-[9px] uppercase font-bold">Estimated Delivery</span>
+            <strong className="text-brand-forest text-xs sm:text-sm">3–5 Business Days</strong>
           </div>
 
-          <div className="bg-brand-ivory px-3.5 py-2 rounded-xl border border-brand-sage-light">
-            <span className="text-gray-400 block text-[9px] uppercase font-bold">Payment Status</span>
-            <strong className="text-emerald-700 text-xs sm:text-sm">{order.paymentStatus} ({order.paymentMethod.toUpperCase()})</strong>
+          <div className="bg-brand-offwhite px-3.5 py-2 rounded-xl border border-brand-border">
+            <span className="text-brand-muted block text-[9px] uppercase font-bold">Payment Status</span>
+            <strong className="text-brand-forest text-xs sm:text-sm">{order.paymentStatus} ({order.paymentMethod.toUpperCase()})</strong>
           </div>
         </div>
       </div>
 
       {/* Visual Tracking Timeline */}
-      <div className="bg-white rounded-3xl p-5 sm:p-8 border border-brand-sage-light shadow-sm space-y-5 mb-6 sm:mb-8">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-brand-sage-light/50 pb-3">
-          <h2 className="font-serif font-bold text-base sm:text-lg text-brand-emerald flex items-center space-x-2">
-            <Truck className="w-5 h-5 text-brand-gold shrink-0" />
+      <div className="bg-white rounded-3xl p-5 sm:p-8 border border-brand-border shadow-xs space-y-5 mb-6 sm:mb-8">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border pb-3">
+          <h2 className="font-serif font-bold text-base sm:text-lg text-brand-forest flex items-center space-x-2">
+            <Truck className="w-5 h-5 text-brand-champagne-dark shrink-0" />
             <span>Delivery Tracking Progress</span>
           </h2>
           {order.trackingNumber && (
-            <span className="text-[11px] sm:text-xs text-brand-charcoal-light font-medium bg-brand-ivory px-2.5 py-1 rounded-lg border">
+            <span className="text-[11px] sm:text-xs text-brand-muted font-medium bg-brand-offwhite px-2.5 py-1 rounded-lg border border-brand-border">
               Courier: <strong>{order.courier || "Blue Dart"}</strong> (#{order.trackingNumber})
             </span>
           )}
@@ -100,22 +98,22 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
                       <div
                         className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all ${
                           isCurrent
-                            ? "bg-brand-emerald text-white ring-4 ring-brand-sage-light shadow-md"
+                            ? "bg-brand-forest text-white ring-4 ring-brand-champagne/40 shadow-md"
                             : isPassed
-                            ? "bg-brand-emerald text-white"
-                            : "bg-gray-100 text-gray-400 border border-gray-200"
+                            ? "bg-brand-forest text-white"
+                            : "bg-brand-offwhite text-brand-muted border border-brand-border"
                         }`}
                       >
-                        {isPassed ? <CheckCircle2 className="w-5 h-5 text-brand-gold" /> : idx + 1}
+                        {isPassed ? <CheckCircle2 className="w-5 h-5 text-brand-champagne" /> : idx + 1}
                       </div>
 
                       <span
                         className={`text-xs mt-2 font-medium leading-tight ${
                           isCurrent
-                            ? "text-brand-emerald font-bold"
+                            ? "text-brand-forest font-bold"
                             : isPassed
-                            ? "text-brand-charcoal font-semibold"
-                            : "text-gray-400"
+                            ? "text-brand-dark font-semibold"
+                            : "text-brand-muted"
                         }`}
                       >
                         {stage.label}
@@ -126,9 +124,9 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
               </div>
 
               {/* Connecting line */}
-              <div className="absolute top-8 left-8 right-8 h-1 bg-gray-200 -z-0">
+              <div className="absolute top-8 left-8 right-8 h-1 bg-brand-border -z-0">
                 <div
-                  className="h-full bg-brand-emerald transition-all duration-700"
+                  className="h-full bg-brand-forest transition-all duration-700"
                   style={{
                     width: `${Math.max(0, (currentStageIndex / (STAGES.length - 1)) * 100)}%`,
                   }}
@@ -147,20 +145,20 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
                     <div
                       className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 ${
                         isCurrent
-                          ? "bg-brand-emerald text-white ring-2 ring-brand-gold shadow"
+                          ? "bg-brand-forest text-white ring-2 ring-brand-champagne shadow"
                           : isPassed
-                          ? "bg-brand-emerald text-white"
-                          : "bg-gray-100 text-gray-400 border"
+                          ? "bg-brand-forest text-white"
+                          : "bg-brand-offwhite text-brand-muted border border-brand-border"
                       }`}
                     >
-                      {isPassed ? <CheckCircle2 className="w-4 h-4 text-brand-gold" /> : idx + 1}
+                      {isPassed ? <CheckCircle2 className="w-4 h-4 text-brand-champagne" /> : idx + 1}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className={`font-bold ${isCurrent ? "text-brand-emerald text-sm" : isPassed ? "text-brand-charcoal" : "text-gray-400"}`}>
+                      <p className={`font-bold ${isCurrent ? "text-brand-forest text-sm" : isPassed ? "text-brand-dark" : "text-brand-muted"}`}>
                         {stage.label}
-                        {isCurrent && <span className="ml-2 text-[10px] bg-brand-gold text-brand-emerald px-1.5 py-0.2 rounded font-semibold">Current</span>}
+                        {isCurrent && <span className="ml-2 text-[10px] bg-brand-champagne text-brand-forest px-1.5 py-0.2 rounded font-semibold">Current</span>}
                       </p>
-                      <p className="text-[11px] text-gray-500">{stage.desc}</p>
+                      <p className="text-[11px] text-brand-muted">{stage.desc}</p>
                     </div>
                   </div>
                 );
@@ -171,18 +169,18 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
 
         {/* Detailed Timeline Events */}
         {order.timeline && order.timeline.length > 0 && (
-          <div className="bg-brand-ivory p-3.5 sm:p-4 rounded-2xl border border-brand-sage-light/60 space-y-2">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-brand-charcoal">
+          <div className="bg-brand-offwhite p-3.5 sm:p-4 rounded-2xl border border-brand-border space-y-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark">
               Status Activity Log
             </h4>
-            <div className="divide-y divide-brand-sage-light/40 space-y-2">
+            <div className="divide-y divide-brand-border/60 space-y-2">
               {order.timeline.map((event, idx) => (
                 <div key={idx} className="pt-2 flex items-start justify-between text-xs">
                   <div>
-                    <span className="font-semibold text-brand-emerald">{event.status}</span>
-                    <p className="text-brand-charcoal-light text-[11px]">{event.note}</p>
+                    <span className="font-semibold text-brand-forest">{event.status}</span>
+                    <p className="text-brand-dark/80 text-[11px]">{event.note}</p>
                   </div>
-                  <span className="text-[10px] text-gray-400 shrink-0 ml-3">
+                  <span className="text-[10px] text-brand-muted shrink-0 ml-3">
                     {event.timestamp}
                   </span>
                 </div>
@@ -195,15 +193,15 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
       {/* Order Itemized Breakdown & Address */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-8">
         {/* Ordered Jewellery */}
-        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-brand-sage-light shadow-sm space-y-3">
-          <h3 className="font-serif font-bold text-sm text-brand-emerald flex items-center space-x-1.5 border-b pb-2.5">
-            <Package className="w-4 h-4 text-brand-gold" />
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-brand-border shadow-xs space-y-3">
+          <h3 className="font-serif font-bold text-sm text-brand-forest flex items-center space-x-1.5 border-b border-brand-border pb-2.5">
+            <Package className="w-4 h-4 text-brand-champagne-dark" />
             <span>Ordered Pieces ({order.items.length})</span>
           </h3>
-          <div className="space-y-2.5 divide-y divide-gray-100">
+          <div className="space-y-2.5 divide-y divide-brand-border/40">
             {order.items.map((item, idx) => (
               <div key={idx} className="pt-2 flex items-center space-x-3 text-xs">
-                <div className="w-12 h-12 shrink-0 rounded-lg overflow-hidden border border-brand-sage-light">
+                <div className="w-12 h-12 shrink-0 rounded-lg overflow-hidden border border-brand-border">
                   <SafeImage
                     src={item.image}
                     alt={item.productName}
@@ -212,12 +210,12 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-brand-charcoal truncate">{item.productName}</p>
-                  <p className="text-[11px] text-brand-charcoal-muted">
-                    Size: <strong>{item.size}</strong> • Qty: {item.quantity}
+                  <p className="font-bold text-brand-dark truncate">{item.productName}</p>
+                  <p className="text-[11px] text-brand-muted">
+                    Size: <strong className="text-brand-forest">{item.size}</strong> • Qty: {item.quantity}
                   </p>
                 </div>
-                <span className="font-bold text-brand-charcoal font-poppins shrink-0">
+                <span className="font-bold text-brand-dark font-poppins shrink-0">
                   ₹{(item.totalPrice || item.unitPrice * item.quantity).toLocaleString("en-IN")}
                 </span>
               </div>
@@ -225,22 +223,22 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
           </div>
 
           {/* Totals */}
-          <div className="pt-3 border-t border-brand-sage-light/60 text-xs space-y-1">
-            <div className="flex justify-between text-gray-500">
+          <div className="pt-3 border-t border-brand-border text-xs space-y-1">
+            <div className="flex justify-between text-brand-muted">
               <span>Subtotal</span>
               <span>₹{order.subtotal?.toLocaleString("en-IN")}</span>
             </div>
             {order.discount > 0 && (
-              <div className="flex justify-between text-brand-gold-dark font-medium">
+              <div className="flex justify-between text-brand-champagne-dark font-medium">
                 <span>Discount ({order.couponApplied})</span>
                 <span>- ₹{order.discount?.toLocaleString("en-IN")}</span>
               </div>
             )}
-            <div className="flex justify-between text-gray-500">
+            <div className="flex justify-between text-brand-muted">
               <span>Shipping</span>
               <span>{order.shipping === 0 ? "FREE" : `₹${order.shipping}`}</span>
             </div>
-            <div className="flex justify-between font-bold text-brand-emerald text-sm pt-2 border-t">
+            <div className="flex justify-between font-bold text-brand-forest text-sm pt-2 border-t border-brand-border">
               <span>Total Paid</span>
               <span className="font-poppins">₹{order.total?.toLocaleString("en-IN")}</span>
             </div>
@@ -248,20 +246,20 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
         </div>
 
         {/* Delivery Address */}
-        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-brand-sage-light shadow-sm space-y-3">
-          <h3 className="font-serif font-bold text-sm text-brand-emerald flex items-center space-x-1.5 border-b pb-2.5">
-            <MapPin className="w-4 h-4 text-brand-gold" />
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-brand-border shadow-xs space-y-3">
+          <h3 className="font-serif font-bold text-sm text-brand-forest flex items-center space-x-1.5 border-b border-brand-border pb-2.5">
+            <MapPin className="w-4 h-4 text-brand-champagne-dark" />
             <span>Delivery Destination</span>
           </h3>
-          <div className="text-xs space-y-1 text-brand-charcoal leading-relaxed">
-            <p className="font-bold text-sm text-brand-emerald">
+          <div className="text-xs space-y-1 text-brand-dark leading-relaxed">
+            <p className="font-bold text-sm text-brand-forest">
               {order.addressSnapshot?.fullName || order.customerName}
             </p>
-            <p className="text-brand-charcoal-light">{order.addressSnapshot?.street}</p>
-            <p className="text-brand-charcoal-light">
+            <p className="text-brand-dark/80">{order.addressSnapshot?.street}</p>
+            <p className="text-brand-dark/80">
               {order.addressSnapshot?.city}, {order.addressSnapshot?.state} - <strong>{order.addressSnapshot?.pincode}</strong>
             </p>
-            <p className="text-gray-500 pt-1">
+            <p className="text-brand-muted pt-1">
               Contact Phone: {order.addressSnapshot?.phone || order.customerPhone}
             </p>
           </div>
@@ -272,15 +270,15 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
       <div className="flex flex-wrap items-center justify-center gap-3">
         <button
           onClick={onContinueShopping}
-          className="min-h-[44px] px-6 py-2.5 rounded-xl bg-brand-emerald hover:bg-brand-emerald-light text-white text-xs sm:text-sm font-bold tracking-wide transition shadow-luxury flex items-center space-x-2"
+          className="min-h-[44px] px-6 py-2.5 rounded-xl bg-brand-forest hover:bg-brand-forest-dark text-white text-xs sm:text-sm font-bold tracking-wide transition shadow-luxury flex items-center space-x-2"
         >
-          <ShoppingBag className="w-4 h-4 text-brand-gold" />
+          <ShoppingBag className="w-4 h-4 text-brand-champagne" />
           <span>Continue Shopping</span>
         </button>
 
         <button
           onClick={onViewProfile}
-          className="min-h-[44px] px-6 py-2.5 rounded-xl border-2 border-brand-emerald text-brand-emerald hover:bg-brand-sage/15 text-xs sm:text-sm font-bold transition flex items-center space-x-2"
+          className="min-h-[44px] px-6 py-2.5 rounded-xl border-2 border-brand-forest bg-white text-brand-forest hover:bg-brand-offwhite text-xs sm:text-sm font-bold transition flex items-center space-x-2"
         >
           <span>View Orders in Profile</span>
           <ArrowRight className="w-4 h-4" />

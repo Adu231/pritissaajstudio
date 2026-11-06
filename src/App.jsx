@@ -79,7 +79,7 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-brand-ivory text-brand-charcoal selection:bg-brand-sage selection:text-brand-emerald">
+    <div className="min-h-screen flex flex-col bg-white text-brand-dark selection:bg-brand-champagne/40 selection:text-brand-forest">
       {/* 1. Header */}
       <Header
         currentView={currentView}

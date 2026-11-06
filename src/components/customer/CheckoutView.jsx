@@ -3,13 +3,11 @@ import {
   ShieldCheck,
   CreditCard,
   Banknote,
-  CheckCircle2,
-  Truck,
   MapPin,
   Plus,
   ArrowLeft,
   Lock,
-  Sparkles,
+  Truck,
   AlertCircle,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
@@ -48,17 +46,17 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
 
   if (!user) {
     return (
-      <div className="max-w-md mx-auto my-12 p-6 sm:p-8 bg-white rounded-3xl border border-brand-sage-light text-center space-y-4 shadow-sm mx-4 sm:mx-auto">
-        <Lock className="w-12 h-12 text-brand-gold mx-auto" />
-        <h3 className="font-serif text-xl font-bold text-brand-emerald">
+      <div className="max-w-md mx-auto my-12 p-6 sm:p-8 bg-white rounded-3xl border border-brand-border text-center space-y-4 shadow-xs mx-4 sm:mx-auto">
+        <Lock className="w-12 h-12 text-brand-champagne-dark mx-auto" />
+        <h3 className="font-serif text-xl font-bold text-brand-forest">
           Authentication Required
         </h3>
-        <p className="text-xs text-brand-charcoal-light">
+        <p className="text-xs text-brand-muted">
           Please sign in or create an account to securely save your delivery address and complete checkout.
         </p>
         <button
           onClick={() => onOpenAuth && onOpenAuth()}
-          className="w-full min-h-[44px] py-2.5 bg-brand-emerald text-white rounded-xl text-xs font-semibold hover:bg-brand-emerald-light transition shadow-luxury"
+          className="w-full min-h-[44px] py-2.5 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition shadow-luxury"
         >
           Sign In to Continue
         </button>
@@ -68,17 +66,17 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
 
   if (items.length === 0) {
     return (
-      <div className="max-w-md mx-auto my-12 p-6 sm:p-8 bg-white rounded-3xl border border-brand-sage-light text-center space-y-4 shadow-sm mx-4 sm:mx-auto">
-        <Truck className="w-12 h-12 text-brand-gold mx-auto" />
-        <h3 className="font-serif text-xl font-bold text-brand-emerald">
+      <div className="max-w-md mx-auto my-12 p-6 sm:p-8 bg-white rounded-3xl border border-brand-border text-center space-y-4 shadow-xs mx-4 sm:mx-auto">
+        <Truck className="w-12 h-12 text-brand-champagne-dark mx-auto" />
+        <h3 className="font-serif text-xl font-bold text-brand-forest">
           Your Shopping Bag is Empty
         </h3>
-        <p className="text-xs text-brand-charcoal-light">
+        <p className="text-xs text-brand-muted">
           Please select your preferred jewellery items and sizes before proceeding to checkout.
         </p>
         <button
           onClick={onBackToShop}
-          className="w-full min-h-[44px] py-2.5 bg-brand-emerald text-white rounded-xl text-xs font-semibold hover:bg-brand-emerald-light transition"
+          className="w-full min-h-[44px] py-2.5 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition"
         >
           Browse Jewellery Catalogue
         </button>
@@ -147,11 +145,11 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 bg-white">
       {/* Back button */}
       <button
         onClick={onBackToShop}
-        className="inline-flex items-center space-x-1.5 text-xs text-brand-emerald font-semibold hover:underline mb-4 sm:mb-6"
+        className="inline-flex items-center space-x-1.5 text-xs text-brand-forest font-semibold hover:underline mb-4 sm:mb-6"
       >
         <ArrowLeft className="w-3.5 h-3.5" />
         <span>Return to Shopping</span>
@@ -161,17 +159,17 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
         {/* Left Column: Address & Payment Selection */}
         <div className="lg:col-span-7 space-y-5">
           {/* Step 1: Delivery Address */}
-          <div className="bg-white p-4 sm:p-6 rounded-2xl border border-brand-sage-light shadow-sm space-y-4">
-            <div className="flex items-center justify-between border-b border-brand-sage-light/50 pb-3">
-              <h2 className="font-serif font-bold text-base sm:text-lg text-brand-emerald flex items-center space-x-2">
-                <MapPin className="w-5 h-5 text-brand-gold shrink-0" />
+          <div className="bg-white p-4 sm:p-6 rounded-2xl border border-brand-border shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-brand-border pb-3">
+              <h2 className="font-serif font-bold text-base sm:text-lg text-brand-forest flex items-center space-x-2">
+                <MapPin className="w-5 h-5 text-brand-champagne-dark shrink-0" />
                 <span>1. Select Delivery Address</span>
               </h2>
               {savedAddresses.length > 0 && (
                 <button
                   type="button"
                   onClick={() => setShowNewAddressForm(!showNewAddressForm)}
-                  className="text-xs font-semibold text-brand-gold-dark hover:underline flex items-center space-x-1"
+                  className="text-xs font-semibold text-brand-champagne-dark hover:text-brand-forest flex items-center space-x-1"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{showNewAddressForm ? "Saved Addresses" : "New Address"}</span>
@@ -187,8 +185,8 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                     key={addr.id}
                     className={`block p-3.5 rounded-xl border cursor-pointer transition ${
                       selectedAddressId === addr.id
-                        ? "border-brand-emerald bg-brand-sage/10 ring-1 ring-brand-emerald"
-                        : "border-brand-sage-light hover:border-brand-sage bg-white"
+                        ? "border-brand-forest bg-brand-offwhite ring-1 ring-brand-forest"
+                        : "border-brand-border hover:border-brand-champagne bg-white"
                     }`}
                   >
                     <div className="flex items-start space-x-3">
@@ -197,27 +195,27 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                         name="address_selector"
                         checked={selectedAddressId === addr.id}
                         onChange={() => setSelectedAddressId(addr.id)}
-                        className="mt-1 text-brand-emerald focus:ring-brand-emerald"
+                        className="mt-1 text-brand-forest focus:ring-brand-forest"
                       />
                       <div className="text-xs space-y-1 flex-1">
                         <div className="flex items-center space-x-2">
-                          <span className="font-bold text-brand-charcoal text-xs sm:text-sm">
+                          <span className="font-bold text-brand-dark text-xs sm:text-sm">
                             {addr.fullName}
                           </span>
-                          <span className="bg-brand-ivory text-brand-charcoal-muted px-1.5 py-0.2 rounded text-[10px] font-semibold border">
+                          <span className="bg-brand-offwhite text-brand-muted px-1.5 py-0.2 rounded text-[10px] font-semibold border border-brand-border">
                             {addr.type || "Home"}
                           </span>
                           {addr.isDefault && (
-                            <span className="bg-brand-emerald text-white text-[9px] font-bold px-1.5 py-0.2 rounded">
+                            <span className="bg-brand-forest text-white text-[9px] font-bold px-1.5 py-0.2 rounded">
                               Default
                             </span>
                           )}
                         </div>
-                        <p className="text-brand-charcoal-light">{addr.street}</p>
-                        <p className="text-brand-charcoal-light">
+                        <p className="text-brand-dark/80">{addr.street}</p>
+                        <p className="text-brand-dark/80">
                           {addr.city}, {addr.state} - <strong>{addr.pincode}</strong>
                         </p>
-                        <p className="text-brand-charcoal-muted">Phone: {addr.phone}</p>
+                        <p className="text-brand-muted">Phone: {addr.phone}</p>
                       </div>
                     </div>
                   </label>
@@ -228,12 +226,12 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
             {/* New Address Form */}
             {(showNewAddressForm || savedAddresses.length === 0) && (
               <div className="space-y-3 pt-1">
-                <p className="text-xs text-brand-charcoal-muted">
+                <p className="text-xs text-brand-muted">
                   Enter delivery details for insured shipping:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-charcoal mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-dark mb-1">
                       Recipient Full Name *
                     </label>
                     <input
@@ -242,11 +240,11 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                       value={newAddress.fullName}
                       onChange={(e) => setNewAddress({ ...newAddress, fullName: e.target.value })}
                       placeholder="e.g. Pooja Deshmukh"
-                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-sage-light rounded-xl focus:outline-none focus:border-brand-emerald"
+                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-border rounded-xl focus:outline-none focus:border-brand-forest text-brand-dark"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-charcoal mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-dark mb-1">
                       Phone Number (for Courier & OTP) *
                     </label>
                     <input
@@ -255,13 +253,13 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                       value={newAddress.phone}
                       onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
                       placeholder="+91 98234 56789"
-                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-sage-light rounded-xl focus:outline-none focus:border-brand-emerald"
+                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-border rounded-xl focus:outline-none focus:border-brand-forest text-brand-dark"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-brand-charcoal mb-1">
+                  <label className="block text-[11px] font-semibold text-brand-dark mb-1">
                     Street Address, Flat / House No., Landmark *
                   </label>
                   <input
@@ -270,13 +268,13 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                     value={newAddress.street}
                     onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })}
                     placeholder="e.g. Flat 402, Royal Palms, Prabhat Road"
-                    className="w-full p-2.5 text-xs sm:text-sm border border-brand-sage-light rounded-xl focus:outline-none focus:border-brand-emerald"
+                    className="w-full p-2.5 text-xs sm:text-sm border border-brand-border rounded-xl focus:outline-none focus:border-brand-forest text-brand-dark"
                   />
                 </div>
 
                 <div className="grid grid-cols-3 gap-2">
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-charcoal mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-dark mb-1">
                       City *
                     </label>
                     <input
@@ -284,11 +282,11 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                       required
                       value={newAddress.city}
                       onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })}
-                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-sage-light rounded-xl focus:outline-none focus:border-brand-emerald"
+                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-border rounded-xl focus:outline-none focus:border-brand-forest text-brand-dark"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-charcoal mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-dark mb-1">
                       State *
                     </label>
                     <input
@@ -296,11 +294,11 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                       required
                       value={newAddress.state}
                       onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })}
-                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-sage-light rounded-xl focus:outline-none focus:border-brand-emerald"
+                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-border rounded-xl focus:outline-none focus:border-brand-forest text-brand-dark"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-charcoal mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-dark mb-1">
                       PIN Code *
                     </label>
                     <input
@@ -309,7 +307,7 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                       value={newAddress.pincode}
                       onChange={(e) => setNewAddress({ ...newAddress, pincode: e.target.value })}
                       placeholder="411004"
-                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-sage-light rounded-xl focus:outline-none focus:border-brand-emerald"
+                      className="w-full p-2.5 text-xs sm:text-sm border border-brand-border rounded-xl focus:outline-none focus:border-brand-forest text-brand-dark"
                     />
                   </div>
                 </div>
@@ -318,9 +316,9 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
           </div>
 
           {/* Step 2: Payment Method */}
-          <div className="bg-white p-4 sm:p-6 rounded-2xl border border-brand-sage-light shadow-sm space-y-4">
-            <h2 className="font-serif font-bold text-base sm:text-lg text-brand-emerald flex items-center space-x-2 border-b border-brand-sage-light/50 pb-3">
-              <CreditCard className="w-5 h-5 text-brand-gold shrink-0" />
+          <div className="bg-white p-4 sm:p-6 rounded-2xl border border-brand-border shadow-xs space-y-4">
+            <h2 className="font-serif font-bold text-base sm:text-lg text-brand-forest flex items-center space-x-2 border-b border-brand-border pb-3">
+              <CreditCard className="w-5 h-5 text-brand-champagne-dark shrink-0" />
               <span>2. Select Payment Option</span>
             </h2>
 
@@ -329,8 +327,8 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
               <label
                 className={`block p-3.5 sm:p-4 rounded-xl border cursor-pointer transition ${
                   paymentMethod === "online"
-                    ? "border-brand-emerald bg-brand-sage/10 ring-1 ring-brand-emerald"
-                    : "border-brand-sage-light hover:border-brand-sage bg-white"
+                    ? "border-brand-forest bg-brand-offwhite ring-1 ring-brand-forest"
+                    : "border-brand-border hover:border-brand-champagne bg-white"
                 }`}
               >
                 <div className="flex items-start space-x-3">
@@ -339,32 +337,32 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                     name="payment_method"
                     checked={paymentMethod === "online"}
                     onChange={() => setPaymentMethod("online")}
-                    className="mt-1 text-brand-emerald focus:ring-brand-emerald"
+                    className="mt-1 text-brand-forest focus:ring-brand-forest"
                   />
                   <div className="flex-1 text-xs space-y-2">
                     <div className="flex items-center justify-between flex-wrap gap-1">
-                      <span className="font-bold text-brand-charcoal text-xs sm:text-sm flex items-center space-x-2">
+                      <span className="font-bold text-brand-dark text-xs sm:text-sm flex items-center space-x-2">
                         <span>Online Payment (UPI, Cards, NetBanking)</span>
-                        <span className="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-2 py-0.5 rounded-full">
+                        <span className="bg-brand-champagne/25 text-brand-forest border border-brand-champagne/40 text-[9px] font-bold px-2 py-0.5 rounded-full">
                           Recommended
                         </span>
                       </span>
-                      <ShieldCheck className="w-4 h-4 text-brand-gold shrink-0" />
+                      <ShieldCheck className="w-4 h-4 text-brand-champagne-dark shrink-0" />
                     </div>
-                    <p className="text-brand-charcoal-light">
+                    <p className="text-brand-muted">
                       Instant payment verification & priority dispatch from our Pune studio.
                     </p>
 
                     {/* Online Sub-options */}
                     {paymentMethod === "online" && (
-                      <div className="pt-2 border-t border-brand-sage-light/50 flex flex-wrap gap-1.5 sm:gap-2">
+                      <div className="pt-2 border-t border-brand-border flex flex-wrap gap-1.5 sm:gap-2">
                         <button
                           type="button"
                           onClick={() => setOnlineType("upi")}
                           className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition ${
                             onlineType === "upi"
-                              ? "bg-brand-emerald text-white border-brand-emerald"
-                              : "bg-white text-brand-charcoal border-brand-sage-light"
+                              ? "bg-brand-forest text-white border-brand-forest"
+                              : "bg-white text-brand-dark border-brand-border"
                           }`}
                         >
                           Google Pay / PhonePe UPI
@@ -374,8 +372,8 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                           onClick={() => setOnlineType("card")}
                           className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition ${
                             onlineType === "card"
-                              ? "bg-brand-emerald text-white border-brand-emerald"
-                              : "bg-white text-brand-charcoal border-brand-sage-light"
+                              ? "bg-brand-forest text-white border-brand-forest"
+                              : "bg-white text-brand-dark border-brand-border"
                           }`}
                         >
                           Debit / Credit Card
@@ -385,8 +383,8 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                           onClick={() => setOnlineType("netbanking")}
                           className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition ${
                             onlineType === "netbanking"
-                              ? "bg-brand-emerald text-white border-brand-emerald"
-                              : "bg-white text-brand-charcoal border-brand-sage-light"
+                              ? "bg-brand-forest text-white border-brand-forest"
+                              : "bg-white text-brand-dark border-brand-border"
                           }`}
                         >
                           Net Banking
@@ -401,8 +399,8 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
               <label
                 className={`block p-3.5 sm:p-4 rounded-xl border cursor-pointer transition ${
                   paymentMethod === "cod"
-                    ? "border-brand-emerald bg-brand-sage/10 ring-1 ring-brand-emerald"
-                    : "border-brand-sage-light hover:border-brand-sage bg-white"
+                    ? "border-brand-forest bg-brand-offwhite ring-1 ring-brand-forest"
+                    : "border-brand-border hover:border-brand-champagne bg-white"
                 }`}
               >
                 <div className="flex items-start space-x-3">
@@ -411,16 +409,16 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                     name="payment_method"
                     checked={paymentMethod === "cod"}
                     onChange={() => setPaymentMethod("cod")}
-                    className="mt-1 text-brand-emerald focus:ring-brand-emerald"
+                    className="mt-1 text-brand-forest focus:ring-brand-forest"
                   />
                   <div className="flex-1 text-xs space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-brand-charcoal text-xs sm:text-sm flex items-center space-x-1.5">
-                        <Banknote className="w-4 h-4 text-brand-emerald" />
+                      <span className="font-bold text-brand-dark text-xs sm:text-sm flex items-center space-x-1.5">
+                        <Banknote className="w-4 h-4 text-brand-forest" />
                         <span>Cash on Delivery (COD)</span>
                       </span>
                     </div>
-                    <p className="text-brand-charcoal-light">
+                    <p className="text-brand-muted">
                       Pay cash or UPI to courier representative upon inspection and delivery.
                     </p>
                   </div>
@@ -432,19 +430,19 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
 
         {/* Right Column: Order Summary & Place Order CTA */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white p-4 sm:p-6 rounded-2xl border border-brand-sage-light shadow-sm space-y-4">
-            <h3 className="font-serif font-bold text-base sm:text-lg text-brand-emerald border-b border-brand-sage-light/50 pb-3">
+          <div className="bg-white p-4 sm:p-6 rounded-2xl border border-brand-border shadow-xs space-y-4">
+            <h3 className="font-serif font-bold text-base sm:text-lg text-brand-forest border-b border-brand-border pb-3">
               Order Summary ({items.length} items)
             </h3>
 
             {/* Items preview list */}
-            <div className="space-y-2.5 max-h-56 overflow-y-auto pr-1 divide-y divide-gray-100">
+            <div className="space-y-2.5 max-h-56 overflow-y-auto pr-1 divide-y divide-brand-border/40">
               {items.map((item) => (
                 <div
                   key={`${item.productId}_${item.size}`}
                   className="flex items-center space-x-3 pt-2 text-xs"
                 >
-                  <div className="w-12 h-12 shrink-0 rounded-lg overflow-hidden border border-brand-sage-light">
+                  <div className="w-12 h-12 shrink-0 rounded-lg overflow-hidden border border-brand-border">
                     <SafeImage
                       src={item.image}
                       alt={item.name}
@@ -453,12 +451,12 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-brand-charcoal truncate">{item.name}</p>
-                    <p className="text-[10px] text-gray-500">
-                      Size: <span className="font-bold text-brand-emerald">{item.size}</span> | Qty: {item.quantity}
+                    <p className="font-bold text-brand-dark truncate">{item.name}</p>
+                    <p className="text-[10px] text-brand-muted">
+                      Size: <span className="font-bold text-brand-forest">{item.size}</span> | Qty: {item.quantity}
                     </p>
                   </div>
-                  <span className="font-bold text-brand-charcoal font-poppins shrink-0">
+                  <span className="font-bold text-brand-dark font-poppins shrink-0">
                     ₹{(item.unitPrice * item.quantity).toLocaleString("en-IN")}
                   </span>
                 </div>
@@ -466,22 +464,22 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
             </div>
 
             {/* Breakdown */}
-            <div className="pt-3 border-t border-brand-sage-light/50 space-y-1.5 text-xs text-brand-charcoal">
+            <div className="pt-3 border-t border-brand-border space-y-1.5 text-xs text-brand-dark">
               <div className="flex justify-between">
-                <span className="text-gray-500">Subtotal</span>
+                <span className="text-brand-muted">Subtotal</span>
                 <span>₹{subtotal.toLocaleString("en-IN")}</span>
               </div>
               {discount > 0 && (
-                <div className="flex justify-between text-brand-gold-dark font-semibold">
+                <div className="flex justify-between text-brand-champagne-dark font-semibold">
                   <span>Discount ({appliedCoupon?.code})</span>
                   <span>- ₹{discount.toLocaleString("en-IN")}</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span className="text-gray-500">Shipping</span>
-                <span>{shipping === 0 ? <strong className="text-emerald-700 font-bold">FREE</strong> : `₹${shipping}`}</span>
+                <span className="text-brand-muted">Shipping</span>
+                <span>{shipping === 0 ? <strong className="text-brand-forest font-bold">FREE</strong> : `₹${shipping}`}</span>
               </div>
-              <div className="flex justify-between text-sm sm:text-base font-bold text-brand-emerald pt-2 border-t border-brand-sage-light">
+              <div className="flex justify-between text-sm sm:text-base font-bold text-brand-forest pt-2 border-t border-brand-border">
                 <span>Total Payable</span>
                 <span className="font-poppins">₹{total.toLocaleString("en-IN")}</span>
               </div>
@@ -498,7 +496,7 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
             <button
               onClick={handlePlaceOrder}
               disabled={loading}
-              className="w-full min-h-[46px] py-3 rounded-xl bg-brand-emerald hover:bg-brand-emerald-light text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-luxury flex items-center justify-center space-x-2"
+              className="w-full min-h-[46px] py-3 rounded-xl bg-brand-forest hover:bg-brand-forest-dark text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-luxury flex items-center justify-center space-x-2"
             >
               {loading ? (
                 <div className="flex items-center space-x-2">
@@ -512,8 +510,8 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
               )}
             </button>
 
-            <div className="text-center pt-1 text-[11px] text-brand-charcoal-muted flex items-center justify-center space-x-1">
-              <Lock className="w-3.5 h-3.5 text-brand-gold" />
+            <div className="text-center pt-1 text-[11px] text-brand-muted flex items-center justify-center space-x-1">
+              <Lock className="w-3.5 h-3.5 text-brand-champagne-dark" />
               <span>256-Bit Encrypted Simulated Checkout</span>
             </div>
           </div>
