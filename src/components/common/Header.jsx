@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import {
   Search,
   ShoppingBag,
@@ -9,7 +10,6 @@ import {
   Shield,
   LogOut,
   ChevronDown,
-  Sparkles,
   Package,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
@@ -40,6 +40,66 @@ export const Header = ({
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
+  const userDropdownRef = useRef(null);
+
+  // Prevent background scrolling and restore smoothly when mobile drawer is open; support Escape key
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") setMobileMenuOpen(false);
+      };
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [mobileMenuOpen]);
+
+  // Click-outside and Escape key listener for the user account dropdown (especially for mobile touch)
+  useEffect(() => {
+    if (!userDropdownOpen) return;
+
+    const handleClickOutside = (e) => {
+      if (userDropdownRef.current && !userDropdownRef.current.contains(e.target)) {
+        setUserDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setUserDropdownOpen(false);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [userDropdownOpen]);
+
+  // Coordinated panel open/close handlers to avoid overlapping popups
+  const handleOpenMobileMenu = () => {
+    setUserDropdownOpen(false);
+    setMobileSearchOpen(false);
+    setMobileMenuOpen(true);
+  };
+
+  const handleToggleMobileSearch = () => {
+    setUserDropdownOpen(false);
+    setMobileSearchOpen((prev) => !prev);
+  };
+
+  const handleToggleUserDropdown = () => {
+    setMobileSearchOpen(false);
+    setUserDropdownOpen((prev) => !prev);
+  };
 
   // Live search suggestions
   const searchResults = searchQuery.trim()
@@ -66,55 +126,15 @@ export const Header = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/98 backdrop-blur-md border-b border-brand-border transition-all shadow-xs">
-      {/* Top Announcement Bar */}
-      <div className="bg-brand-forest text-white text-[10px] sm:text-xs py-1.5 px-3 sm:px-6 font-medium flex items-center justify-between border-b border-brand-champagne/30">
-        <div className="flex items-center space-x-1.5 mx-auto sm:mx-0 truncate">
-          <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-champagne shrink-0 animate-pulse" />
-          <span className="truncate">
-            Complimentary Luxury Velvet Pouch & Free Delivery on ₹1,499+
-          </span>
-        </div>
-
-        {/* Desktop Quick Shortcuts */}
-        <div className="hidden md:flex items-center space-x-3 text-[11px] shrink-0">
-          <button
-            onClick={() => onOpenSizeGuide()}
-            className="hover:text-brand-champagne flex items-center space-x-1 text-brand-champagne-light transition"
-          >
-            <Ruler className="w-3 h-3 text-brand-champagne" />
-            <span>Bangle Size Guide</span>
-          </button>
-          <span className="text-brand-forest-light">|</span>
-          <button
-            onClick={() => {
-              if (currentView === "admin") {
-                setCurrentView("home");
-              } else {
-                if (!isAdmin) switchAccount("admin");
-                setCurrentView("admin");
-              }
-            }}
-            className={`px-2.5 py-0.5 rounded-lg text-[11px] font-semibold transition flex items-center space-x-1 ${
-              currentView === "admin"
-                ? "bg-brand-champagne text-brand-forest hover:bg-brand-champagne-dark"
-                : "bg-brand-forest-light text-white hover:bg-white/10 border border-brand-champagne/30"
-            }`}
-          >
-            <Shield className="w-3 h-3 text-brand-champagne" />
-            <span>{currentView === "admin" ? "Exit Admin" : "Admin Portal"}</span>
-          </button>
-        </div>
-      </div>
-
+    <header className="sticky top-0 z-40 bg-white border-b border-brand-border transition-all shadow-xs">
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-18 md:h-20">
           {/* Left: Mobile Menu Hamburger Button */}
           <div className="flex items-center lg:hidden">
             <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="p-2 -ml-1 text-brand-forest hover:text-brand-forest-light focus:outline-none focus:ring-1 focus:ring-brand-champagne rounded-lg"
+              onClick={handleOpenMobileMenu}
+              className="p-2 -ml-1 text-brand-forest hover:text-brand-forest-light focus:outline-none focus:ring-1 focus:ring-brand-champagne rounded-xl active:bg-brand-offwhite transition"
               aria-label="Open mobile navigation menu"
             >
               <Menu className="w-6 h-6" />
@@ -204,19 +224,20 @@ export const Header = ({
           <div className="flex items-center space-x-1 sm:space-x-3">
             {/* Mobile Search Icon */}
             <button
-              onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-              className="lg:hidden p-2 text-brand-forest hover:text-brand-forest-light rounded-lg"
+              onClick={handleToggleMobileSearch}
+              className="lg:hidden p-2 text-brand-forest hover:text-brand-forest-light rounded-xl active:bg-brand-offwhite transition"
               aria-label="Toggle mobile search"
             >
               <Search className="w-5 h-5" />
             </button>
 
             {/* User Account Dropdown */}
-            <div className="relative">
+            <div className="relative" ref={userDropdownRef}>
               <button
-                onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                onClick={handleToggleUserDropdown}
                 className="flex items-center space-x-1.5 p-1.5 sm:px-3 sm:py-1.5 rounded-full sm:rounded-xl text-brand-forest hover:bg-brand-offwhite transition border border-transparent hover:border-brand-border"
                 aria-label="User account menu"
+                aria-expanded={userDropdownOpen}
               >
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-forest text-brand-champagne flex items-center justify-center font-bold text-xs border border-brand-champagne/40 shadow-xs">
                   {user ? user.name.charAt(0).toUpperCase() : <User className="w-4 h-4 text-white" />}
@@ -230,7 +251,7 @@ export const Header = ({
               {/* User Dropdown Menu */}
               {userDropdownOpen && (
                 <div
-                  className="absolute right-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-brand-border py-2 z-50 animate-fadeIn"
+                  className="absolute right-0 mt-2 w-60 max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-2xl border border-brand-border py-2 z-50 animate-fadeIn"
                   onMouseLeave={() => setUserDropdownOpen(false)}
                 >
                   {user ? (
@@ -308,6 +329,19 @@ export const Header = ({
                       >
                         Sign In / Register
                       </button>
+                      <div className="mt-2.5 pt-2 border-t border-brand-border/60">
+                        <button
+                          onClick={() => {
+                            if (!isAdmin) switchAccount("admin");
+                            setCurrentView("admin");
+                            setUserDropdownOpen(false);
+                          }}
+                          className="w-full py-1.5 px-2 rounded-lg text-[11px] font-semibold text-brand-forest bg-brand-champagne/20 hover:bg-brand-champagne/30 transition flex items-center justify-center space-x-1.5 border border-brand-champagne/40"
+                        >
+                          <Shield className="w-3.5 h-3.5 text-brand-champagne-dark" />
+                          <span>Admin Portal Demo</span>
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -418,136 +452,203 @@ export const Header = ({
         </nav>
       </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 flex lg:hidden">
+      {/* Mobile Drawer (Portalled to document.body for pristine stacking context & zero backdrop-filter clipping) */}
+      {mobileMenuOpen &&
+        typeof document !== "undefined" &&
+        createPortal(
           <div
-            className="fixed inset-0 bg-brand-dark/60 backdrop-blur-sm transition-opacity"
-            onClick={() => setMobileMenuOpen(false)}
-          />
+            className="fixed inset-0 z-[70] flex lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation drawer"
+          >
+            {/* Full-screen Backdrop */}
+            <div
+              className="fixed inset-0 bg-brand-dark/70 backdrop-blur-sm transition-opacity animate-fadeIn"
+              onClick={() => setMobileMenuOpen(false)}
+            />
 
-          <div className="relative w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto animate-slideInLeft">
-            <div>
-              {/* Drawer Brand Header */}
-              <div className="p-4 bg-brand-forest text-white flex items-center justify-between border-b border-brand-champagne/40">
+            {/* Slide-out Drawer Panel */}
+            <div
+              className="relative w-[85vw] max-w-[320px] min-w-[270px] bg-white h-[100dvh] max-h-[100dvh] shadow-2xl flex flex-col justify-between overflow-hidden animate-slideInLeft z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* 1. STICKY / PINNED DRAWER HEADER (shrink-0: always accessible) */}
+              <div className="shrink-0 px-4 py-3 sm:py-3.5 bg-brand-forest text-white flex items-center justify-between border-b border-brand-champagne/40">
                 <BrandLogo
                   variant="light"
                   size="sm"
                   showBrandName={true}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setSelectedCategory("All");
+                    setCurrentView("home");
+                    setMobileMenuOpen(false);
+                  }}
                 />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-full hover:bg-white/10 text-white"
+                  className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 transition text-white"
+                  aria-label="Close navigation menu"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Navigation Links */}
-              <div className="p-4 space-y-1">
-                <button
-                  onClick={() => {
-                    setCurrentView("home");
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
-                    currentView === "home" ? "bg-brand-forest text-white font-bold" : "text-brand-forest hover:bg-brand-offwhite"
-                  }`}
-                >
-                  Home
-                </button>
-                <button
-                  onClick={() => {
-                    setSelectedCategory("All");
-                    setCurrentView("catalogue");
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
-                    currentView === "catalogue" && selectedCategory === "All"
-                      ? "bg-brand-forest text-white font-bold"
-                      : "text-brand-forest hover:bg-brand-offwhite"
-                  }`}
-                >
-                  All Jewellery Catalogue
-                </button>
-
-                <div className="pt-3 pb-1 px-3 text-[10px] font-bold uppercase tracking-wider text-brand-champagne-dark">
-                  Shop by Category
+              {/* 2. SCROLLABLE MIDDLE NAVIGATION (flex-1: independent smooth scrolling) */}
+              <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 py-3 px-3.5 sm:px-4 space-y-3">
+                {/* Mobile Quick In-Drawer Search Input */}
+                <div className="relative">
+                  <Search className="w-4 h-4 text-brand-muted absolute left-3 top-2.5" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        setCurrentView("catalogue");
+                        setMobileMenuOpen(false);
+                      }
+                    }}
+                    placeholder="Search jewellery, bangles..."
+                    className="w-full pl-9 pr-8 py-2 text-xs bg-brand-offwhite border border-brand-border rounded-xl focus:outline-none focus:border-brand-forest text-brand-dark placeholder-brand-muted"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-2.5 top-2 text-xs text-brand-muted hover:text-brand-dark p-1"
+                      aria-label="Clear search"
+                    >
+                      ✕
+                    </button>
+                  )}
                 </div>
-                {categories.map((cat) => (
+
+                {/* Main Views */}
+                <div className="space-y-1">
                   <button
-                    key={cat.id}
-                    onClick={() => handleCategoryClick(cat.name)}
-                    className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition ${
-                      currentView === "catalogue" && selectedCategory === cat.name
-                        ? "bg-brand-champagne/20 text-brand-forest font-bold"
-                        : "text-brand-forest/80 hover:bg-brand-offwhite"
+                    onClick={() => {
+                      setCurrentView("home");
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-between ${
+                      currentView === "home"
+                        ? "bg-brand-forest text-white font-bold shadow-xs"
+                        : "text-brand-forest hover:bg-brand-offwhite"
                     }`}
                   >
-                    <span>{cat.name}</span>
-                    <span className="text-[10px] text-brand-muted">{cat.count}</span>
+                    <span>Home</span>
+                    <span className="text-[10px] text-brand-champagne font-normal">Explore</span>
                   </button>
-                ))}
 
-                <div className="pt-3 border-t border-brand-border/60">
+                  <button
+                    onClick={() => {
+                      setSelectedCategory("All");
+                      setCurrentView("catalogue");
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-between ${
+                      currentView === "catalogue" && selectedCategory === "All"
+                        ? "bg-brand-forest text-white font-bold shadow-xs"
+                        : "text-brand-forest hover:bg-brand-offwhite"
+                    }`}
+                  >
+                    <span>All Jewellery Collection</span>
+                    <span className="text-[10px] text-brand-champagne font-normal">Shop All</span>
+                  </button>
+                </div>
+
+                {/* Categories Divider & List */}
+                <div className="pt-2 border-t border-brand-border/60">
+                  <div className="pb-1.5 px-3 text-[10px] font-bold uppercase tracking-wider text-brand-champagne-dark">
+                    Shop by Royal Category
+                  </div>
+                  <div className="space-y-1">
+                    {categories.map((cat) => (
+                      <button
+                        key={cat.id}
+                        onClick={() => handleCategoryClick(cat.name)}
+                        className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition ${
+                          currentView === "catalogue" && selectedCategory === cat.name
+                            ? "bg-brand-champagne/25 text-brand-forest font-bold border border-brand-champagne/40"
+                            : "text-brand-forest/85 hover:bg-brand-offwhite"
+                        }`}
+                      >
+                        <span className="truncate pr-2">{cat.name}</span>
+                        <span className="text-[10px] text-brand-muted shrink-0 bg-brand-offwhite px-2 py-0.5 rounded-full border border-brand-border/60">
+                          {cat.count}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bangle Measurement Guide Button */}
+                <div className="pt-2 border-t border-brand-border/60">
                   <button
                     onClick={() => {
                       setMobileMenuOpen(false);
                       onOpenSizeGuide();
                     }}
-                    className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold text-brand-forest flex items-center space-x-2 bg-brand-champagne/15 border border-brand-champagne/40"
+                    className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold text-brand-forest flex items-center space-x-2 bg-brand-champagne/15 hover:bg-brand-champagne/25 border border-brand-champagne/40 transition"
                   >
-                    <Ruler className="w-4 h-4 text-brand-champagne-dark" />
-                    <span>Bangle Size Guide & Measurements</span>
+                    <Ruler className="w-4 h-4 text-brand-champagne-dark shrink-0" />
+                    <span className="truncate">Bangle Size Guide & Measurements</span>
                   </button>
                 </div>
               </div>
-            </div>
 
-            {/* Drawer Account / Role Footer */}
-            <div className="p-4 bg-brand-offwhite border-t border-brand-border space-y-2">
-              {user ? (
-                <div className="space-y-2">
-                  <div className="text-xs">
-                    <p className="font-bold text-brand-forest">{user.name}</p>
-                    <p className="text-[10px] text-brand-muted truncate">{user.email}</p>
+              {/* 3. STICKY / PINNED DRAWER FOOTER (shrink-0: docked above home indicators) */}
+              <div className="shrink-0 p-3.5 sm:p-4 bg-brand-offwhite border-t border-brand-border space-y-2 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
+                {user ? (
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2 text-xs">
+                      <div className="w-7 h-7 rounded-full bg-brand-forest text-brand-champagne flex items-center justify-center font-bold text-xs shrink-0 shadow-xs border border-brand-champagne/30">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-bold text-brand-forest truncate leading-tight">{user.name}</p>
+                        <p className="text-[10px] text-brand-muted truncate">{user.email}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setCurrentView("profile");
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full py-2 bg-brand-forest text-white rounded-xl text-xs font-semibold shadow-xs hover:bg-brand-forest-dark transition flex items-center justify-center space-x-1.5 min-h-[40px]"
+                    >
+                      <User className="w-3.5 h-3.5" />
+                      <span>My Account & Orders</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (!isAdmin) switchAccount("admin");
+                        setCurrentView(currentView === "admin" ? "home" : "admin");
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full py-1.5 border border-brand-champagne text-brand-forest font-bold rounded-xl text-xs bg-brand-champagne/20 hover:bg-brand-champagne/30 transition flex items-center justify-center space-x-1.5 min-h-[36px]"
+                    >
+                      <Shield className="w-3.5 h-3.5 text-brand-champagne-dark" />
+                      <span>{currentView === "admin" ? "Customer Storefront" : "Admin Panel"}</span>
+                    </button>
                   </div>
+                ) : (
                   <button
                     onClick={() => {
-                      setCurrentView("profile");
                       setMobileMenuOpen(false);
+                      onOpenAuth();
                     }}
-                    className="w-full py-2 bg-brand-forest text-white rounded-xl text-xs font-semibold shadow-sm hover:bg-brand-forest-dark transition"
+                    className="w-full py-2.5 bg-brand-forest text-white rounded-xl text-xs font-semibold shadow-xs hover:bg-brand-forest-dark transition flex items-center justify-center space-x-1.5 min-h-[44px]"
                   >
-                    My Account & Orders
+                    <User className="w-4 h-4" />
+                    <span>Sign In / Register</span>
                   </button>
-                  <button
-                    onClick={() => {
-                      if (!isAdmin) switchAccount("admin");
-                      setCurrentView(currentView === "admin" ? "home" : "admin");
-                      setMobileMenuOpen(false);
-                    }}
-                    className="w-full py-1.5 border border-brand-champagne text-brand-forest font-bold rounded-xl text-xs bg-brand-champagne/20 hover:bg-brand-champagne/30 transition"
-                  >
-                    {currentView === "admin" ? "Customer Storefront" : "Admin Panel"}
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenAuth();
-                  }}
-                  className="w-full py-2.5 bg-brand-forest text-white rounded-xl text-xs font-semibold shadow-sm hover:bg-brand-forest-dark transition"
-                >
-                  Sign In / Register
-                </button>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </header>
   );
 };

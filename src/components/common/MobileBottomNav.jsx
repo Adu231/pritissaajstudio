@@ -13,14 +13,16 @@ export const MobileBottomNav = ({
   const { user, isAdmin } = useAuth();
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/98 backdrop-blur-lg border-t border-brand-border shadow-[0_-4px_20px_rgba(11,59,36,0.06)] px-1 py-1.5 flex items-center justify-around safe-area-bottom">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-brand-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-1 py-1.5 flex items-center justify-around safe-area-bottom">
       <button
         onClick={() => {
           setCurrentView("home");
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
         className={`flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-1.5 rounded-xl transition ${
-          currentView === "home" ? "text-brand-forest font-bold bg-brand-champagne/15" : "text-brand-muted hover:text-brand-forest"
+          currentView === "home"
+            ? "text-brand-forest font-bold bg-brand-champagne/20 border border-brand-champagne/40 shadow-xs"
+            : "text-brand-dark/70 hover:text-brand-forest"
         }`}
         aria-label="Home"
       >
@@ -34,7 +36,9 @@ export const MobileBottomNav = ({
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
         className={`flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-1.5 rounded-xl transition ${
-          currentView === "catalogue" ? "text-brand-forest font-bold bg-brand-champagne/15" : "text-brand-muted hover:text-brand-forest"
+          currentView === "catalogue"
+            ? "text-brand-forest font-bold bg-brand-champagne/20 border border-brand-champagne/40 shadow-xs"
+            : "text-brand-dark/70 hover:text-brand-forest"
         }`}
         aria-label="Shop"
       >
@@ -44,7 +48,7 @@ export const MobileBottomNav = ({
 
       <button
         onClick={onOpenSizeGuide}
-        className="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-1.5 rounded-xl text-brand-forest hover:text-brand-forest-dark transition"
+        className="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-1.5 rounded-xl text-brand-forest hover:text-brand-forest-dark hover:bg-brand-offwhite transition"
         aria-label="Size Guide"
       >
         <Ruler className="w-5 h-5 text-brand-champagne-dark stroke-[2]" />
@@ -53,7 +57,7 @@ export const MobileBottomNav = ({
 
       <button
         onClick={openCart}
-        className="relative flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-1.5 rounded-xl text-brand-muted hover:text-brand-forest transition"
+        className="relative flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-1.5 rounded-xl text-brand-dark/70 hover:text-brand-forest hover:bg-brand-offwhite transition"
         aria-label="Bag"
       >
         <div className="relative">
@@ -77,7 +81,9 @@ export const MobileBottomNav = ({
           }
         }}
         className={`flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-1.5 rounded-xl transition ${
-          currentView === "profile" ? "text-brand-forest font-bold bg-brand-champagne/15" : "text-brand-muted hover:text-brand-forest"
+          currentView === "profile"
+            ? "text-brand-forest font-bold bg-brand-champagne/20 border border-brand-champagne/40 shadow-xs"
+            : "text-brand-dark/70 hover:text-brand-forest"
         }`}
         aria-label="Profile"
       >
@@ -92,7 +98,9 @@ export const MobileBottomNav = ({
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           className={`flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-1.5 rounded-xl transition ${
-            currentView === "admin" ? "text-brand-forest font-bold bg-brand-champagne/25 border border-brand-champagne/40" : "text-brand-forest"
+            currentView === "admin"
+              ? "text-brand-forest font-bold bg-brand-champagne/25 border border-brand-champagne/40 shadow-xs"
+              : "text-brand-forest hover:bg-brand-offwhite"
           }`}
           aria-label="Admin"
         >

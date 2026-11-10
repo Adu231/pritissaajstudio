@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   SlidersHorizontal,
   ArrowUpDown,
@@ -30,6 +31,24 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
   } = useProducts();
 
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+
+  // Prevent background scrolling and restore smoothly when mobile filter drawer is open; support Escape key
+  useEffect(() => {
+    if (mobileFilterOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") setMobileFilterOpen(false);
+      };
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [mobileFilterOpen]);
 
   const ALL_SIZES = ["2.4", "2.6", "2.8", "2.10", "Standard", "Free Size (Adjustable)"];
 
@@ -339,126 +358,161 @@ export const CatalogueView = ({ onSelectProduct, onOpenSizeGuide }) => {
         </main>
       </div>
 
-      {/* Mobile Filters Drawer */}
-      {mobileFilterOpen && (
-        <div className="fixed inset-0 z-50 flex lg:hidden">
+      {/* Mobile Filters Drawer (Portalled to document.body for pristine stacking & zero layout collisions) */}
+      {mobileFilterOpen &&
+        typeof document !== "undefined" &&
+        createPortal(
           <div
-            className="fixed inset-0 bg-brand-dark/60 backdrop-blur-sm"
-            onClick={() => setMobileFilterOpen(false)}
-          />
-          <div className="relative w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto animate-slideInLeft">
-            {/* Header */}
-            <div className="p-4 bg-brand-forest text-white flex items-center justify-between border-b border-brand-champagne/40">
-              <span className="font-serif font-bold text-base flex items-center space-x-2">
-                <SlidersHorizontal className="w-4 h-4 text-brand-champagne" />
-                <span>Filter Jewellery</span>
-              </span>
-              <button onClick={() => setMobileFilterOpen(false)} className="p-1 text-white">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+            className="fixed inset-0 z-[70] flex lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Filter Jewellery"
+          >
+            {/* Full-screen Backdrop */}
+            <div
+              className="fixed inset-0 bg-brand-dark/70 backdrop-blur-sm transition-opacity animate-fadeIn"
+              onClick={() => setMobileFilterOpen(false)}
+            />
 
-            {/* Mobile Filters Content */}
-            <div className="p-4 space-y-5 overflow-y-auto bg-white">
-              {/* Category */}
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">
-                  Category
-                </h4>
-                <div className="space-y-1 text-xs">
-                  <button
-                    onClick={() => setSelectedCategory("All")}
-                    className={`w-full text-left px-3 py-2 rounded-xl transition ${
-                      selectedCategory === "All" ? "bg-brand-forest text-white font-bold" : "bg-brand-offwhite text-brand-dark"
-                    }`}
-                  >
-                    All Jewellery
-                  </button>
-                  {categories.map((c) => (
+            {/* Slide-out Filters Panel */}
+            <div
+              className="relative w-[85vw] max-w-[320px] min-w-[270px] bg-white h-[100dvh] max-h-[100dvh] shadow-2xl flex flex-col justify-between overflow-hidden animate-slideInLeft z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* 1. STICKY / PINNED HEADER (shrink-0) */}
+              <div className="shrink-0 px-4 py-3 sm:py-3.5 bg-brand-forest text-white flex items-center justify-between border-b border-brand-champagne/40">
+                <span className="font-serif font-bold text-base flex items-center space-x-2">
+                  <SlidersHorizontal className="w-4 h-4 text-brand-champagne" />
+                  <span>Filter Jewellery</span>
+                </span>
+                <button
+                  onClick={() => setMobileFilterOpen(false)}
+                  className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 transition text-white"
+                  aria-label="Close filters"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* 2. SCROLLABLE MIDDLE CONTENT (flex-1: single smooth scroll container) */}
+              <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 p-4 space-y-5 bg-white">
+                {/* Category */}
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">
+                    Category
+                  </h4>
+                  <div className="space-y-1 text-xs">
                     <button
-                      key={c.id}
-                      onClick={() => setSelectedCategory(c.name)}
+                      onClick={() => setSelectedCategory("All")}
                       className={`w-full text-left px-3 py-2 rounded-xl transition ${
-                        selectedCategory === c.name ? "bg-brand-forest text-white font-bold" : "bg-brand-offwhite text-brand-dark"
+                        selectedCategory === "All"
+                          ? "bg-brand-forest text-white font-bold shadow-xs"
+                          : "bg-brand-offwhite text-brand-dark hover:bg-brand-champagne/15"
                       }`}
                     >
-                      {c.name}
+                      All Jewellery
                     </button>
-                  ))}
+                    {categories.map((c) => (
+                      <button
+                        key={c.id}
+                        onClick={() => setSelectedCategory(c.name)}
+                        className={`w-full text-left px-3 py-2 rounded-xl transition flex items-center justify-between ${
+                          selectedCategory === c.name
+                            ? "bg-brand-forest text-white font-bold shadow-xs"
+                            : "bg-brand-offwhite text-brand-dark hover:bg-brand-champagne/15"
+                        }`}
+                      >
+                        <span className="truncate pr-2">{c.name}</span>
+                        <span
+                          className={`text-[10px] px-2 py-0.5 rounded-full ${
+                            selectedCategory === c.name
+                              ? "bg-brand-champagne text-brand-forest font-bold"
+                              : "text-brand-muted bg-white border border-brand-border/60"
+                          }`}
+                        >
+                          {c.count}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Price */}
-              <div>
-                <div className="flex justify-between text-xs mb-2">
-                  <span className="font-bold uppercase tracking-wider text-brand-dark">Max Price</span>
-                  <span className="font-bold text-brand-forest">₹{maxPrice.toLocaleString("en-IN")}</span>
-                </div>
-                <input
-                  type="range"
-                  min="1000"
-                  max="10000"
-                  step="500"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(Number(e.target.value))}
-                  className="w-full accent-brand-forest"
-                />
-              </div>
-
-              {/* Sizes */}
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">
-                  Bangle / Ring Size
-                </h4>
-                <div className="grid grid-cols-3 gap-1.5">
-                  {ALL_SIZES.map((sz) => (
-                    <button
-                      key={sz}
-                      onClick={() => setSelectedSizeFilter(selectedSizeFilter === sz ? "" : sz)}
-                      className={`text-xs py-2 px-1 rounded-xl border text-center transition ${
-                        selectedSizeFilter === sz
-                          ? "bg-brand-forest text-white border-brand-forest font-bold"
-                          : "bg-brand-offwhite border-brand-border text-brand-dark"
-                      }`}
-                    >
-                      {sz}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Stock only */}
-              <div>
-                <label className="flex items-center space-x-2 text-xs cursor-pointer text-brand-dark">
+                {/* Price */}
+                <div>
+                  <div className="flex justify-between text-xs mb-2">
+                    <span className="font-bold uppercase tracking-wider text-brand-dark">Max Price</span>
+                    <span className="font-bold text-brand-forest">₹{maxPrice.toLocaleString("en-IN")}</span>
+                  </div>
                   <input
-                    type="checkbox"
-                    checked={inStockOnly}
-                    onChange={(e) => setInStockOnly(e.target.checked)}
-                    className="rounded text-brand-forest h-4 w-4"
+                    type="range"
+                    min="1000"
+                    max="10000"
+                    step="500"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(Number(e.target.value))}
+                    className="w-full accent-brand-forest cursor-pointer"
                   />
-                  <span className="font-semibold">In Stock Items Only</span>
-                </label>
+                  <div className="flex justify-between text-[10px] text-brand-muted mt-1">
+                    <span>₹1,000</span>
+                    <span>₹10,000</span>
+                  </div>
+                </div>
+
+                {/* Sizes */}
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">
+                    Bangle / Ring Size
+                  </h4>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {ALL_SIZES.map((sz) => (
+                      <button
+                        key={sz}
+                        onClick={() => setSelectedSizeFilter(selectedSizeFilter === sz ? "" : sz)}
+                        className={`text-xs py-2 px-1 rounded-xl border text-center transition ${
+                          selectedSizeFilter === sz
+                            ? "bg-brand-forest text-white border-brand-forest font-bold shadow-xs"
+                            : "bg-brand-offwhite border-brand-border text-brand-dark hover:border-brand-forest"
+                        }`}
+                      >
+                        {sz}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Stock only */}
+                <div className="pt-2 border-t border-brand-border/60">
+                  <label className="flex items-center space-x-2.5 text-xs cursor-pointer text-brand-dark">
+                    <input
+                      type="checkbox"
+                      checked={inStockOnly}
+                      onChange={(e) => setInStockOnly(e.target.checked)}
+                      className="rounded text-brand-forest focus:ring-brand-forest h-4 w-4"
+                    />
+                    <span className="font-semibold">In Stock Items Only</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* 3. STICKY / PINNED FOOTER (shrink-0: always accessible above bottom edges) */}
+              <div className="shrink-0 p-3.5 sm:p-4 bg-brand-offwhite border-t border-brand-border flex space-x-2 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
+                <button
+                  onClick={handleResetFilters}
+                  className="w-1/3 py-2.5 rounded-xl border border-brand-border text-xs font-semibold text-brand-dark hover:bg-white active:bg-brand-border/30 transition min-h-[44px]"
+                >
+                  Reset
+                </button>
+                <button
+                  onClick={() => setMobileFilterOpen(false)}
+                  className="w-2/3 py-2.5 rounded-xl bg-brand-forest text-white text-xs font-bold hover:bg-brand-forest-dark shadow-xs active:scale-98 transition min-h-[44px]"
+                >
+                  Apply Filters
+                </button>
               </div>
             </div>
-
-            {/* Mobile Footer Apply Button */}
-            <div className="p-4 bg-brand-offwhite border-t border-brand-border flex space-x-2">
-              <button
-                onClick={handleResetFilters}
-                className="w-1/3 py-2.5 rounded-xl border border-brand-border text-xs font-semibold text-brand-dark hover:bg-white"
-              >
-                Reset
-              </button>
-              <button
-                onClick={() => setMobileFilterOpen(false)}
-                className="w-2/3 py-2.5 rounded-xl bg-brand-forest text-white text-xs font-bold hover:bg-brand-forest-dark shadow-md"
-              >
-                Apply Filters
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   Sparkles,
   ShieldCheck,
@@ -23,6 +24,24 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
 
   // Informational modals state
   const [infoModal, setInfoModal] = useState(null); // 'care' | 'shipping' | 'cod'
+
+  // Lock body scroll and restore smoothly; close on Escape key
+  useEffect(() => {
+    if (infoModal) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") setInfoModal(null);
+      };
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [infoModal]);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -234,69 +253,85 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
         </div>
       </div>
 
-      {/* Informative Modals */}
-      {infoModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-dark/70 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white text-brand-dark rounded-2xl max-w-md w-full p-6 shadow-2xl border border-brand-border space-y-4">
-            <div className="flex items-center justify-between border-b border-brand-border pb-3">
-              <h3 className="font-serif font-bold text-lg text-brand-forest">
-                {infoModal === "care" && "Jewellery Care & Cleaning"}
-                {infoModal === "shipping" && "Shipping & Delivery Policy"}
-                {infoModal === "cod" && "Cash on Delivery (COD) Terms"}
-              </h3>
-              <button onClick={() => setInfoModal(null)} className="p-1 text-brand-muted hover:text-brand-dark">
-                <X className="w-5 h-5" />
-              </button>
+      {/* Informative Modals (Portalled to document.body for pristine stacking) */}
+      {infoModal &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-brand-dark/70 backdrop-blur-sm animate-fadeIn"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Policy Information"
+            onClick={() => setInfoModal(null)}
+          >
+            <div
+              className="bg-white text-brand-dark rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-brand-border space-y-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between border-b border-brand-border pb-3">
+                <h3 className="font-serif font-bold text-base sm:text-lg text-brand-forest">
+                  {infoModal === "care" && "Jewellery Care & Cleaning"}
+                  {infoModal === "shipping" && "Shipping & Delivery Policy"}
+                  {infoModal === "cod" && "Cash on Delivery (COD) Terms"}
+                </h3>
+                <button
+                  onClick={() => setInfoModal(null)}
+                  className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl hover:bg-brand-offwhite text-brand-muted hover:text-brand-dark active:scale-95 transition"
+                  aria-label="Close dialog"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="text-xs text-brand-dark/80 leading-relaxed space-y-2">
+                {infoModal === "care" && (
+                  <>
+                    <p>To preserve the radiant lustre of your 24K micro-gold plated jewellery:</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>Always put your jewellery on after applying perfumes, lotions, and makeup.</li>
+                      <li>Store each piece individually in the provided luxury velvet pouch.</li>
+                      <li>Avoid direct exposure to chlorine, ocean water, or household detergents.</li>
+                      <li>Wipe gently with a clean, dry microfibre cloth after each wear.</li>
+                    </ul>
+                  </>
+                )}
+
+                {infoModal === "shipping" && (
+                  <>
+                    <p><strong>Pan-India Insured Delivery:</strong></p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>Orders over ₹1,499 receive Complimentary Express Shipping.</li>
+                      <li>Orders are dispatched from our Pune studio within 24–48 hours.</li>
+                      <li>Metro cities receive delivery within 3–4 business days via Blue Dart.</li>
+                      <li>Real-time tracking number with SMS/WhatsApp alerts is provided on dispatch.</li>
+                    </ul>
+                  </>
+                )}
+
+                {infoModal === "cod" && (
+                  <>
+                    <p><strong>Cash on Delivery Guidelines:</strong></p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>COD is available across all serviceable pin codes in India.</li>
+                      <li>Payment can be made in Cash or via UPI scan to the courier representative.</li>
+                      <li>Please have the exact cash amount or active UPI app ready upon delivery.</li>
+                    </ul>
+                  </>
+                )}
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <button
+                  onClick={() => setInfoModal(null)}
+                  className="px-5 py-2.5 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark active:scale-98 transition min-h-[40px]"
+                >
+                  Close
+                </button>
+              </div>
             </div>
-
-            <div className="text-xs text-brand-dark/80 leading-relaxed space-y-2">
-              {infoModal === "care" && (
-                <>
-                  <p>To preserve the radiant lustre of your 24K micro-gold plated jewellery:</p>
-                  <ul className="list-disc list-inside space-y-1">
-                    <li>Always put your jewellery on after applying perfumes, lotions, and makeup.</li>
-                    <li>Store each piece individually in the provided luxury velvet pouch.</li>
-                    <li>Avoid direct exposure to chlorine, ocean water, or household detergents.</li>
-                    <li>Wipe gently with a clean, dry microfibre cloth after each wear.</li>
-                  </ul>
-                </>
-              )}
-
-              {infoModal === "shipping" && (
-                <>
-                  <p><strong>Pan-India Insured Delivery:</strong></p>
-                  <ul className="list-disc list-inside space-y-1">
-                    <li>Orders over ₹1,499 receive Complimentary Express Shipping.</li>
-                    <li>Orders are dispatched from our Pune studio within 24–48 hours.</li>
-                    <li>Metro cities receive delivery within 3–4 business days via Blue Dart.</li>
-                    <li>Real-time tracking number with SMS/WhatsApp alerts is provided on dispatch.</li>
-                  </ul>
-                </>
-              )}
-
-              {infoModal === "cod" && (
-                <>
-                  <p><strong>Cash on Delivery Guidelines:</strong></p>
-                  <ul className="list-disc list-inside space-y-1">
-                    <li>COD is available across all serviceable pin codes in India.</li>
-                    <li>Payment can be made in Cash or via UPI scan to the courier representative.</li>
-                    <li>Please have the exact cash amount or active UPI app ready upon delivery.</li>
-                  </ul>
-                </>
-              )}
-            </div>
-
-            <div className="flex justify-end pt-2">
-              <button
-                onClick={() => setInfoModal(null)}
-                className="px-4 py-2 bg-brand-forest text-white rounded-xl text-xs font-semibold hover:bg-brand-forest-dark transition"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </footer>
   );
 };

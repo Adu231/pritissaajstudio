@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   X,
   Star,
@@ -41,6 +42,24 @@ export const ProductDetailModal = ({
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
+
+  // Lock body scroll and restore smoothly; close on Escape key
+  useEffect(() => {
+    if (product) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") onClose();
+      };
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [product, onClose]);
 
   if (!product) return null;
 
@@ -106,27 +125,34 @@ export const ProductDetailModal = ({
     setTimeout(() => setReviewSubmitted(false), 4000);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-5 bg-brand-dark/70 backdrop-blur-sm animate-fadeIn">
-      <div
-        className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[94vh] sm:max-h-[90vh] flex flex-col overflow-hidden border border-brand-border"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Modal Top Bar */}
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-brand-border bg-brand-offwhite shrink-0">
-          <div className="flex items-center space-x-1.5 text-xs text-brand-muted truncate pr-2">
-            <span className="font-bold text-brand-forest shrink-0">{product.category}</span>
-            <span>/</span>
-            <span className="truncate text-brand-dark font-medium">{product.name}</span>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-brand-border/60 transition text-brand-dark shrink-0"
-            aria-label="Close dialog"
+  return typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center p-2.5 sm:p-5 bg-brand-dark/70 backdrop-blur-sm animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+          aria-label={product.name}
+          onClick={onClose}
+        >
+          <div
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[94vh] sm:max-h-[90vh] flex flex-col overflow-hidden border border-brand-border"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+            {/* Modal Top Bar */}
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-brand-border bg-brand-offwhite shrink-0">
+              <div className="flex items-center space-x-1.5 text-xs text-brand-muted truncate pr-2">
+                <span className="font-bold text-brand-forest shrink-0">{product.category}</span>
+                <span>/</span>
+                <span className="truncate text-brand-dark font-medium">{product.name}</span>
+              </div>
+              <button
+                onClick={onClose}
+                className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl hover:bg-brand-border/60 active:scale-95 transition text-brand-dark shrink-0 ml-2"
+                aria-label="Close dialog"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
         {/* Modal Scrollable Content Grid */}
         <div className="overflow-y-auto p-4 sm:p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 bg-white">
@@ -527,6 +553,7 @@ export const ProductDetailModal = ({
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>,
+    document.body
+  ) : null;
 };

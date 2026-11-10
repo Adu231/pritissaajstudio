@@ -1,37 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X, Ruler, HelpCircle, AlertCircle } from "lucide-react";
 import { BANGLE_SIZE_GUIDE } from "../../services/mockData";
 
 export const SizeGuideModal = ({ isOpen, onClose, selectedSize, onSelectSize }) => {
+  // Lock body scroll and restore smoothly; close on Escape key
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") onClose();
+      };
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-brand-dark/60 backdrop-blur-sm animate-fadeIn">
-      <div 
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[92vh] sm:max-h-[90vh] flex flex-col overflow-hidden border border-brand-border"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="bg-brand-forest text-white px-5 py-4 flex items-center justify-between border-b border-brand-champagne/30">
-          <div className="flex items-center space-x-2">
-            <Ruler className="w-5 h-5 text-brand-champagne" />
-            <div>
-              <h3 className="font-serif text-lg sm:text-xl font-bold tracking-wide">
-                Bangle Size & Measurement Guide
-              </h3>
-              <p className="text-xs text-brand-champagne-light font-poppins">
-                Find your perfect comfortable fit before ordering
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-white/10 transition text-brand-champagne-light hover:text-white"
-            aria-label="Close modal"
+  return typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center p-2.5 sm:p-4 bg-brand-dark/70 backdrop-blur-sm animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Bangle Size & Measurement Guide"
+          onClick={onClose}
+        >
+          <div 
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[92vh] sm:max-h-[90vh] flex flex-col overflow-hidden border border-brand-border"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+            {/* Header */}
+            <div className="bg-brand-forest text-white px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between border-b border-brand-champagne/30 shrink-0">
+              <div className="flex items-center space-x-2">
+                <Ruler className="w-5 h-5 text-brand-champagne shrink-0" />
+                <div>
+                  <h3 className="font-serif text-base sm:text-xl font-bold tracking-wide">
+                    Bangle Size & Measurement Guide
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-brand-champagne-light font-poppins">
+                    Find your perfect comfortable fit before ordering
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={onClose}
+                className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 transition text-brand-champagne-light hover:text-white shrink-0 ml-2"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
         {/* Scrollable Content */}
         <div className="p-5 overflow-y-auto space-y-6 text-sm text-brand-dark bg-white">
@@ -154,12 +180,13 @@ export const SizeGuideModal = ({ isOpen, onClose, selectedSize, onSelectSize }) 
         <div className="bg-brand-offwhite px-5 py-3 border-t border-brand-border flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-xl bg-brand-forest text-white text-xs sm:text-sm font-semibold hover:bg-brand-forest-dark transition"
+            className="px-5 py-2.5 rounded-xl bg-brand-forest text-white text-xs sm:text-sm font-semibold hover:bg-brand-forest-dark active:scale-98 transition min-h-[44px]"
           >
             Got It, Close Guide
           </button>
         </div>
       </div>
-    </div>
-  );
+    </div>,
+    document.body
+  ) : null;
 };

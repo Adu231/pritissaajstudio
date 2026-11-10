@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   X,
   Trash2,
@@ -42,6 +43,24 @@ export const CartDrawer = ({
   const { user } = useAuth();
   const [couponCodeInput, setCouponCodeInput] = useState("");
 
+  // Lock body scroll and restore smoothly; close on Escape key
+  useEffect(() => {
+    if (isCartOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") closeCart();
+      };
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [isCartOpen, closeCart]);
+
   if (!isCartOpen) return null;
 
   const freeShippingDifference = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
@@ -63,33 +82,42 @@ export const CartDrawer = ({
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-brand-dark/60 backdrop-blur-sm transition-opacity"
-        onClick={closeCart}
-      />
-
-      {/* Slide-out Drawer */}
-      <div className="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between overflow-hidden animate-slideInRight">
-        {/* Header */}
-        <div className="p-4 sm:p-5 bg-brand-forest text-white flex items-center justify-between border-b border-brand-forest-light">
-          <div className="flex items-center space-x-2">
-            <ShoppingBag className="w-5 h-5 text-brand-champagne shrink-0" />
-            <h3 className="font-serif text-lg font-bold">Shopping Bag</h3>
-            <span className="text-xs bg-brand-champagne text-brand-forest px-2 py-0.5 rounded-full font-bold">
-              {items.length} {items.length === 1 ? "Item" : "Items"}
-            </span>
-          </div>
-          <button
+  return typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[70] flex justify-end"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Shopping bag drawer"
+        >
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-brand-dark/70 backdrop-blur-sm transition-opacity animate-fadeIn"
             onClick={closeCart}
-            className="p-1.5 rounded-full hover:bg-white/10 transition text-brand-champagne-light hover:text-white"
-            aria-label="Close bag"
+          />
+
+          {/* Slide-out Drawer */}
+          <div
+            className="relative w-full max-w-md bg-white h-[100dvh] max-h-[100dvh] shadow-2xl flex flex-col justify-between overflow-hidden animate-slideInRight z-10"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+            {/* Header */}
+            <div className="shrink-0 p-4 sm:p-5 bg-brand-forest text-white flex items-center justify-between border-b border-brand-forest-light">
+              <div className="flex items-center space-x-2">
+                <ShoppingBag className="w-5 h-5 text-brand-champagne shrink-0" />
+                <h3 className="font-serif text-lg font-bold">Shopping Bag</h3>
+                <span className="text-xs bg-brand-champagne text-brand-forest px-2 py-0.5 rounded-full font-bold">
+                  {items.length} {items.length === 1 ? "Item" : "Items"}
+                </span>
+              </div>
+              <button
+                onClick={closeCart}
+                className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 transition text-brand-champagne-light hover:text-white"
+                aria-label="Close bag"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
         {/* Free Shipping Progress Indicator */}
         <div className="bg-brand-offwhite p-3 border-b border-brand-border">
@@ -222,7 +250,7 @@ export const CartDrawer = ({
 
         {/* Footer: Coupon + Summary + Checkout CTA */}
         {items.length > 0 && (
-          <div className="p-3.5 sm:p-5 bg-white border-t border-brand-border shadow-lg space-y-3 shrink-0">
+          <div className="p-3.5 sm:p-5 bg-white border-t border-brand-border shadow-lg space-y-3 shrink-0 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
             {/* Coupon Code Input */}
             <div>
               {appliedCoupon ? (
@@ -312,7 +340,7 @@ export const CartDrawer = ({
             {/* Checkout Button */}
             <button
               onClick={handleCheckoutClick}
-              className="w-full min-h-[44px] py-3 px-4 rounded-xl bg-brand-forest hover:bg-brand-forest-dark text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-luxury flex items-center justify-center space-x-2"
+              className="w-full min-h-[44px] py-3 px-4 rounded-xl bg-brand-forest hover:bg-brand-forest-dark text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-luxury flex items-center justify-center space-x-2 active:scale-98"
             >
               <span>
                 {user ? "Proceed to Checkout" : "Sign In & Proceed to Checkout"}
@@ -322,6 +350,7 @@ export const CartDrawer = ({
           </div>
         )}
       </div>
-    </div>
-  );
+    </div>,
+    document.body
+  ) : null;
 };
