@@ -182,7 +182,7 @@ export const HomeView = ({
               </div>
               <div className="rounded-2xl shadow-xs overflow-hidden aspect-square mt-4 sm:mt-6 border border-brand-border">
                 <SafeImage
-                  src="https://images.unsplash.com/photo-1611591475841-f76ee30c797d?auto=format&fit=crop&w=800&q=80"
+                  src="https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=800&q=75"
                   alt="Heritage Bangles"
                   category="Bangles"
                   aspectRatio="aspect-square"

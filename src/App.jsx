@@ -198,6 +198,7 @@ export function App() {
           product={selectedProduct}
           onClose={() => setSelectedProduct(null)}
           onOpenSizeGuide={handleOpenSizeGuide}
+          onSelectProduct={(prod) => setSelectedProduct(prod)}
           onProceedToCheckout={() => {
             setSelectedProduct(null);
             setCurrentView("checkout");

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import {
   X,
@@ -12,6 +12,9 @@ import {
   Check,
   AlertCircle,
   Sparkles,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { useProducts } from "../../context/ProductContext";
@@ -24,10 +27,14 @@ export const ProductDetailModal = ({
   onOpenSizeGuide,
   onProceedToCheckout,
   onOpenAuth,
+  onSelectProduct,
 }) => {
   const { addToCart } = useCart();
-  const { reviews, submitReview } = useProducts();
+  const { products, reviews, submitReview } = useProducts();
   const { user } = useAuth();
+
+  const modalScrollRef = useRef(null);
+  const relatedScrollRef = useRef(null);
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState(
@@ -60,6 +67,20 @@ export const ProductDetailModal = ({
       };
     }
   }, [product, onClose]);
+
+  // Reset modal state and scroll to top when active product changes
+  useEffect(() => {
+    if (product) {
+      setActiveImageIndex(0);
+      setSelectedSize(product.sizes?.length === 1 ? product.sizes[0] : "");
+      setQuantity(1);
+      setValidationError("");
+      setAddedSuccess(false);
+      if (modalScrollRef.current) {
+        modalScrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+  }, [product?.id]);
 
   if (!product) return null;
 
@@ -125,6 +146,33 @@ export const ProductDetailModal = ({
     setTimeout(() => setReviewSubmitted(false), 4000);
   };
 
+  // Recommendations: prioritize same category, then bestsellers
+  const relatedProducts = (products || [])
+    .filter((p) => p.id !== product?.id && p.isActive !== false)
+    .sort((a, b) => {
+      if (a.category === product?.category && b.category !== product?.category) return -1;
+      if (b.category === product?.category && a.category !== product?.category) return 1;
+      if (a.isBestseller && !b.isBestseller) return -1;
+      if (b.isBestseller && !a.isBestseller) return 1;
+      return 0;
+    });
+
+  const handleSelectRelated = (item) => {
+    if (onSelectProduct) {
+      onSelectProduct(item);
+    }
+    if (modalScrollRef.current) {
+      modalScrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const scrollRelated = (direction) => {
+    if (relatedScrollRef.current) {
+      const scrollAmount = direction === "left" ? -260 : 260;
+      relatedScrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
   return typeof document !== "undefined"
     ? createPortal(
         <div
@@ -154,8 +202,10 @@ export const ProductDetailModal = ({
               </button>
             </div>
 
-        {/* Modal Scrollable Content Grid */}
-        <div className="overflow-y-auto p-4 sm:p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 bg-white">
+        {/* Modal Scrollable Body */}
+        <div ref={modalScrollRef} className="overflow-y-auto flex-1 bg-white overscroll-contain">
+          {/* Main 2-Column Product Details Grid */}
+          <div className="p-4 sm:p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 bg-white">
           {/* Left Column: Image Gallery */}
           <div className="space-y-3 sm:space-y-4">
             {/* Main Active Image */}
@@ -551,6 +601,125 @@ export const ProductDetailModal = ({
               </div>
             </div>
           </div>
+          </div>
+
+          {/* Related Pieces Horizontal Carousel */}
+          {relatedProducts.length > 0 && (
+            <div className="border-t border-brand-border bg-brand-offwhite/50 px-4 sm:px-6 md:px-8 py-5 sm:py-6">
+              <div className="flex items-center justify-between mb-3.5">
+                <div>
+                  <div className="flex items-center space-x-1.5 text-brand-champagne-dark text-xs font-bold uppercase tracking-wider">
+                    <Sparkles className="w-3.5 h-3.5 text-brand-champagne-dark" />
+                    <span>Complete Your Ensemble</span>
+                  </div>
+                  <h3 className="font-serif text-base sm:text-lg font-bold text-brand-forest mt-0.5">
+                    You May Also Adore
+                  </h3>
+                </div>
+
+                {/* Desktop Carousel Navigation Arrows */}
+                <div className="hidden sm:flex items-center space-x-1.5">
+                  <button
+                    type="button"
+                    onClick={() => scrollRelated("left")}
+                    className="w-8 h-8 rounded-full border border-brand-border bg-white text-brand-dark hover:bg-brand-offwhite hover:border-brand-forest/50 transition flex items-center justify-center shadow-2xs active:scale-95"
+                    aria-label="Scroll left"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => scrollRelated("right")}
+                    className="w-8 h-8 rounded-full border border-brand-border bg-white text-brand-dark hover:bg-brand-offwhite hover:border-brand-forest/50 transition flex items-center justify-center shadow-2xs active:scale-95"
+                    aria-label="Scroll right"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Horizontal Scroll Track */}
+              <div
+                ref={relatedScrollRef}
+                className="flex space-x-3 sm:space-x-4 overflow-x-auto pb-2 pt-1 no-scrollbar scroll-smooth snap-x snap-mandatory"
+              >
+                {relatedProducts.map((rel) => {
+                  const relPrice = rel.price;
+                  const relDiscountPrice = rel.discountPrice;
+                  const relHasDiscount = relDiscountPrice && relDiscountPrice < relPrice;
+
+                  return (
+                    <div
+                      key={rel.id}
+                      onClick={() => handleSelectRelated(rel)}
+                      className="snap-start shrink-0 w-[155px] sm:w-[185px] md:w-[200px] bg-white rounded-xl sm:rounded-2xl border border-brand-border hover:border-brand-champagne hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden text-left cursor-pointer group focus:outline-none focus:ring-2 focus:ring-brand-forest"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          handleSelectRelated(rel);
+                        }
+                      }}
+                      aria-label={`View ${rel.name}`}
+                    >
+                      {/* Product Thumbnail with Badges */}
+                      <div className="relative aspect-square w-full overflow-hidden bg-brand-offwhite border-b border-brand-border/60">
+                        <SafeImage
+                          src={rel.images?.[0]}
+                          alt={rel.name}
+                          category={rel.category}
+                          aspectRatio="aspect-square"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        {relHasDiscount && (
+                          <span className="absolute top-2 left-2 bg-brand-champagne text-brand-forest text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded shadow-xs border border-brand-champagne-dark/30 z-10">
+                            {Math.round(((relPrice - relDiscountPrice) / relPrice) * 100)}% OFF
+                          </span>
+                        )}
+                        {rel.rating && (
+                          <div className="absolute top-2 right-2 bg-white/95 backdrop-blur-xs text-[9px] sm:text-[10px] font-bold text-brand-forest px-1.5 py-0.5 rounded-full flex items-center shadow-xs border border-brand-border/60 z-10">
+                            <Star className="w-2.5 h-2.5 fill-brand-champagne text-brand-champagne mr-0.5" />
+                            <span>{rel.rating}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="p-2.5 sm:p-3 flex flex-col justify-between flex-1 space-y-1.5">
+                        <div>
+                          <span className="text-[9px] sm:text-[10px] font-semibold text-brand-champagne-dark uppercase tracking-wider block">
+                            {rel.category}
+                          </span>
+                          <h4 className="font-serif text-xs sm:text-sm font-bold text-brand-dark group-hover:text-brand-forest line-clamp-1 transition-colors">
+                            {rel.name}
+                          </h4>
+                        </div>
+
+                        {/* Price & CTA */}
+                        <div className="pt-1 border-t border-brand-border/50">
+                          <div className="flex items-baseline space-x-1.5">
+                            <span className="font-poppins font-bold text-xs sm:text-sm text-brand-forest">
+                              ₹{(relDiscountPrice || relPrice).toLocaleString("en-IN")}
+                            </span>
+                            {relHasDiscount && (
+                              <span className="text-[10px] text-brand-muted line-through">
+                                ₹{relPrice.toLocaleString("en-IN")}
+                              </span>
+                            )}
+                          </div>
+                          <div className="mt-2 flex items-center justify-between text-[11px] font-semibold text-brand-forest group-hover:text-brand-forest-dark transition-colors">
+                            <span>View Piece</span>
+                            <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-brand-champagne-dark" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>,

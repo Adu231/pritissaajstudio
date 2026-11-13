@@ -9,19 +9,39 @@ import {
 } from "./mockData";
 
 const STORAGE_KEYS = {
-  PRODUCTS: "saaj_db_products_v1",
-  CATEGORIES: "saaj_db_categories_v1",
+  PRODUCTS: "saaj_db_products_v3",
+  CATEGORIES: "saaj_db_categories_v3",
   COUPONS: "saaj_db_coupons_v1",
   USERS: "saaj_db_users_v1",
-  ORDERS: "saaj_db_orders_v1",
+  ORDERS: "saaj_db_orders_v3",
   REVIEWS: "saaj_db_reviews_v1",
-  BANNERS: "saaj_db_banners_v1",
+  BANNERS: "saaj_db_banners_v3",
   CURRENT_USER: "saaj_db_current_user_v1",
   CART: "saaj_db_cart_v1",
 };
 
-// Seed database on first run
+// Auto-heal legacy broken bangles URL across client sessions
+const BROKEN_URL_PART = "1611591475841";
+const VERIFIED_BANGLE_IMAGE = "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=75&w=600&auto=format&fit=crop";
+
+// Seed database on first run and sanitize cached records
 export const initializeStorage = () => {
+  try {
+    // Sanitize any legacy cached entries in browser localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+      const storageKey = localStorage.key(i);
+      if (storageKey && storageKey.startsWith("saaj_db_")) {
+        const val = localStorage.getItem(storageKey);
+        if (val && val.includes(BROKEN_URL_PART)) {
+          const sanitized = val.split(/https:\/\/images\.unsplash\.com\/photo-1611591475841-f76ee30c797d[^\s"'\`]+/g).join(VERIFIED_BANGLE_IMAGE);
+          localStorage.setItem(storageKey, sanitized);
+        }
+      }
+    }
+  } catch {
+    // ignore localStorage read restrictions
+  }
+
   if (!localStorage.getItem(STORAGE_KEYS.PRODUCTS)) {
     localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(INITIAL_PRODUCTS));
   }
@@ -62,7 +82,18 @@ export const resetToDefaultData = () => {
 export const getStoredProducts = () => {
   initializeStorage();
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEYS.PRODUCTS)) || [];
+    const raw = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
+    if (!raw) return INITIAL_PRODUCTS;
+    const items = JSON.parse(raw);
+    return items.map((p) => {
+      const cleanImages = (p.images || []).map((img) =>
+        img && img.includes(BROKEN_URL_PART) ? VERIFIED_BANGLE_IMAGE : img
+      );
+      return {
+        ...p,
+        images: cleanImages.length > 0 ? cleanImages : [VERIFIED_BANGLE_IMAGE],
+      };
+    });
   } catch {
     return INITIAL_PRODUCTS;
   }
@@ -115,7 +146,13 @@ export const updateSizeStock = (productId, sizeName, quantity) => {
 export const getStoredBanners = () => {
   initializeStorage();
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEYS.BANNERS)) || [];
+    const raw = localStorage.getItem(STORAGE_KEYS.BANNERS);
+    if (!raw) return INITIAL_BANNERS;
+    const items = JSON.parse(raw);
+    return items.map((b) => ({
+      ...b,
+      imageUrl: b.imageUrl && b.imageUrl.includes(BROKEN_URL_PART) ? VERIFIED_BANGLE_IMAGE : b.imageUrl,
+    }));
   } catch {
     return INITIAL_BANNERS;
   }

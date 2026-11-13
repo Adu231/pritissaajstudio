@@ -469,3 +469,39 @@ Constructed a structured 3-tier layout:
 ### 8.6 Top Announcement Bar Removal
 - **Request:** Removed the dark green top announcement bar (`✨ Complimentary Luxury Velvet Pouch & Free Delivery on ₹1,499+`) from `Header.jsx`.
 - **Outcome:** Eliminates generic promo bar clutter and pulsing sparkle icon, giving the brand a cleaner, authentic luxury boutique look. Desktop navigation and direct access to the Bangle Size Guide and Admin Portal remain seamlessly available in the main navigation and account menu.
+
+---
+
+### 8.7 Mobile Product Detail Related Products Carousel & Resilient Fast Image Loading
+- **User Need & Requirement:**
+  When customers opened the product details modal (`ProductDetailModal.jsx`) on mobile preview screens and scrolled down past the details/reviews, no other pieces were shown. The user requested adding a horizontal product list/carousel to discover and preview more pieces directly from the modal, ensuring all images load fast, adding multiple related photos per product, and ensuring resilient fallbacks if an image fails to load.
+- **Architectural Enhancements:**
+  1. **Horizontal "You May Also Adore" Carousel:**
+     - Restructured the modal scroll architecture in `ProductDetailModal.jsx`: separated the outer scrollable viewport container (`modalScrollRef`) from the two-column product details grid.
+     - Placed a full-width recommendation band at the bottom containing an elegant horizontal scroll track (`ref={relatedScrollRef}`) with CSS snap scrolling (`snap-x snap-mandatory`), hidden scrollbars (`no-scrollbar`), and desktop navigation arrows.
+     - Smart Sorting: Prioritizes pieces from the same jewellery category first, followed by bestsellers, while filtering out the active item.
+     - Seamless In-Modal Product Switch: Clicking any related card calls `onSelectProduct(relProd)`, seamlessly switching the view to that piece, resetting the active image index, selected size, and quantity, and smoothly scrolling the modal to the top (`modalScrollRef.current.scrollTo({ top: 0, behavior: "smooth" })`).
+  2. **Image Performance & Multi-Angle Photography:**
+     - Enhanced `mockData.js` with 3–4 high-resolution, category-accurate images for every product (`prod_1` through `prod_10`) using high-speed CDN parameters (`q=75&w=600&auto=format&fit=crop`).
+     - Upgraded `SafeImage.jsx` with `decoding="async"`, dynamic `loading="eager"` / `priority` support, and a `useEffect` hook that resets loading/error flags when the image URL changes so transitions never get stuck.
+     - Retained category-specific SVG vector fallbacks for all jewellery categories (`Necklaces`, `Bangles`, `Earrings`, `Rings`, `Bridal Sets`, and `default`) in Deep Forest Green & Champagne Gold styling in case of offline or blocked connections.
+     - Bumped storage version keys in `storage.js` to `saaj_db_products_v3` and `saaj_db_banners_v3` so existing client browser sessions immediately load the upgraded multi-image database without requiring manual cache resets.
+
+---
+
+### 8.8 Resolution of 404 Image Asset Failure & Bulletproof JSX Vector Fallbacks
+- **Issue Discovered:**
+  In several product cards ("Royal Pichodi Heritage Bangles", "Traditional Maharashtrian Tode Bangles"), category cards ("Bangles"), and the "Our Heritage Story" section in `HomeView.jsx`, the remote asset `https://images.unsplash.com/photo-1611591475841-f76ee30c797d` returned an HTTP 404 from Unsplash CDN. Because `SafeImage.jsx` previously passed a URI string back into the `<img />` tag upon error, Chromium rejected the fallback data URL, causing the browser to render native broken-image icons and alt text.
+- **Root Cause & Comprehensive Resolution:**
+  1. **HTTP 404 Replacement:** Audited every single image URL across the application via automated HTTP verification. Replaced all 7 occurrences of `photo-1611591475841-f76ee30c797d` with verified 200 OK, high-speed, authentic gold bangles and jewellery photography:
+     - `photo-1602751584552-8ba73aad10e1` (Authentic royal gold bangles/kadas stack, 37KB)
+     - `photo-1617038260897-41a1f14a8ca0` (Gold kada filigree craftsmanship, 58KB)
+     - `photo-1598560917505-59a3ad559071` (Bridal gold ornament bangles, 41KB)
+     - `photo-1576053139778-7e32f2ae3cfd` (Heritage gold repoussé detailing, 50KB)
+  2. **Indestructible JSX Fallback Architecture (`SafeImage.jsx`):**
+     - When an image fails to load or `src` is missing, `SafeImage` immediately swaps out the `<img />` tag entirely and mounts a clean, responsive inline `<svg>` vector element in JSX (`JewelleryVectorFallback`).
+     - Because no broken `<img />` tag remains in the DOM, the browser can never display broken image icons or alt-text collision.
+     - Vectors are custom-styled to the `#0B3B24` (Deep Forest Green) & `#E3CBA9` (Champagne Gold) brand palette with category-tailored motifs (`Bangles`, `Necklaces`, `Earrings`, `Rings`, `Bridal Sets`, and brand insignia).
+  3. **Auto-Sanitizing LocalStorage Persistence (`storage.js`):**
+     - Added an automatic sanitization routine in `initializeStorage()` and `getStoredProducts()` / `getStoredBanners()` that scans all keys starting with `saaj_db_`. Any cached entries referencing the legacy broken image ID are automatically sanitized in memory and updated in `localStorage` on page load.
+     - Bumped storage version keys to `saaj_db_products_v3`, `saaj_db_categories_v3`, `saaj_db_banners_v3`, and `saaj_db_orders_v3`.

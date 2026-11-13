@@ -3,7 +3,7 @@ export const INITIAL_BANNERS = [
     id: "ban_1",
     title: "The Royal Saaj Heritage Collection",
     subtitle: "Handcrafted traditional Maharashtrian & temple jewellery celebrating timeless Indian elegance.",
-    imageUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1600&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=75&w=1200&auto=format&fit=crop",
     ctaText: "Shop The Royal Collection",
     link: "catalogue?category=Necklaces",
     displayOrder: 1,
@@ -13,7 +13,7 @@ export const INITIAL_BANNERS = [
     id: "ban_2",
     title: "Handcrafted Bridal & Festive Splendour",
     subtitle: "Make every auspicious occasion truly unforgettable with our heirloom bridal sets.",
-    imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=1600&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=75&w=1200&auto=format&fit=crop",
     ctaText: "Explore Bridal Sets",
     link: "catalogue?category=Bridal Sets",
     displayOrder: 2,
@@ -23,7 +23,7 @@ export const INITIAL_BANNERS = [
     id: "ban_3",
     title: "Heritage Bangles & Kada Collection",
     subtitle: "Precision handcrafted bangles available in authentic sizes 2.4 to 2.10 with verified size guide.",
-    imageUrl: "https://images.unsplash.com/photo-1611591475841-f76ee30c797d?q=80&w=1600&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=75&w=1200&auto=format&fit=crop",
     ctaText: "Discover Bangles & Size Guide",
     link: "catalogue?category=Bangles",
     displayOrder: 3,
@@ -42,9 +42,10 @@ export const INITIAL_PRODUCTS = [
     metal: "24K Micro Gold Plated Brass",
     weight: "48 grams",
     images: [
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1611591475841-f76ee30c797d?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["Standard (18-20\")", "Long (24-26\")"],
     stockBySize: {
@@ -67,8 +68,10 @@ export const INITIAL_PRODUCTS = [
     metal: "Matte Antique Gold Plating",
     weight: "52 grams (pair)",
     images: [
-      "https://images.unsplash.com/photo-1611591475841-f76ee30c797d?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["2.4", "2.6", "2.8", "2.10"],
     stockBySize: {
@@ -93,8 +96,9 @@ export const INITIAL_PRODUCTS = [
     metal: "High Gloss Gold Polish & Fresh Water Pearls",
     weight: "32 grams",
     images: [
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["Adjustable Free Size"],
     stockBySize: {
@@ -116,8 +120,9 @@ export const INITIAL_PRODUCTS = [
     metal: "Antique Temple Gold Plating",
     weight: "28 grams",
     images: [
-      "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["Standard"],
     stockBySize: {
@@ -139,8 +144,9 @@ export const INITIAL_PRODUCTS = [
     metal: "22K Gold Finish with Meenakari reverse",
     weight: "44 grams",
     images: [
-      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1611591475841-f76ee30c797d?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["2.4", "2.6", "2.8"],
     stockBySize: {
@@ -164,8 +170,9 @@ export const INITIAL_PRODUCTS = [
     metal: "Heritage Gold Polish with Hydro Gemstones",
     weight: "140 grams",
     images: [
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["Bridal Deluxe Set"],
     stockBySize: {
@@ -187,8 +194,9 @@ export const INITIAL_PRODUCTS = [
     metal: "Antique Gold Plated Brass",
     weight: "16 grams",
     images: [
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["Free Size (Adjustable)"],
     stockBySize: {
@@ -210,8 +218,10 @@ export const INITIAL_PRODUCTS = [
     metal: "Heavy Brass with 24K Micro Gold Plate",
     weight: "68 grams",
     images: [
-      "https://images.unsplash.com/photo-1611591475841-f76ee30c797d?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["2.4", "2.6", "2.8", "2.10"],
     stockBySize: {
@@ -236,8 +246,9 @@ export const INITIAL_PRODUCTS = [
     metal: "Yellow Gold Finish",
     weight: "24 grams",
     images: [
-      "https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["Standard"],
     stockBySize: {
@@ -259,8 +270,9 @@ export const INITIAL_PRODUCTS = [
     metal: "Matte Gold Finish",
     weight: "18 grams",
     images: [
-      "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=75&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=75&w=600&auto=format&fit=crop"
     ],
     sizes: ["Free Size (Adjustable)"],
     stockBySize: {
@@ -275,11 +287,11 @@ export const INITIAL_PRODUCTS = [
 ];
 
 export const INITIAL_CATEGORIES = [
-  { id: "cat_1", name: "Necklaces", image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=600&auto=format&fit=crop", count: "12 Designs" },
-  { id: "cat_2", name: "Bangles", image: "https://images.unsplash.com/photo-1611591475841-f76ee30c797d?q=80&w=600&auto=format&fit=crop", count: "8 Designs" },
-  { id: "cat_3", name: "Earrings", image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=600&auto=format&fit=crop", count: "10 Designs" },
-  { id: "cat_4", name: "Rings", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600&auto=format&fit=crop", count: "6 Designs" },
-  { id: "cat_5", name: "Bridal Sets", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600&auto=format&fit=crop", count: "5 Sets" },
+  { id: "cat_1", name: "Necklaces", image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=75&w=600&auto=format&fit=crop", count: "12 Designs" },
+  { id: "cat_2", name: "Bangles", image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=75&w=600&auto=format&fit=crop", count: "8 Designs" },
+  { id: "cat_3", name: "Earrings", image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=75&w=600&auto=format&fit=crop", count: "10 Designs" },
+  { id: "cat_4", name: "Rings", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=75&w=600&auto=format&fit=crop", count: "6 Designs" },
+  { id: "cat_5", name: "Bridal Sets", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=75&w=600&auto=format&fit=crop", count: "5 Sets" },
 ];
 
 export const BANGLE_SIZE_GUIDE = [
@@ -433,7 +445,7 @@ export const INITIAL_ORDERS = [
       {
         productId: "prod_2",
         productName: "Royal Pichodi Heritage Bangles (Set of 2)",
-        image: "https://images.unsplash.com/photo-1611591475841-f76ee30c797d?q=80&w=800&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=75&w=600&auto=format&fit=crop",
         size: "2.6",
         quantity: 1,
         unitPrice: 2799,
