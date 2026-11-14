@@ -9,6 +9,8 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { SafeImage } from "../common/SafeImage";
+import { WhatsAppIcon } from "../common/WhatsAppButton";
+import { buildOrderWhatsAppMessage, openWhatsApp, WHATSAPP_CONFIG } from "../../utils/whatsapp";
 
 export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile }) => {
   if (!order) return null;
@@ -63,6 +65,31 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
             <span className="text-brand-muted block text-[9px] uppercase font-bold">Payment Status</span>
             <strong className="text-brand-forest text-xs sm:text-sm">{order.paymentStatus} ({order.paymentMethod.toUpperCase()})</strong>
           </div>
+        </div>
+
+        {/* WhatsApp Order Dispatch Card */}
+        <div className="mt-5 p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-left">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-xs">
+              <WhatsAppIcon className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-serif font-bold text-sm text-brand-forest">
+                Send Order Receipt to WhatsApp
+              </h3>
+              <p className="text-xs text-brand-dark/80 mt-0.5">
+                Forward your order details directly to our studio on <strong>{WHATSAPP_CONFIG.displayPhone}</strong> for instant confirmation and priority packaging.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => openWhatsApp(buildOrderWhatsAppMessage(order))}
+            className="w-full sm:w-auto shrink-0 min-h-[42px] px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold tracking-wide transition shadow-md flex items-center justify-center space-x-2 active:scale-95"
+          >
+            <WhatsAppIcon className="w-4 h-4" />
+            <span>Send on WhatsApp</span>
+          </button>
         </div>
       </div>
 
@@ -268,6 +295,14 @@ export const OrderConfirmationView = ({ order, onContinueShopping, onViewProfile
 
       {/* Bottom Actions */}
       <div className="flex flex-wrap items-center justify-center gap-3">
+        <button
+          onClick={() => openWhatsApp(buildOrderWhatsAppMessage(order))}
+          className="min-h-[44px] px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold tracking-wide transition shadow-md flex items-center space-x-2 active:scale-95"
+        >
+          <WhatsAppIcon className="w-4 h-4" />
+          <span>Forward to WhatsApp ({WHATSAPP_CONFIG.displayPhone})</span>
+        </button>
+
         <button
           onClick={onContinueShopping}
           className="min-h-[44px] px-6 py-2.5 rounded-xl bg-brand-forest hover:bg-brand-forest-dark text-white text-xs sm:text-sm font-bold tracking-wide transition shadow-luxury flex items-center space-x-2"

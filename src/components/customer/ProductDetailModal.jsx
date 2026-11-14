@@ -20,6 +20,8 @@ import { useCart } from "../../context/CartContext";
 import { useProducts } from "../../context/ProductContext";
 import { useAuth } from "../../context/AuthContext";
 import { SafeImage } from "../common/SafeImage";
+import { WhatsAppIcon } from "../common/WhatsAppButton";
+import { buildProductWhatsAppMessage, openWhatsApp } from "../../utils/whatsapp";
 
 export const ProductDetailModal = ({
   product,
@@ -123,6 +125,20 @@ export const ProductDetailModal = ({
       onClose();
       if (onProceedToCheckout) onProceedToCheckout();
     }
+  };
+
+  const handleWhatsAppOrder = () => {
+    setValidationError("");
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      setValidationError("Please select your size before ordering on WhatsApp.");
+      return;
+    }
+    const msg = buildProductWhatsAppMessage({
+      product,
+      selectedSize,
+      quantity,
+    });
+    openWhatsApp(msg);
   };
 
   const handleReviewSubmit = (e) => {
@@ -461,6 +477,17 @@ export const ProductDetailModal = ({
                   <span>Buy Now (Instant)</span>
                 </button>
               </div>
+
+              {/* WhatsApp Quick Order Button */}
+              <button
+                type="button"
+                onClick={handleWhatsAppOrder}
+                className="w-full min-h-[42px] py-2 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-xs flex items-center justify-center space-x-2 active:scale-98"
+                title="Order or inquire about this piece directly on WhatsApp (+91 93078 68286)"
+              >
+                <WhatsAppIcon className="w-4 h-4" />
+                <span>Order on WhatsApp (+91 93078 68286)</span>
+              </button>
             </div>
 
             {/* Information Tabs */}

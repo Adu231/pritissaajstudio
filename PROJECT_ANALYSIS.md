@@ -505,3 +505,23 @@ Constructed a structured 3-tier layout:
   3. **Auto-Sanitizing LocalStorage Persistence (`storage.js`):**
      - Added an automatic sanitization routine in `initializeStorage()` and `getStoredProducts()` / `getStoredBanners()` that scans all keys starting with `saaj_db_`. Any cached entries referencing the legacy broken image ID are automatically sanitized in memory and updated in `localStorage` on page load.
      - Bumped storage version keys to `saaj_db_products_v3`, `saaj_db_categories_v3`, `saaj_db_banners_v3`, and `saaj_db_orders_v3`.
+
+---
+
+### 8.9 Automated WhatsApp Multi-Product Order Dispatch Integration
+- **User Requirement:**
+  Enable customers to send their orders directly to the owner's WhatsApp number (`+91 93078 68286`). When customers select multiple products in the cart, the generated message sent to WhatsApp must automatically customize and enumerate each item (name, category, size, quantity, unit price, item subtotal), calculate the complete price breakdown (subtotal, discounts, shipping, total), and attach customer delivery destination details.
+- **Implementation Architecture:**
+  1. **Centralized WhatsApp Engine (`src/utils/whatsapp.js`):**
+     - Configured with official target number `919307868286` (`+91 93078 68286`).
+     - `buildOrderWhatsAppMessage(order)`: Generates comprehensive multi-item order dispatches formatted with WhatsApp bolding, numbered item emojis (`1️⃣`, `2️⃣`, `3️⃣`), complete delivery address, contact info, and payment preference.
+     - `buildCartWhatsAppMessage(cartData)`: Formats instant multi-item bag inquiry/orders directly from the slide-out shopping cart.
+     - `buildProductWhatsAppMessage({ product, selectedSize, quantity })`: Generates individual piece inquiries with accurate size specifications.
+     - `openWhatsApp(message, phone)`: Cross-platform universal launcher supporting WhatsApp Web on desktop and the native WhatsApp app on Android/iOS.
+  2. **Touchpoint Integrations:**
+     - **Cart Drawer (`CartDrawer.jsx`):** Added green `Order via WhatsApp ({count} items)` action button beside "Proceed to Checkout".
+     - **Checkout (`CheckoutView.jsx`):** Added prominent `Place Order & Send on WhatsApp` primary action, instantly registering the order in the local database and pre-filling the WhatsApp chat.
+     - **Order Confirmation (`OrderConfirmationView.jsx`):** Embedded a dedicated `Send Order Receipt to WhatsApp` banner and bottom action button.
+     - **Product Details (`ProductDetailModal.jsx`):** Added `Order on WhatsApp (+91 93078 68286)` button with live size validation.
+     - **Global Concierge Button (`App.jsx` & `WhatsAppButton.jsx`):** Deployed a floating WhatsApp concierge pill on mobile and desktop without obstructing navigation bars.
+     - **Footer (`Footer.jsx`):** Linked studio contact number directly to `https://wa.me/919307868286`.

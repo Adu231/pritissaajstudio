@@ -15,6 +15,8 @@ import {
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 import { SafeImage } from "../common/SafeImage";
+import { WhatsAppIcon } from "../common/WhatsAppButton";
+import { buildCartWhatsAppMessage, openWhatsApp } from "../../utils/whatsapp";
 
 export const CartDrawer = ({
   onProceedToCheckout,
@@ -80,6 +82,19 @@ export const CartDrawer = ({
     } else {
       if (onProceedToCheckout) onProceedToCheckout();
     }
+  };
+
+  const handleWhatsAppCartOrder = () => {
+    const msg = buildCartWhatsAppMessage({
+      items,
+      subtotal,
+      discount,
+      shipping,
+      total,
+      couponApplied,
+      user,
+    });
+    openWhatsApp(msg);
   };
 
   return typeof document !== "undefined"
@@ -337,16 +352,28 @@ export const CartDrawer = ({
               </div>
             </div>
 
-            {/* Checkout Button */}
-            <button
-              onClick={handleCheckoutClick}
-              className="w-full min-h-[44px] py-3 px-4 rounded-xl bg-brand-forest hover:bg-brand-forest-dark text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-luxury flex items-center justify-center space-x-2 active:scale-98"
-            >
-              <span>
-                {user ? "Proceed to Checkout" : "Sign In & Proceed to Checkout"}
-              </span>
-              <ArrowRight className="w-4 h-4 text-brand-champagne shrink-0" />
-            </button>
+            {/* Action Buttons: Standard Checkout & WhatsApp Order */}
+            <div className="space-y-2 pt-1">
+              <button
+                onClick={handleCheckoutClick}
+                className="w-full min-h-[44px] py-3 px-4 rounded-xl bg-brand-forest hover:bg-brand-forest-dark text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-luxury flex items-center justify-center space-x-2 active:scale-98"
+              >
+                <span>
+                  {user ? "Proceed to Checkout" : "Sign In & Proceed to Checkout"}
+                </span>
+                <ArrowRight className="w-4 h-4 text-brand-champagne shrink-0" />
+              </button>
+
+              <button
+                type="button"
+                onClick={handleWhatsAppCartOrder}
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-md flex items-center justify-center space-x-2 active:scale-98"
+                title="Send these items directly to WhatsApp (+91 93078 68286)"
+              >
+                <WhatsAppIcon className="w-4 h-4" />
+                <span>Order via WhatsApp ({items.length} item{items.length > 1 ? "s" : ""})</span>
+              </button>
+            </div>
           </div>
         )}
       </div>

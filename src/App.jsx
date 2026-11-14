@@ -12,6 +12,7 @@ import { CheckoutView } from "./components/customer/CheckoutView";
 import { OrderConfirmationView } from "./components/customer/OrderConfirmationView";
 import { ProfileView } from "./components/customer/ProfileView";
 import { AdminPortal } from "./components/admin/AdminPortal";
+import { FloatingWhatsAppButton } from "./components/common/WhatsAppButton";
 import { useAuth } from "./context/AuthContext";
 import { useProducts } from "./context/ProductContext";
 
@@ -164,6 +165,9 @@ export function App() {
         onOpenSizeGuide={handleOpenSizeGuide}
         onOpenAuth={handleOpenAuth}
       />
+
+      {/* Floating WhatsApp Concierge Button */}
+      {currentView !== "admin" && <FloatingWhatsAppButton />}
 
       {/* 5. Modals & Drawers */}
       {/* Bangle Size Guide Modal */}

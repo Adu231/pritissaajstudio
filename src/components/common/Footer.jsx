@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { useProducts } from "../../context/ProductContext";
 import { BrandLogo } from "./BrandLogo";
+import { WhatsAppIcon } from "./WhatsAppButton";
+import { WHATSAPP_CONFIG } from "../../utils/whatsapp";
 
 export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
   const { setSelectedCategory, categories } = useProducts();
@@ -228,8 +230,19 @@ export const Footer = ({ setCurrentView, onOpenSizeGuide }) => {
                 <span>Prabhat Road, Deccan Gymkhana, Pune, Maharashtra 411004</span>
               </li>
               <li className="flex items-center space-x-2">
+                <WhatsAppIcon className="w-4 h-4 text-[#25D366] shrink-0" />
+                <a
+                  href={`https://wa.me/${WHATSAPP_CONFIG.phone}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white hover:underline transition font-semibold"
+                >
+                  WhatsApp: {WHATSAPP_CONFIG.displayPhone}
+                </a>
+              </li>
+              <li className="flex items-center space-x-2">
                 <Phone className="w-4 h-4 text-brand-champagne shrink-0" />
-                <span>+91 98234 56789 (10 AM - 7 PM)</span>
+                <span>Call: +91 93078 68286 (10 AM - 7 PM)</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-brand-champagne shrink-0" />

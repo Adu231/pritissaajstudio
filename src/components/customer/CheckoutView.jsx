@@ -14,6 +14,8 @@ import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useProducts } from "../../context/ProductContext";
 import { SafeImage } from "../common/SafeImage";
+import { WhatsAppIcon } from "../common/WhatsAppButton";
+import { buildOrderWhatsAppMessage, openWhatsApp, WHATSAPP_CONFIG } from "../../utils/whatsapp";
 
 export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
   const { user, addAddress } = useAuth();
@@ -84,8 +86,8 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
     );
   }
 
-  const handlePlaceOrder = (e) => {
-    e.preventDefault();
+  const handlePlaceOrder = (e, sendToWhatsApp = false) => {
+    e?.preventDefault();
     setError("");
 
     // Determine delivery address
@@ -137,6 +139,11 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
       const createdOrder = placeOrder(orderPayload);
       clearCart();
       setLoading(false);
+
+      if (sendToWhatsApp) {
+        const msg = buildOrderWhatsAppMessage(createdOrder);
+        openWhatsApp(msg);
+      }
 
       if (onOrderPlaced) {
         onOrderPlaced(createdOrder);
@@ -492,27 +499,40 @@ export const CheckoutView = ({ onOrderPlaced, onBackToShop, onOpenAuth }) => {
               </div>
             )}
 
-            {/* Place Order Button */}
-            <button
-              onClick={handlePlaceOrder}
-              disabled={loading}
-              className="w-full min-h-[46px] py-3 rounded-xl bg-brand-forest hover:bg-brand-forest-dark text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-luxury flex items-center justify-center space-x-2"
-            >
-              {loading ? (
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Processing Your Order...</span>
-                </div>
-              ) : (
-                <span>
-                  Place Order • ₹{total.toLocaleString("en-IN")}
-                </span>
-              )}
-            </button>
+            {/* Action Buttons: WhatsApp Instant Order & Standard Checkout */}
+            <div className="space-y-2.5 pt-1">
+              <button
+                type="button"
+                onClick={(e) => handlePlaceOrder(e, true)}
+                disabled={loading}
+                className="w-full min-h-[46px] py-3 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm tracking-wide transition shadow-md flex items-center justify-center space-x-2 active:scale-98"
+              >
+                {loading ? (
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>Processing Order...</span>
+                  </div>
+                ) : (
+                  <>
+                    <WhatsAppIcon className="w-4 h-4" />
+                    <span>Place Order & Send on WhatsApp • ₹{total.toLocaleString("en-IN")}</span>
+                  </>
+                )}
+              </button>
 
-            <div className="text-center pt-1 text-[11px] text-brand-muted flex items-center justify-center space-x-1">
-              <Lock className="w-3.5 h-3.5 text-brand-champagne-dark" />
-              <span>256-Bit Encrypted Simulated Checkout</span>
+              <button
+                type="button"
+                onClick={(e) => handlePlaceOrder(e, false)}
+                disabled={loading}
+                className="w-full min-h-[42px] py-2 rounded-xl border border-brand-forest bg-white hover:bg-brand-offwhite text-brand-forest font-semibold text-xs tracking-wide transition flex items-center justify-center space-x-2"
+              >
+                <span>Place Order (Website Only)</span>
+              </button>
+            </div>
+
+            <div className="text-center pt-1 text-[11px] text-brand-muted flex items-center justify-center space-x-1.5">
+              <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366]" />
+              <span>Instant order receipt delivered to studio WhatsApp: <strong>{WHATSAPP_CONFIG.displayPhone}</strong></span>
             </div>
           </div>
         </div>
